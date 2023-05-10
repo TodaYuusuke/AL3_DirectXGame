@@ -3,12 +3,21 @@
 #include "WorldTransform.h"
 #include "ViewProjection.h"
 #include <Input.h>
+#include <list>
 
 #include "PlayerBullet.h"
 
 class Player {
 
 public: // メンバ関数
+
+
+	// コンストラクタ
+	Player();
+	// デストラクタ
+	~Player();
+
+
 
 	/// <summary>
 	/// 初期化
@@ -60,5 +69,5 @@ private: // メンバ変数
 
 
 	// 弾
-	PlayerBullet* bullet_ = nullptr;
+	std::list<PlayerBullet*> bullets_;
 };

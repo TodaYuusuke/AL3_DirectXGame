@@ -2,6 +2,21 @@
 #include <cassert>
 #include <ImGuiManager.h>
 
+// コンストラクタ
+Player::Player() {
+
+}
+// デストラクタ
+Player::~Player() { 
+	// 弾をDELETE
+	for (PlayerBullet* bullet : bullets_) {
+		delete bullet;
+	}
+}
+
+
+
+
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 	
 	// NULLポインタチェック
@@ -25,8 +40,8 @@ void Player::Update() {
 	Attack();
 
 	// 弾更新
-	if (bullet_) {
-		bullet_->Update();
+	for (PlayerBullet* bullet : bullets_){
+		bullet->Update();
 	}
 
 // ーーーーーーーーーーーーーーーーーー//
@@ -101,8 +116,8 @@ void Player::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
 	// 弾描画
-	if (bullet_) {
-		bullet_->Draw(viewProjection);
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Draw(viewProjection);
 	}
 }
 
@@ -123,7 +138,8 @@ void Player::Attack() {
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_);
 
-		bullet_ = newBullet;
+		// 弾を登録する
+		bullets_.push_back(newBullet);
 	}
 
 }
