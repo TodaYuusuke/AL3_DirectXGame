@@ -21,8 +21,15 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 void Player::Update() {
 
-	worldTransform_.TransferMatrix();
+	// 弾の発射判定
+	Attack();
 
+	// 弾更新
+	if (bullet_) {
+		bullet_->Update();
+	}
+
+// ーーーーーーーーーーーーーーーーーー//
 #pragma region Translation処理
 	// キャラクターの移動ベクトル
 	Vector3 move = {0, 0, 0};
@@ -57,21 +64,23 @@ void Player::Update() {
 	    std::clamp(worldTransform_.translation_.x, -kMoveLimitX, +kMoveLimitX);
 	worldTransform_.translation_.y =
 	    std::clamp(worldTransform_.translation_.y, -kMoveLimitY, +kMoveLimitY);
-
-
 #pragma endregion
 // ーーーーーーーーーーーーーーーーーー//
 #pragma region rotation処理
+	// 押した方向で移動ベクトルを変更
+	if (input_->PushKey(DIK_A)) {
+		worldTransform_.rotation_.y -= kRotSpeed;
+	} else if (input_->PushKey(DIK_D)) {
+		worldTransform_.rotation_.y += kRotSpeed;
+	}
 #pragma endregion
 // ーーーーーーーーーーーーーーーーーー//
 #pragma region scale処理
 #pragma endregion
-	// ーーーーーーーーーーーーーーーーーー//
+// ーーーーーーーーーーーーーーーーーー//
 
-	// アフィン変換行列をワールド行列に代入する
-	worldTransform_.matWorld_ = worldTransform_.MakeAffineMatrix();
-	// 行列を定数バッファに転送
-	worldTransform_.TransferMatrix();
+	// ワールドトランスフォームの更新
+	worldTransform_.UpdateMatrix();
 
 #pragma region ImGUI
 	ImGui::Begin("Player");
@@ -88,6 +97,33 @@ void Player::Update() {
 
 
 
-void Player::Draw(ViewProjection viewProjection) {
+void Player::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+
+	// 弾描画
+	if (bullet_) {
+		bullet_->Draw(viewProjection);
+	}
+}
+
+
+/*ーーーーーーーーーーーーーー*/
+/*　　　　　　関数　　　　　　*/
+/*ーーーーーーーーーーーーーー*/
+
+
+/// <summary>
+/// 弾発射
+/// </summary>
+void Player::Attack() {
+	
+	if (input_->TriggerKey(DIK_SPACE)) {
+
+		// 弾を生成し、初期化
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_, worldTransform_.translation_);
+
+		bullet_ = newBullet;
+	}
+
 }

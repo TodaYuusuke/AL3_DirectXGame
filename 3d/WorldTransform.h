@@ -51,7 +51,10 @@ struct WorldTransform {
 	/// アフィン行列を返す関数
 	/// </summary>
 	/// <returns></returns>
-	inline Matrix4x4 MakeAffineMatrix() {
-		return Matrix4x4::MakeAffineMatrix(scale_, rotation_, translation_);
-	}
+	Matrix4x4 MakeAffineMatrix();
+
+	/// <summary>
+	/// 行列を計算、転送する
+	/// </summary>
+	void UpdateMatrix();
 };

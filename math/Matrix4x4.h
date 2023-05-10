@@ -1,5 +1,8 @@
 #pragma once
 #include <cassert>
+#include <cmath>
+#include "Vector3.h"
+
 /// <summary>
 /// 4x4行列
 /// </summary>
