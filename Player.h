@@ -57,6 +57,8 @@ private: // メンバ変数
 	// キャラクターの回転の速さ
 	const float kRotSpeed = 0.02f;
 
+	// 弾の速さ
+	const float kBulletSpeed = 1.0f;
 
 	//*　　変　数　　*//
 

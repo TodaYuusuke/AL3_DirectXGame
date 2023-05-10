@@ -3,7 +3,7 @@
 /// <summary>
 /// 初期化
 /// </summary>
-void PlayerBullet::Initialize(Model* model, const Vector3& textureHandle) { 
+void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) { 
 	// NULLポインタチェック
 	assert(model);
 
@@ -14,8 +14,10 @@ void PlayerBullet::Initialize(Model* model, const Vector3& textureHandle) {
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
 	// 引数で受け取った初期座標をセット
-	worldTransform_.translation_ = textureHandle;
+	worldTransform_.translation_ = position;
 
+	// 引数で受け取った速度を代入
+	velocity_ = velocity;
 }
 
 /// <summary>
@@ -23,6 +25,8 @@ void PlayerBullet::Initialize(Model* model, const Vector3& textureHandle) {
 /// </summary>
 void PlayerBullet::Update() {
 
+	// 座標を移動させる
+	worldTransform_.translation_ += velocity_;
 
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();

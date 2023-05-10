@@ -33,15 +33,6 @@ struct Matrix4x4 final {
 		return result;
 	}
 	// *
-	inline const Matrix4x4 operator*(const float& other) const {
-		Matrix4x4 result{};
-		for (int y = 0; y < 4; y++) {
-			for (int x = 0; x < 4; x++) {
-				result.m[y][x] = m[y][x] * other;
-			}
-		}
-		return result;
-	}
 	inline const Matrix4x4 operator*(const Matrix4x4& other) const {
 		Matrix4x4 result{};
 		for (int y = 0; y < 4; y++) {
@@ -52,13 +43,23 @@ struct Matrix4x4 final {
 		}
 		return result;
 	}
+	// * (float)
+	inline const Matrix4x4 operator*(const float& other) const {
+		Matrix4x4 result{};
+		for (int y = 0; y < 4; y++) {
+			for (int x = 0; x < 4; x++) {
+				result.m[y][x] = m[y][x] * other;
+			}
+		}
+		return result;
+	}
 
 #pragma endregion
 
 #pragma region 行列変換系
 
 	// 行列式を返す関数
-	static float Determinant(Matrix4x4 matrix) {
+	inline static float Determinant(Matrix4x4 matrix) {
 		// 行列式
 		return (matrix.m[0][0] * matrix.m[1][1] * matrix.m[2][2] * matrix.m[3][3]) +
 		       (matrix.m[0][0] * matrix.m[1][2] * matrix.m[2][3] * matrix.m[3][1]) +
@@ -93,7 +94,7 @@ struct Matrix4x4 final {
 		       (matrix.m[0][1] * matrix.m[1][3] * matrix.m[2][2] * matrix.m[3][0]);
 	}
 	// 逆行列を返す関数
-	static Matrix4x4 Inverse(Matrix4x4 matrix) {
+	inline static Matrix4x4 Inverse(Matrix4x4 matrix) {
 		Matrix4x4 result{};
 
 		result.m[0][0] = (matrix.m[1][1] * matrix.m[2][2] * matrix.m[3][3]) +
@@ -200,7 +201,7 @@ struct Matrix4x4 final {
 		return result * constant;
 	}
 	// 転置行列を返す関数
-	static Matrix4x4 Transpose(Matrix4x4 matrix) {
+	inline static Matrix4x4 Transpose(Matrix4x4 matrix) {
 		Matrix4x4 result{};
 		for (int y = 0; y < 4; y++) {
 			for (int x = 0; x < 4; x++) {
@@ -210,12 +211,21 @@ struct Matrix4x4 final {
 		return result;
 	}
 
+	// * (Matrix4x4)
+	inline static Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m) {
+		Vector3 result{
+		    v.x * m.m[0][0] + v.y * m.m[1][0] + v.z * m.m[2][0],
+		    v.x * m.m[0][1] + v.y * m.m[1][1] + v.z * m.m[2][1],
+		    v.x * m.m[0][2] + v.y * m.m[1][2] + v.z * m.m[2][2]};
+		return result;
+	}
+
 #pragma endregion
 
 #pragma region 行列作成系
 
 	// 平行移動行列
-	static Matrix4x4 MakeTranslateMatrix(const Vector3& translate) {
+	inline static Matrix4x4 MakeTranslateMatrix(const Vector3& translate) {
 		Matrix4x4 result{};
 		result.m[0][0] = 1;
 		result.m[1][1] = 1;
@@ -227,7 +237,7 @@ struct Matrix4x4 final {
 		return result;
 	}
 	// X軸回転行列
-	static Matrix4x4 MakeRotateXMatrix(float radian) {
+	inline static Matrix4x4 MakeRotateXMatrix(float radian) {
 		Matrix4x4 result{};
 		result.m[1][1] = std::cos(radian);
 		result.m[1][2] = std::sin(radian);
@@ -239,7 +249,7 @@ struct Matrix4x4 final {
 		return result;
 	}
 	// y軸回転行列
-	static Matrix4x4 MakeRotateYMatrix(float radian) {
+	inline static Matrix4x4 MakeRotateYMatrix(float radian) {
 		Matrix4x4 result{};
 		result.m[0][0] = std::cos(radian);
 		result.m[0][2] = -std::sin(radian);
@@ -251,7 +261,7 @@ struct Matrix4x4 final {
 		return result;
 	}
 	// z軸回転行列
-	static Matrix4x4 MakeRotateZMatrix(float radian) {
+	inline static Matrix4x4 MakeRotateZMatrix(float radian) {
 		Matrix4x4 result{};
 		result.m[0][0] = std::cos(radian);
 		result.m[0][1] = std::sin(radian);
@@ -269,14 +279,14 @@ struct Matrix4x4 final {
 	/// <param name="Yaw">Y軸周りの回転</param>
 	/// <param name="Roll">Z軸周りの回転</param>
 	/// <returns></returns>
-	static Matrix4x4 MakeRotateMatrix(const Vector3& rotate) {
+	inline static Matrix4x4 MakeRotateMatrix(const Vector3& rotate) {
 		Matrix4x4 x = MakeRotateXMatrix(rotate.x);
 		Matrix4x4 y = MakeRotateYMatrix(rotate.y);
 		Matrix4x4 z = MakeRotateZMatrix(rotate.z);
 		return x * y * z;
 	}
 	// 拡大縮小行列
-	static Matrix4x4 MakeScaleMatrix(const Vector3& scale) {
+	inline static Matrix4x4 MakeScaleMatrix(const Vector3& scale) {
 		Matrix4x4 result{};
 		result.m[0][0] = scale.x;
 		result.m[1][1] = scale.y;
@@ -289,7 +299,7 @@ struct Matrix4x4 final {
 	/// アフィン行列を返す関数
 	/// </summary>
 	/// <returns></returns>
-	static Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate) {
+	inline static Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate) {
 		// スケーリング行列の作成
 		Matrix4x4 s = Matrix4x4::MakeScaleMatrix(scale);
 
@@ -305,7 +315,7 @@ struct Matrix4x4 final {
 
 
 	// 座標変換
-	static Vector3 TransformCoord(const Vector3& vector, const Matrix4x4 matrix) {
+	inline static Vector3 TransformCoord(const Vector3& vector, const Matrix4x4 matrix) {
 		Vector3 result;
 		result.x = vector.x * matrix.m[0][0] + vector.y * matrix.m[1][0] +
 		           vector.z * matrix.m[2][0] + 1.0f * matrix.m[3][0];
@@ -323,7 +333,7 @@ struct Matrix4x4 final {
 	}
 
 	// 単位行列の作成
-	static Matrix4x4 MakeIdentity4x4() {
+	inline static Matrix4x4 MakeIdentity4x4() {
 		Matrix4x4 result{};
 		for (int i = 0; i < 4; i++) {
 			result.m[i][i] = 1;

@@ -11,7 +11,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* model, const Vector3& textureHandle);
+	void Initialize(Model* model, const Vector3& position, const Vector3& velocity);
 
 	/// <summary>
 	/// 更新
@@ -33,4 +33,8 @@ private: // メンバ変数
 	Model* model_ = nullptr;
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
+
+
+	// 速度
+	Vector3 velocity_;
 };

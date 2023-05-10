@@ -134,9 +134,14 @@ void Player::Attack() {
 	
 	if (input_->TriggerKey(DIK_SPACE)) {
 
+		// 弾の速度
+		Vector3 velocity(0, 0, kBulletSpeed);
+
+		velocity = Matrix4x4::TransformNormal(velocity, Matrix4x4::MakeRotateMatrix(worldTransform_.rotation_));
+
 		// 弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_);
+		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 
 		// 弾を登録する
 		bullets_.push_back(newBullet);
