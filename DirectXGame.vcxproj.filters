@@ -102,6 +102,9 @@
     <ClCompile Include="PlayerBullet.cpp">
       <Filter>ソース ファイル\Class\Player</Filter>
     </ClCompile>
+    <ClCompile Include="BaseEnemyState.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -196,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="PlayerBullet.h">
       <Filter>ヘッダー ファイル\Class\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseEnemyState.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
