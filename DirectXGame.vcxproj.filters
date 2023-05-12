@@ -55,6 +55,24 @@
     <Filter Include="ソース ファイル\3d">
       <UniqueIdentifier>{b7d3c080-3a29-476c-be1f-85ca8f7c9f74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Class">
+      <UniqueIdentifier>{6a0c3c26-e8aa-475a-9d3e-7a149bd1394b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Class\Enemy">
+      <UniqueIdentifier>{5e310dae-49a7-4f94-b653-845523598690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Class\Player">
+      <UniqueIdentifier>{84ee8835-2328-4305-81f4-1a2067c402b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Class">
+      <UniqueIdentifier>{550bb522-0d2c-4655-b355-204ab485f2aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Class\Enemy">
+      <UniqueIdentifier>{e08ebfbb-9f26-47db-8f38-f02421bab133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Class\Player">
+      <UniqueIdentifier>{15ea0419-f7df-4e73-be96-ce50c171b0e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,14 +90,17 @@
     <ClCompile Include="2d\ImGuiManager.cpp">
       <Filter>ソース ファイル\2d</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBullet.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="WorldTransform.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル\Class\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Class\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBullet.cpp">
+      <Filter>ソース ファイル\Class\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,11 +188,14 @@
     <ClInclude Include="2d\ImGuiManager.h">
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ヘッダー ファイル\Class\Enemy</Filter>
+    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Class\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerBullet.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Class\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
