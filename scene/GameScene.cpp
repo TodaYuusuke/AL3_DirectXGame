@@ -23,6 +23,12 @@ void GameScene::Initialize() {
 	// 3Dモデルデータ
 	playerModel = Model::Create();
 
+	// テクスチャハンドル
+	enemyTexture = TextureManager::Load("enemy.png");
+	// 3Dモデルデータ
+	enemyModel = Model::Create();
+
+
 	// ビュープロジェクション
 	viewProjection_.Initialize();
 
@@ -37,6 +43,11 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	// 自キャラの初期化
 	player_->Initialize(playerModel, playerTexture);
+
+	// 敵の生成
+	enemy_ = new Enemy();
+	// 敵の初期化
+	enemy_->Initialize(enemyModel, enemyTexture);
 }
 
 void GameScene::Update() {
@@ -62,6 +73,11 @@ void GameScene::Update() {
 	}
 	// 自キャラの更新
 	player_->Update();
+
+	// 敵の更新
+	if (!enemy_) {
+		enemy_->Update();
+	}
 }
 
 void GameScene::Draw() {
@@ -90,6 +106,12 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	
+	// 敵の描画
+	if (!enemy_) {
+		enemy_->Draw(viewProjection_);
+	}
+	
 	// 自キャラの描画
 	player_->Draw(viewProjection_);
 
