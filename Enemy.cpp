@@ -19,8 +19,6 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 	// NULLポインタチェック
 	assert(model);
 
-	input_ = Input::GetInstance();
-
 	// モデル
 	model_ = model;
 	textureHandle_ = textureHandle;
@@ -36,21 +34,16 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 /// </summary>
 void Enemy::Update() {
 
-// ーーーーーーーーーーーーーーーーーー//
-#pragma region Translation処理
-	// 移動ベクトル
-	Vector3 move = {0, 0, -0.5f};
-
-	// 座標移動
-	worldTransform_.translation_ += move;
-#pragma endregion
-// ーーーーーーーーーーーーーーーーーー//
-#pragma region rotation処理
-#pragma endregion
-// ーーーーーーーーーーーーーーーーーー//
-#pragma region scale処理
-#pragma endregion
-	// ーーーーーーーーーーーーーーーーーー//
+	switch (phase_) {
+	case Enemy::Phase::Approach:
+		UpdateApproach();
+		break;
+	case Enemy::Phase::Leave:
+		UpdateLeave();
+		break;
+	default:
+		break;
+	}
 
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();
@@ -61,4 +54,48 @@ void Enemy::Update() {
 /// </summary>
 void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+}
+
+
+
+/*ーーーーーーーーーーーーーーー*/
+/*　　　　　その他関数　　　　　*/
+/*ーーーーーーーーーーーーーーー*/
+
+// 接近する更新処理
+void Enemy::UpdateApproach() {
+
+// ーーーーーーーーーーーーーーーーーー//
+#pragma region Translation処理
+	// 移動
+	worldTransform_.translation_ += kApproachSpeed;
+#pragma endregion
+// ーーーーーーーーーーーーーーーーーー//
+#pragma region rotation処理
+#pragma endregion
+// ーーーーーーーーーーーーーーーーーー//
+#pragma region scale処理
+#pragma endregion
+// ーーーーーーーーーーーーーーーーーー//
+ 
+	// 規定の位置に到達したら離脱
+	if (worldTransform_.translation_.z < 0.0f) {
+		phase_ = Phase::Leave;
+	}
+}
+// 離脱する更新処理
+void Enemy::UpdateLeave() {
+
+// ーーーーーーーーーーーーーーーーーー//
+#pragma region Translation処理
+	// 移動
+	worldTransform_.translation_ += kLeaveSpeed;
+#pragma endregion
+// ーーーーーーーーーーーーーーーーーー//
+#pragma region rotation処理
+#pragma endregion
+// ーーーーーーーーーーーーーーーーーー//
+#pragma region scale処理
+#pragma endregion
+// ーーーーーーーーーーーーーーーーーー//
 }
