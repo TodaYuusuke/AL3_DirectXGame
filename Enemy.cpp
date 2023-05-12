@@ -34,16 +34,8 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 /// </summary>
 void Enemy::Update() {
 
-	switch (phase_) {
-	case Enemy::Phase::Approach:
-		UpdateApproach();
-		break;
-	case Enemy::Phase::Leave:
-		UpdateLeave();
-		break;
-	default:
-		break;
-	}
+	// メンバ関数ポインタに入っている関数を呼び出す
+	(this->*spFuncTable[static_cast<size_t>(phase_)])();
 
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();
@@ -99,3 +91,11 @@ void Enemy::UpdateLeave() {
 #pragma endregion
 // ーーーーーーーーーーーーーーーーーー//
 }
+
+
+
+// メンバ関数ポインタのテーブルの実態
+void (Enemy::*Enemy::spFuncTable[])() = {
+	&Enemy::UpdateApproach,
+	&Enemy::UpdateLeave
+};

@@ -37,16 +37,15 @@ private: // 関数
 
 private: // メンバ変数
 
+	// メンバ関数ポインタのテーブル
+	static void (Enemy::*spFuncTable[])();
+
 	//*　　定　数　　*//
 
 	// 接近　速さ
 	const Vector3 kApproachSpeed = {0, 0, -0.5f};
 	// 撤退　速さ
 	const Vector3 kLeaveSpeed = {-0.2f, 0.2f, 0};
-
-	
-
-
 
 
 	//*　　変　数　　*//
