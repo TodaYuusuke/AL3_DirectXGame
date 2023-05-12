@@ -26,6 +26,9 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 	textureHandle_ = textureHandle;
 
 	// ワールドトランスフォ－ムの初期化
+	worldTransform_.Initialize();
+
+	worldTransform_.translation_ = {0, 3, 50};
 }
 
 /// <summary>
@@ -36,10 +39,10 @@ void Enemy::Update() {
 // ーーーーーーーーーーーーーーーーーー//
 #pragma region Translation処理
 	// 移動ベクトル
-	Vector3 move = {0, 0, -1};
+	Vector3 move = {0, 0, -0.5f};
 
 	// 座標移動
-	//worldTransform_.translation_ += move;
+	worldTransform_.translation_ += move;
 #pragma endregion
 // ーーーーーーーーーーーーーーーーーー//
 #pragma region rotation処理

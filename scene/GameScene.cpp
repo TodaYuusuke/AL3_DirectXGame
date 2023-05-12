@@ -9,6 +9,7 @@ GameScene::~GameScene() {
 	delete playerModel;
 	delete debugCamera_;
 	delete player_;
+	delete enemy_;
 }
 
 void GameScene::Initialize() {
@@ -75,7 +76,7 @@ void GameScene::Update() {
 	player_->Update();
 
 	// 敵の更新
-	if (!enemy_) {
+	if (enemy_ != nullptr) {
 		enemy_->Update();
 	}
 }
@@ -108,7 +109,7 @@ void GameScene::Draw() {
 	/// </summary>
 	
 	// 敵の描画
-	if (!enemy_) {
+	if (enemy_ != nullptr) {
 		enemy_->Draw(viewProjection_);
 	}
 	
