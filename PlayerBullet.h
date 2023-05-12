@@ -23,7 +23,16 @@ public: // メンバ関数
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection);
 
+
+	// isDeadを受け取る
+	bool isDead() const { return isDead_; }
+
+
 private: // メンバ変数
+
+	//*　　定　数　　*//
+
+	static const int32_t kLifeTime = 60 * 5;
 
 	//*　　変　数　　*//
 
@@ -37,4 +46,9 @@ private: // メンバ変数
 
 	// 速度
 	Vector3 velocity_;
+
+	// デスタイマー
+	int32_t deathTimer_ = kLifeTime;
+	// デスフラグ
+	bool isDead_ = false;
 };
