@@ -109,12 +109,12 @@ void Player::Update() {
 #pragma region ImGUI
 	ImGui::Begin("Player");
 	// 座標の入力ボックス
-	float t[3] = {
-	    worldTransform_.translation_.x,
-	    worldTransform_.translation_.y,
-	    worldTransform_.translation_.z,
+	float* t[3] = {
+	    &worldTransform_.translation_.x,
+	    &worldTransform_.translation_.y,
+	    &worldTransform_.translation_.z,
 	};
-	ImGui::InputFloat3("translation", t);
+	ImGui::InputFloat3("translation", *t);
 	ImGui::End();
 #pragma endregion
 }
