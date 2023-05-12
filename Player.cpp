@@ -44,6 +44,15 @@ void Player::Update() {
 		bullet->Update();
 	}
 
+	// デスフラグの立った弾を削除
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->isDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+
 // ーーーーーーーーーーーーーーーーーー//
 #pragma region Translation処理
 	// キャラクターの移動ベクトル

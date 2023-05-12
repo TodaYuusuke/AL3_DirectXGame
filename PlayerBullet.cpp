@@ -30,6 +30,11 @@ void PlayerBullet::Update() {
 
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();
+
+	// 時間経過でデス
+	if (--deathTimer_ <= 0) {
+		isDead_ = true;
+	}
 }
 
 /// <summary>
