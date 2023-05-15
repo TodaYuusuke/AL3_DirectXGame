@@ -4,6 +4,9 @@
 #include "WorldTransform.h"
 #include <Input.h>
 
+#include "BaseEnemyState.h"
+
+class BaseEnemyState;
 
 class Enemy {
 
@@ -27,38 +30,25 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection);
-
-private: // 関数
 	
-	// 接近する更新処理
-	void UpdateApproach();
-	// 離脱する更新処理
-	void UpdateLeave();
+
+
+	// 指定した移動量座標を変更する関数
+	void Move(Vector3 speed) { worldTransform_.translation_ += speed; }
+	// 座標のゲッター
+	Vector3 GetTranslation() { return worldTransform_.translation_; }
+	// 行動フェーズを変更する
+	void ChangePhase(BaseEnemyState* newState);
+
 
 private: // メンバ変数
 
-	// メンバ関数ポインタのテーブル
-	static void (Enemy::*spFuncTable[])();
-
-	//*　　定　数　　*//
-
-	// 接近　速さ
-	const Vector3 kApproachSpeed = {0, 0, -0.5f};
-	// 撤退　速さ
-	const Vector3 kLeaveSpeed = {-0.2f, 0.2f, 0};
 
 
 	//*　　変　数　　*//
 
-	
-	// 行動フェーズ
-	enum class Phase {
-		Approach, // 接近する
-		Leave,    // 離脱する
-	};
-
-	// 現在のフェーズ
-	Phase phase_ = Phase::Approach;
+	// 現在の行動フェーズ
+	BaseEnemyState* phase_ = nullptr;
 
 
 	// ワールド変換データ

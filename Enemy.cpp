@@ -8,7 +8,7 @@ Enemy::Enemy() {
 }
 // デストラクタ
 Enemy::~Enemy() {
-
+	delete phase_;
 }
 
 /// <summary>
@@ -18,6 +18,9 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 
 	// NULLポインタチェック
 	assert(model);
+
+	// 最初の行動フェーズ
+	phase_ = new EnemyApproach();
 
 	// モデル
 	model_ = model;
@@ -33,9 +36,8 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 /// 更新
 /// </summary>
 void Enemy::Update() {
-
-	// メンバ関数ポインタに入っている関数を呼び出す
-	(this->*spFuncTable[static_cast<size_t>(phase_)])();
+	// 行動フェーズごとの更新処理
+	phase_->Update(this);
 
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();
@@ -50,52 +52,14 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 
 
 
-/*ーーーーーーーーーーーーーーー*/
-/*　　　　　その他関数　　　　　*/
-/*ーーーーーーーーーーーーーーー*/
+/*ーーーーーーーーーーー*/
+/*　　　その他関数　　　*/
+/*ーーーーーーーーーーー*/
 
-// 接近する更新処理
-void Enemy::UpdateApproach() {
 
-// ーーーーーーーーーーーーーーーーーー//
-#pragma region Translation処理
-	// 移動
-	worldTransform_.translation_ += kApproachSpeed;
-#pragma endregion
-// ーーーーーーーーーーーーーーーーーー//
-#pragma region rotation処理
-#pragma endregion
-// ーーーーーーーーーーーーーーーーーー//
-#pragma region scale処理
-#pragma endregion
-// ーーーーーーーーーーーーーーーーーー//
- 
-	// 規定の位置に到達したら離脱
-	if (worldTransform_.translation_.z < 0.0f) {
-		phase_ = Phase::Leave;
-	}
+
+// 行動フェーズを変更する
+void Enemy::ChangePhase(BaseEnemyState* newState) {
+	delete phase_;
+	phase_ = newState;
 }
-// 離脱する更新処理
-void Enemy::UpdateLeave() {
-
-// ーーーーーーーーーーーーーーーーーー//
-#pragma region Translation処理
-	// 移動
-	worldTransform_.translation_ += kLeaveSpeed;
-#pragma endregion
-// ーーーーーーーーーーーーーーーーーー//
-#pragma region rotation処理
-#pragma endregion
-// ーーーーーーーーーーーーーーーーーー//
-#pragma region scale処理
-#pragma endregion
-// ーーーーーーーーーーーーーーーーーー//
-}
-
-
-
-// メンバ関数ポインタのテーブルの実態
-void (Enemy::*Enemy::spFuncTable[])() = {
-	&Enemy::UpdateApproach,
-	&Enemy::UpdateLeave
-};

@@ -103,7 +103,7 @@
       <Filter>ソース ファイル\Class\Player</Filter>
     </ClCompile>
     <ClCompile Include="BaseEnemyState.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Class\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +201,7 @@
       <Filter>ヘッダー ファイル\Class\Player</Filter>
     </ClInclude>
     <ClInclude Include="BaseEnemyState.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Class\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
