@@ -58,20 +58,26 @@
     <Filter Include="ソース ファイル\Class">
       <UniqueIdentifier>{6a0c3c26-e8aa-475a-9d3e-7a149bd1394b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Class\Enemy">
-      <UniqueIdentifier>{5e310dae-49a7-4f94-b653-845523598690}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Class\Player">
-      <UniqueIdentifier>{84ee8835-2328-4305-81f4-1a2067c402b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Class">
       <UniqueIdentifier>{550bb522-0d2c-4655-b355-204ab485f2aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Class\Enemy">
+    <Filter Include="ヘッダー ファイル\Class\Object">
+      <UniqueIdentifier>{e4949807-7d6d-4480-a2fb-8ea233f38e2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Class\Object\Player">
+      <UniqueIdentifier>{15ea0419-f7df-4e73-be96-ce50c171b0e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Class\Object\Enemy">
       <UniqueIdentifier>{e08ebfbb-9f26-47db-8f38-f02421bab133}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Class\Player">
-      <UniqueIdentifier>{15ea0419-f7df-4e73-be96-ce50c171b0e4}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Class\Object">
+      <UniqueIdentifier>{a6eb477d-f715-4043-bcbd-da6897c74f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Class\Object\Enemy">
+      <UniqueIdentifier>{5e310dae-49a7-4f94-b653-845523598690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Class\Object\Player">
+      <UniqueIdentifier>{84ee8835-2328-4305-81f4-1a2067c402b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,16 +100,16 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Object\Enemy\BaseEnemyState.cpp">
-      <Filter>ソース ファイル\Class\Enemy</Filter>
+      <Filter>ソース ファイル\Class\Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Object\Enemy\Enemy.cpp">
-      <Filter>ソース ファイル\Class\Enemy</Filter>
+      <Filter>ソース ファイル\Class\Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Object\Player\Player.cpp">
-      <Filter>ソース ファイル\Class\Player</Filter>
+      <Filter>ソース ファイル\Class\Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="Object\Player\PlayerBullet.cpp">
-      <Filter>ソース ファイル\Class\Player</Filter>
+      <Filter>ソース ファイル\Class\Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,16 +198,16 @@
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
     <ClInclude Include="Object\Enemy\BaseEnemyState.h">
-      <Filter>ヘッダー ファイル\Class\Enemy</Filter>
+      <Filter>ヘッダー ファイル\Class\Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Object\Enemy\Enemy.h">
-      <Filter>ヘッダー ファイル\Class\Enemy</Filter>
+      <Filter>ヘッダー ファイル\Class\Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Object\Player\Player.h">
-      <Filter>ヘッダー ファイル\Class\Player</Filter>
+      <Filter>ヘッダー ファイル\Class\Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="Object\Player\PlayerBullet.h">
-      <Filter>ヘッダー ファイル\Class\Player</Filter>
+      <Filter>ヘッダー ファイル\Class\Object\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
