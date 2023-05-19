@@ -93,17 +93,17 @@
     <ClCompile Include="WorldTransform.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    <ClCompile Include="Object\Enemy\BaseEnemyState.cpp">
       <Filter>ソース ファイル\Class\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル\Class\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBullet.cpp">
-      <Filter>ソース ファイル\Class\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseEnemyState.cpp">
+    <ClCompile Include="Object\Enemy\Enemy.cpp">
       <Filter>ソース ファイル\Class\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player\Player.cpp">
+      <Filter>ソース ファイル\Class\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player\PlayerBullet.cpp">
+      <Filter>ソース ファイル\Class\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,17 +191,17 @@
     <ClInclude Include="2d\ImGuiManager.h">
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="Object\Enemy\BaseEnemyState.h">
       <Filter>ヘッダー ファイル\Class\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル\Class\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerBullet.h">
-      <Filter>ヘッダー ファイル\Class\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseEnemyState.h">
+    <ClInclude Include="Object\Enemy\Enemy.h">
       <Filter>ヘッダー ファイル\Class\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Player.h">
+      <Filter>ヘッダー ファイル\Class\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\PlayerBullet.h">
+      <Filter>ヘッダー ファイル\Class\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
