@@ -1,4 +1,4 @@
-#include "BaseEnemyState.h"
+	#include "BaseEnemyState.h"
 
 
 // 更新処理（EnemyApproach）
