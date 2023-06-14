@@ -110,10 +110,11 @@
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Object\Enemy\BaseEnemyState.cpp" />
-    <ClCompile Include="Object\Enemy\Enemy.cpp" />
-    <ClCompile Include="Object\Player\Player.cpp" />
-    <ClCompile Include="Object\Player\PlayerBullet.cpp" />
+    <ClCompile Include="MyClass\GameObject\Enemy\EnemyState.cpp" />
+    <ClCompile Include="MyClass\GameObject\Enemy\Enemy.cpp" />
+    <ClCompile Include="MyClass\GameObject\Enemy\EnemyBullet.cpp" />
+    <ClCompile Include="MyClass\GameObject\Player\Player.cpp" />
+    <ClCompile Include="MyClass\GameObject\Player\PlayerBullet.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="WorldTransform.cpp" />
   </ItemGroup>
@@ -145,10 +146,11 @@
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
-    <ClInclude Include="Object\Enemy\BaseEnemyState.h" />
-    <ClInclude Include="Object\Enemy\Enemy.h" />
-    <ClInclude Include="Object\Player\Player.h" />
-    <ClInclude Include="Object\Player\PlayerBullet.h" />
+    <ClInclude Include="MyClass\GameObject\Enemy\EnemyState.h" />
+    <ClInclude Include="MyClass\GameObject\Enemy\Enemy.h" />
+    <ClInclude Include="MyClass\GameObject\Enemy\EnemyBullet.h" />
+    <ClInclude Include="MyClass\GameObject\Player\Player.h" />
+    <ClInclude Include="MyClass\GameObject\Player\PlayerBullet.h" />
     <ClInclude Include="scene\GameScene.h" />
   </ItemGroup>
   <ItemGroup>

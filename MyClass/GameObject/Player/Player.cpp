@@ -106,6 +106,7 @@ void Player::Update() {
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();
 
+/*
 #pragma region ImGUI
 	ImGui::Begin("Player");
 	// 座標の入力ボックス
@@ -117,6 +118,7 @@ void Player::Update() {
 	ImGui::InputFloat3("translation", *t);
 	ImGui::End();
 #pragma endregion
+*/
 }
 
 

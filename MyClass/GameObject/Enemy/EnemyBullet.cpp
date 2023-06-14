@@ -1,15 +1,12 @@
-#include "PlayerBullet.h"
+#include "EnemyBullet.h"
 
-/// <summary>
-/// 初期化
-/// </summary>
-void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) { 
+void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
 	// NULLポインタチェック
 	assert(model);
 
 	model_ = model;
 	// テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("bullet.png");
+	textureHandle_ = TextureManager::Load("EnemyBullet.png");
 
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
@@ -20,11 +17,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	velocity_ = velocity;
 }
 
-/// <summary>
-/// 更新
-/// </summary>
-void PlayerBullet::Update() {
-
+void EnemyBullet::Update() {
 	// 座標を移動させる
 	worldTransform_.translation_ += velocity_;
 
@@ -37,9 +30,6 @@ void PlayerBullet::Update() {
 	}
 }
 
-/// <summary>
-/// 描画
-/// </summary>
-void PlayerBullet::Draw(const ViewProjection& viewProjection) {
+void EnemyBullet::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }

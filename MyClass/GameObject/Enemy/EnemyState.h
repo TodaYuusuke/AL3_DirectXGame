@@ -10,6 +10,7 @@ public: // メンバ関数
 	virtual ~BaseEnemyState(){};
 	
 	// 純粋仮想関数
+	virtual void Initialize(Enemy* enemy) = 0;
 	virtual void Update(Enemy* enemy) = 0;
 };
 
@@ -17,9 +18,10 @@ public: // メンバ関数
 
 class EnemyApproach : public BaseEnemyState {
 
+	// 初期化
+	void Initialize(Enemy* enemy);
 	// 更新処理
 	void Update(Enemy* enemy);
-
 
 	//*　　定　数　　*//
 
@@ -28,7 +30,9 @@ class EnemyApproach : public BaseEnemyState {
 };
 
 class EnemyLeave : public BaseEnemyState {
-	
+
+	// 初期化
+	void Initialize(Enemy* enemy);
 	// 更新処理
 	void Update(Enemy* enemy);
 

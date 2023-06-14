@@ -4,7 +4,8 @@
 #include "WorldTransform.h"
 #include <Input.h>
 
-#include "BaseEnemyState.h"
+#include "EnemyState.h"
+#include "EnemyBullet.h"
 
 class BaseEnemyState;
 
@@ -32,24 +33,37 @@ public: // メンバ関数
 	void Draw(const ViewProjection& viewProjection);
 	
 
-
 	// 指定した移動量座標を変更する関数
 	void Move(Vector3 speed) { worldTransform_.translation_ += speed; }
 	// 座標のゲッター
 	Vector3 GetTranslation() { return worldTransform_.translation_; }
+
 	// 行動フェーズを変更する
 	void ChangePhase(BaseEnemyState* newState);
+	// 弾を発射
+	void Fire();
 
 
-private: // メンバ変数
+public: // パブリックなメンバ変数
+	
+	//*　　定　数　　*//
 
-
+	// 弾の発射間隔
+	const int kFireInterval = 30;
+	// 弾の速さ
+	const float kBulletSpeed = 1.0f;
 
 	//*　　変　数　　*//
 
+	// 弾
+	std::list<EnemyBullet*> bullets_;
+	// 発射タイマー
+	int32_t fireTimer_ = 0;
+
+private: // メンバ変数
+
 	// 現在の行動フェーズ
 	BaseEnemyState* phase_ = nullptr;
-
 
 	// ワールド変換データ
 	WorldTransform worldTransform_;

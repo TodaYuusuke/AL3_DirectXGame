@@ -5,7 +5,6 @@
 
 class PlayerBullet 
 {
-	
 public: // メンバ関数
 
 	/// <summary>
