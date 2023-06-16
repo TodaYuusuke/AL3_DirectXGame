@@ -4,20 +4,17 @@
 void EnemyApproach::Initialize(Enemy* enemy) {
 	// 弾初期化
 	enemy->bullets_.clear();
-	enemy->fireTimer_ = enemy->kFireInterval;
+
+	enemy->Fire();
+	//enemy->fireTimer_ = enemy->kFireInterval;
 }
 // 更新処理（EnemyApproach）
 void EnemyApproach::Update(Enemy* enemy) {
 	// 移動
 	enemy->Move(kApproachSpeed);
 
-	// 発射タイマーをデクリメント
-	enemy->fireTimer_--;
-	if (enemy->fireTimer_ <= 0) {
-		enemy->Fire();
-		enemy->fireTimer_ = enemy->kFireInterval;
-	}
-
+	// コールバックを更新
+	enemy->timedCall_->Update();
 
 	// 規定の位置に到達したら離脱
 	if (enemy->GetTranslation().z < 0.0f) {

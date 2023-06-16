@@ -7,6 +7,8 @@
 #include "EnemyState.h"
 #include "EnemyBullet.h"
 
+#include "../MyClass/Utility/TimedCall/TimedCall.h"
+
 class BaseEnemyState;
 
 class Enemy {
@@ -40,7 +42,7 @@ public: // メンバ関数
 
 	// 行動フェーズを変更する
 	void ChangePhase(BaseEnemyState* newState);
-	// 弾を発射
+	// 弾を発射してタイマーをリセットする関数
 	void Fire();
 
 
@@ -57,8 +59,8 @@ public: // パブリックなメンバ変数
 
 	// 弾
 	std::list<EnemyBullet*> bullets_;
-	// 発射タイマー
-	int32_t fireTimer_ = 0;
+	// 発射処理を呼び出すコールバック
+	TimedCall<void()>* timedCall_ = nullptr;
 
 private: // メンバ変数
 

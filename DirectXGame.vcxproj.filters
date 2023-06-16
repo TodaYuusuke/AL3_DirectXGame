@@ -79,6 +79,18 @@
     <Filter Include="ヘッダー ファイル\MyClass\GameObject\Enemy">
       <UniqueIdentifier>{e08ebfbb-9f26-47db-8f38-f02421bab133}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MyClass\Utility">
+      <UniqueIdentifier>{301c54b5-aca0-4c2d-a251-eeac95fe0d7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\MyClass\Utility\TimedCall">
+      <UniqueIdentifier>{d392286d-81dd-40fc-95fd-06f04b6e619d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MyClass\Utility">
+      <UniqueIdentifier>{f7b949aa-d46d-454a-aa09-1daa509b5930}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MyClass\Utility\TimedCall">
+      <UniqueIdentifier>{ab986316-badb-40e4-b8b2-a05a08796709}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -214,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="MyClass\GameObject\Player\PlayerBullet.h">
       <Filter>ヘッダー ファイル\MyClass\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\Utility\TimedCall\TimedCall.h">
+      <Filter>ヘッダー ファイル\MyClass\Utility\TimedCall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,5 @@
 #include "Enemy.h"
 #include <cassert>
-#include <ImGuiManager.h>
 
 // コンストラクタ
 Enemy::Enemy() {
@@ -13,6 +12,7 @@ Enemy::~Enemy() {
 	for (EnemyBullet* bullet : bullets_) {
 		delete bullet;
 	}
+	delete timedCall_;
 }
 
 /// <summary>
@@ -23,8 +23,6 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 	// NULLポインタチェック
 	assert(model);
 
-	// 最初の行動フェーズ
-	ChangePhase(new EnemyApproach());
 
 	// モデル
 	model_ = model;
@@ -32,8 +30,10 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
-
 	worldTransform_.translation_ = {20, 3, 50};
+	
+	// 最初の行動フェーズ
+	ChangePhase(new EnemyApproach());
 }
 
 /// <summary>
@@ -100,4 +100,7 @@ void Enemy::Fire() {
 
 	// 弾を登録する
 	bullets_.push_back(newBullet);
+
+	std::function<void()> f = std::bind(&Enemy::Fire, this);
+	timedCall_ = new TimedCall<void()>(f, 30);
 }

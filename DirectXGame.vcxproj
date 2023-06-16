@@ -151,6 +151,7 @@
     <ClInclude Include="MyClass\GameObject\Enemy\EnemyBullet.h" />
     <ClInclude Include="MyClass\GameObject\Player\Player.h" />
     <ClInclude Include="MyClass\GameObject\Player\PlayerBullet.h" />
+    <ClInclude Include="MyClass\Utility\TimedCall\TimedCall.h" />
     <ClInclude Include="scene\GameScene.h" />
   </ItemGroup>
   <ItemGroup>
