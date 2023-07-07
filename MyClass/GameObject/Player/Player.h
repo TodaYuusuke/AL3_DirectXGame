@@ -11,12 +11,10 @@ class Player {
 
 public: // メンバ関数
 
-
 	// コンストラクタ
 	Player();
 	// デストラクタ
 	~Player();
-
 
 
 	/// <summary>
@@ -34,6 +32,11 @@ public: // メンバ関数
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection);
 	
+	/// <summary>
+	/// ワールド座標を取得
+	/// </summary>
+	Vector3 GetWorldPosition();	
+
 private: // 関数
 
 	/// <summary>

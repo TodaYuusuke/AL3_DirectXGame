@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include <cassert>
+#include "../MyClass/GameObject/Player/Player.h"
 
 // コンストラクタ
 Enemy::Enemy() {
@@ -31,6 +32,9 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = {20, 3, 50};
+
+	// ワールドトランスフォームの更新
+	worldTransform_.UpdateMatrix();
 	
 	// 最初の行動フェーズ
 	ChangePhase(new EnemyApproach());
@@ -92,7 +96,8 @@ void Enemy::Fire() {
 	// 弾の速度
 	Vector3 velocity(0, 0, -kBulletSpeed);
 
-	velocity = Matrix4x4::TransformNormal(velocity, Matrix4x4::MakeRotateMatrix(worldTransform_.rotation_));
+	velocity = player_->GetWorldPosition() - GetWorldPosition();
+	velocity = Normalize(velocity) * 0.5f;
 
 	// 弾を生成し、初期化
 	EnemyBullet* newBullet = new EnemyBullet();
@@ -103,4 +108,12 @@ void Enemy::Fire() {
 
 	std::function<void()> f = std::bind(&Enemy::Fire, this);
 	timedCall_ = new TimedCall<void()>(f, 30);
+}
+
+Vector3 Enemy::GetWorldPosition() {
+	Vector3 result;
+	result.x = worldTransform_.matWorld_.m[3][0];
+	result.y = worldTransform_.matWorld_.m[3][1];
+	result.z = worldTransform_.matWorld_.m[3][2];
+	return result;
 }

@@ -48,6 +48,7 @@ void GameScene::Initialize() {
 	// 敵の生成
 	enemy_ = new Enemy();
 	// 敵の初期化
+	enemy_->SetPlayer(player_);
 	enemy_->Initialize(enemyModel, enemyTexture);
 }
 

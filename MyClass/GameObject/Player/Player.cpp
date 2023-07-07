@@ -30,6 +30,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
+	worldTransform_.matWorld_;
 }
 
 
@@ -130,6 +131,14 @@ void Player::Draw(const ViewProjection& viewProjection) {
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Draw(viewProjection);
 	}
+}
+
+Vector3 Player::GetWorldPosition() { 
+	Vector3 result;
+	result.x = worldTransform_.matWorld_.m[3][0];
+	result.y = worldTransform_.matWorld_.m[3][1];
+	result.z = worldTransform_.matWorld_.m[3][2];
+	return result;
 }
 
 

@@ -10,6 +10,7 @@
 #include "../MyClass/Utility/TimedCall/TimedCall.h"
 
 class BaseEnemyState;
+class Player;
 
 class Enemy {
 
@@ -45,6 +46,11 @@ public: // メンバ関数
 	// 弾を発射してタイマーをリセットする関数
 	void Fire();
 
+	// ワールド座標を取得
+	Vector3 GetWorldPosition();	
+
+	// プレイヤーをセット
+	void SetPlayer(Player* player) { player_ = player; }
 
 public: // パブリックなメンバ変数
 	
@@ -66,6 +72,8 @@ private: // メンバ変数
 
 	// 現在の行動フェーズ
 	BaseEnemyState* phase_ = nullptr;
+	// 自キャラ
+	Player* player_ = nullptr;
 
 	// ワールド変換データ
 	WorldTransform worldTransform_;

@@ -126,6 +126,9 @@
     <ClCompile Include="MyClass\GameObject\Player\PlayerBullet.cpp">
       <Filter>ソース ファイル\MyClass\GameObject\Player</Filter>
     </ClCompile>
+    <ClCompile Include="math\Vector3.cpp">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
