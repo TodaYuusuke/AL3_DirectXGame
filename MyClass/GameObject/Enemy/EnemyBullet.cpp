@@ -1,4 +1,5 @@
 #include "EnemyBullet.h"
+#include "../Player/Player.h"
 
 void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
 	// NULLポインタチェック
@@ -15,10 +16,7 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 
 	// 引数で受け取った速度を代入
 	velocity_ = velocity;
-	// Y軸周りの角度
-	worldTransform_.rotation_.y = std::atan2f(velocity_.x, velocity_.z);
-	// X軸周りの角度
-	worldTransform_.rotation_.x = std::atan2f(-velocity_.y, Length({velocity_.x, 0, velocity_.z}));
+
 
 	worldTransform_.scale_.x = 0.5f;
 	worldTransform_.scale_.y = 0.5f;
@@ -26,6 +24,18 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 }
 
 void EnemyBullet::Update() {
+
+	// プレイヤーの方向へ誘導
+	velocity_ = Slerp(
+	    Normalize(velocity_), 
+		Normalize(player_->GetWorldPosition() - worldTransform_.translation_),
+	    0.01f
+	);
+	// Y軸周りの角度
+	worldTransform_.rotation_.y = std::atan2f(velocity_.x, velocity_.z);
+	// X軸周りの角度
+	worldTransform_.rotation_.x = std::atan2f(-velocity_.y, Length({velocity_.x, 0, velocity_.z}));
+
 	// 座標を移動させる
 	worldTransform_.translation_ += velocity_;
 

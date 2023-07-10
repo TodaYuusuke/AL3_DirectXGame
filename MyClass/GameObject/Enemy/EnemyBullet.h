@@ -3,6 +3,8 @@
 #include "WorldTransform.h"
 #include "ViewProjection.h"
 
+class Player;
+
 class EnemyBullet {
 public: // メンバ関数
 
@@ -24,7 +26,8 @@ public: // メンバ関数
 
 	// isDeadを受け取る
 	bool isDead() const { return isDead_; }
-
+	// プレイヤーをセット
+	void SetPlayer(Player* player) { player_ = player; }
 	
 private: // メンバ変数
 	//*　　定　数　　*//
@@ -42,6 +45,8 @@ private: // メンバ変数
 
 	// 速度
 	Vector3 velocity_;
+	// プレイヤー
+	Player* player_;
 
 	// デスタイマー
 	int32_t deathTimer_ = kLifeTime;

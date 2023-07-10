@@ -31,3 +31,7 @@ struct Vector3 final {
 float Length(Vector3 vector);
 /// 3次元ベクトルの正規化
 Vector3 Normalize(Vector3 norm);
+// 線形補完
+Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
+// 球面線形補間
+Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t);
