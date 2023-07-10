@@ -15,6 +15,14 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 
 	// 引数で受け取った速度を代入
 	velocity_ = velocity;
+	// Y軸周りの角度
+	worldTransform_.rotation_.y = std::atan2f(velocity_.x, velocity_.z);
+	// X軸周りの角度
+	worldTransform_.rotation_.x = std::atan2f(-velocity_.y, Length({velocity_.x, 0, velocity_.z}));
+
+	worldTransform_.scale_.x = 0.5f;
+	worldTransform_.scale_.y = 0.5f;
+	worldTransform_.scale_.z = 3.0f;
 }
 
 void EnemyBullet::Update() {

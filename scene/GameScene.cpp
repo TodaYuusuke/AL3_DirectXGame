@@ -60,6 +60,11 @@ void GameScene::Update() {
 	if (input_->TriggerKey(DIK_RALT)) {
 		isDebugCameraActive_ = !isDebugCameraActive_;
 	}
+	// リトライ
+	if (input_->TriggerKey(DIK_R)) {
+		Initialize();
+		return;
+	}
 #endif // DEBUG
 	// デバッグカメラ更新
 	if (isDebugCameraActive_) {
