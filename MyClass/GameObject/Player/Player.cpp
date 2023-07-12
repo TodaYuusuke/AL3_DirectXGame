@@ -133,6 +133,10 @@ void Player::Draw(const ViewProjection& viewProjection) {
 	}
 }
 
+void Player::OnCollision() {
+	// 何もしない
+}
+
 Vector3 Player::GetWorldPosition() { 
 	Vector3 result;
 	result.x = worldTransform_.matWorld_.m[3][0];

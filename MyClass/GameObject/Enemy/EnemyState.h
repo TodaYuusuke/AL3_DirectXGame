@@ -26,7 +26,7 @@ class EnemyApproach : public BaseEnemyState {
 	//*　　定　数　　*//
 
 	// 接近　速さ
-	const Vector3 kApproachSpeed = {0, 0, -0.5f};
+	const Vector3 kApproachSpeed = {0, 0, -0.3f};
 };
 
 class EnemyLeave : public BaseEnemyState {
@@ -40,5 +40,5 @@ class EnemyLeave : public BaseEnemyState {
 	//*　　定　数　　*//
 	
 	// 撤退　速さ
-	const Vector3 kLeaveSpeed = {-0.2f, 0.2f, 0};
+	const Vector3 kLeaveSpeed = {-0.12f, 0.12f, 0};
 };

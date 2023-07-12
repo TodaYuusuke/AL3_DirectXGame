@@ -31,11 +31,25 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection);
+
+	/// <summary>
+	/// 衝突を検出したら呼び出されるコールバック関数
+	/// </summary>
+	void OnCollision();
 	
 	/// <summary>
 	/// ワールド座標を取得
 	/// </summary>
 	Vector3 GetWorldPosition();	
+	/// <summary>
+	/// 弾リストを取得
+	/// </summary>
+	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
+
+	//*　公開する定数　*//
+
+	// 当たり判定の半径
+	const float kCollisionRadius = 3.0f;
 
 private: // 関数
 

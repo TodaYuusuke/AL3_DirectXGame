@@ -77,6 +77,9 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
+void Enemy::OnCollision() {
+	// 何もしない
+}
 
 /*ーーーーーーーーーーー*/
 /*　　　その他関数　　　*/
