@@ -77,6 +77,9 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
+void Enemy::OnCollision() {
+	// 何もしない
+}
 
 /*ーーーーーーーーーーー*/
 /*　　　その他関数　　　*/
@@ -109,4 +112,12 @@ void Enemy::Fire() {
 
 	std::function<void()> f = std::bind(&Enemy::Fire, this);
 	timedCall_ = new TimedCall<void()>(f, 30);
+}
+
+Vector3 Enemy::GetWorldPosition() {
+	Vector3 result;
+	result.x = worldTransform_.matWorld_.m[3][0];
+	result.y = worldTransform_.matWorld_.m[3][1];
+	result.z = worldTransform_.matWorld_.m[3][2];
+	return result;
 }

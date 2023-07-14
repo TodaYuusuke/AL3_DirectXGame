@@ -81,4 +81,11 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 	// 敵
 	Enemy* enemy_ = nullptr;
+
+private: // メンバ関数
+
+	/// <summary>
+	/// 衝突判定と応答
+	/// </summary>
+	void CheckAllCollisions();
 };

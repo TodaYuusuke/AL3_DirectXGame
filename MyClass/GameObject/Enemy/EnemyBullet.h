@@ -3,11 +3,9 @@
 #include "WorldTransform.h"
 #include "ViewProjection.h"
 
-#include "../Collider.h"
-
 class Player;
 
-class EnemyBullet : public Collider {
+class EnemyBullet {
 public: // メンバ関数
 
 	/// <summary>
@@ -25,7 +23,15 @@ public: // メンバ関数
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection);
 
+	/// <summary>
+	/// 衝突を検出したら呼び出されるコールバック関数
+	/// </summary>
+	void OnCollision();
 
+	/// <summary>
+	/// ワールド座標を取得
+	/// </summary>
+	Vector3 GetWorldPosition();	
 	// isDeadを受け取る
 	bool isDead() const { return isDead_; }
 	// プレイヤーをセット

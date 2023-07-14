@@ -64,6 +64,9 @@
     <Filter Include="ソース ファイル\MyClass\GameObject\Enemy">
       <UniqueIdentifier>{5e310dae-49a7-4f94-b653-845523598690}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MyClass\GameObject\Player">
+      <UniqueIdentifier>{84ee8835-2328-4305-81f4-1a2067c402b9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ヘッダー ファイル\MyClass">
       <UniqueIdentifier>{550bb522-0d2c-4655-b355-204ab485f2aa}</UniqueIdentifier>
     </Filter>
@@ -87,9 +90,6 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\MyClass\Utility\TimedCall">
       <UniqueIdentifier>{ab986316-badb-40e4-b8b2-a05a08796709}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\MyClass\GameObject\Player">
-      <UniqueIdentifier>{84ee8835-2328-4305-81f4-1a2067c402b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -232,9 +232,6 @@
     </ClInclude>
     <ClInclude Include="MyClass\Utility\TimedCall\TimedCall.h">
       <Filter>ヘッダー ファイル\MyClass\Utility\TimedCall</Filter>
-    </ClInclude>
-    <ClInclude Include="MyClass\GameObject\Collider.h">
-      <Filter>ソース ファイル\MyClass\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

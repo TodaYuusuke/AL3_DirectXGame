@@ -7,13 +7,12 @@
 #include "EnemyState.h"
 #include "EnemyBullet.h"
 
-#include "../Collider.h"
 #include "../MyClass/Utility/TimedCall/TimedCall.h"
 
 class BaseEnemyState;
 class Player;
 
-class Enemy : public Collider {
+class Enemy {
 
 public: // メンバ関数
 	    // コンストラクタ
@@ -35,7 +34,11 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection);
-	
+
+	/// <summary>
+	/// 衝突を検出したら呼び出されるコールバック関数
+	/// </summary>
+	void OnCollision();
 
 	// 指定した移動量座標を変更する関数
 	void Move(Vector3 speed) { worldTransform_.translation_ += speed; }
@@ -46,6 +49,9 @@ public: // メンバ関数
 	void ChangePhase(BaseEnemyState* newState);
 	// 弾を発射してタイマーをリセットする関数
 	void Fire();
+
+	// ワールド座標を取得
+	Vector3 GetWorldPosition();	
 
 	// プレイヤーをセット
 	void SetPlayer(Player* player) { player_ = player; }

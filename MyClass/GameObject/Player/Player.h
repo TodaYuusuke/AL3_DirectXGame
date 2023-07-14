@@ -5,10 +5,10 @@
 #include <Input.h>
 #include <list>
 
-#include "../Collider.h"
 #include "PlayerBullet.h"
 
-class Player : public Collider {
+class Player {
+
 public: // メンバ関数
 
 	// コンストラクタ
@@ -33,9 +33,23 @@ public: // メンバ関数
 	void Draw(const ViewProjection& viewProjection);
 	
 	/// <summary>
+	/// 衝突を検出したら呼び出されるコールバック関数
+	/// </summary>
+	void OnCollision();
+	
+	/// <summary>
 	/// ワールド座標を取得
 	/// </summary>
 	Vector3 GetWorldPosition();	
+	/// <summary>
+	/// 弾リストを取得
+	/// </summary>
+	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
+
+	//*　公開する定数　*//
+
+	// 当たり判定の半径
+	const float kCollisionRadius = 3.0f;
 
 private: // 関数
 
