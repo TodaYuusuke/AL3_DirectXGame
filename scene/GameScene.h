@@ -12,6 +12,7 @@
 
 #include "MyClass/GameObject/Player/Player.h"
 #include "MyClass/GameObject/Enemy/Enemy.h"
+#include "MyClass/GameObject/Skydome/Skydome.h"
 #include "MyClass/GameObject/Collision/CollisionManager.h"
 
 /// <summary>
@@ -54,20 +55,18 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	
+	// *** テクスチャハンドルとモデル *** //
+
 	// プレイヤー
-	
-	// テクスチャハンドル
 	uint32_t playerTexture = 0;
-	// 3Dモデルデータ
 	Model* playerModel = nullptr;
 	
 	// エネミー
-
-	// テクスチャハンドル
 	uint32_t enemyTexture = 0;
-	// 3Dモデルデータ
 	Model* enemyModel = nullptr;
 
+	// スカイドーム
+	Model* skydomeModel = nullptr;
 
 	// ビュープロジェクション
 	ViewProjection viewProjection_;
@@ -80,6 +79,8 @@ private: // メンバ変数
 
 	// 当たり判定マネージャー
 	CollisionManager* collisionManager_ = nullptr;
+	// 天球
+	Skydome* skydome_ = nullptr;
 
 	// 自キャラ
 	Player* player_ = nullptr;

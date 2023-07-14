@@ -97,6 +97,12 @@
     <Filter Include="ソース ファイル\MyClass\GameObject\Collision">
       <UniqueIdentifier>{7a830753-d7bf-4560-ac1f-d319f884fecc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\MyClass\GameObject\Skydome">
+      <UniqueIdentifier>{c97519e3-5fc9-446a-9eca-a5ecd4187e27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\MyClass\GameObject\Skydome">
+      <UniqueIdentifier>{55f14fd4-28ba-49dc-a325-0bc4f842e2a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -137,6 +143,9 @@
     </ClCompile>
     <ClCompile Include="MyClass\GameObject\Collision\CollisionManager.cpp">
       <Filter>ソース ファイル\MyClass\GameObject\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\Skydome\Skydome.cpp">
+      <Filter>ソース ファイル\MyClass\GameObject\Skydome</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="MyClass\GameObject\Collision\CollisionManager.h">
       <Filter>ヘッダー ファイル\MyClass\GameObject\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Skydome\Skydome.h">
+      <Filter>ヘッダー ファイル\MyClass\GameObject\Skydome</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

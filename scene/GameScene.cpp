@@ -2,12 +2,16 @@
 #include "TextureManager.h"
 #include "AxisIndicator.h"
 #include <cassert>
+#include <ImGuiManager.h>
 
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete playerModel;
+	delete enemyModel;
+	delete skydomeModel;
 	delete debugCamera_;
+	delete collisionManager_;
 	delete player_;
 	delete enemy_;
 }
@@ -19,16 +23,16 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	
-	// テクスチャハンドル
+	// プレイヤー
 	playerTexture = TextureManager::Load("sample.png");
-	// 3Dモデルデータ
 	playerModel = Model::Create();
 
-	// テクスチャハンドル
+	// エネミー
 	enemyTexture = TextureManager::Load("enemy.png");
-	// 3Dモデルデータ
 	enemyModel = Model::Create();
 
+	// スカイドーム
+	skydomeModel = Model::CreateFromOBJ("skydome", true);
 
 	// ビュープロジェクション
 	viewProjection_.Initialize();
@@ -42,6 +46,10 @@ void GameScene::Initialize() {
 
 	// 当たり判定マネージャーの生成
 	collisionManager_ = new CollisionManager();
+	// 天球の生成
+	skydome_ = new Skydome();
+	// 天球の初期化
+	skydome_->Initialize(skydomeModel);
 
 	// 自キャラの生成
 	player_ = new Player();
@@ -136,6 +144,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	
+	// 天球の描画
+	skydome_->Draw(viewProjection_);
 	
 	// 敵の描画
 	if (enemy_ != nullptr) {
