@@ -22,10 +22,6 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	// NULLポインタチェック
 	assert(model);
 
-	// 衝突属性を設定
-	SetCollisionAttribute(kCollisionAttributePlayer);
-	SetCollisionMask(~kCollisionAttributePlayer);
-
 	input_ = Input::GetInstance();
 
 	// モデル

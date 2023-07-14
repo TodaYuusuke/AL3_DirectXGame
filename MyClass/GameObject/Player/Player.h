@@ -5,7 +5,7 @@
 #include <Input.h>
 #include <list>
 
-#include "../Collision/Collider.h"
+#include "../Collider.h"
 #include "PlayerBullet.h"
 
 class Player : public Collider {

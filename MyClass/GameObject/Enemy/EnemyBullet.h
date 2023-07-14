@@ -3,7 +3,7 @@
 #include "WorldTransform.h"
 #include "ViewProjection.h"
 
-#include "../Collision/Collider.h"
+#include "../Collider.h"
 
 class Player;
 

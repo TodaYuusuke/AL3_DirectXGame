@@ -145,16 +145,11 @@ void GameScene::Draw() {
 
 
 void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
-	if (
-		!(colliderA->GetCollisionAttribute() & colliderB->GetCollisionMask()) ||
-	    !(colliderB->GetCollisionAttribute() & colliderA->GetCollisionMask())
-		) {
-		return;
-	}
-
+	Vector3 posA = colliderA->GetWorldPosition();
+	Vector3 posB = colliderB->GetWorldPosition();
+	
 	// 球と球の交差判定
-	if (Distance(colliderA->GetWorldPosition(), colliderB->GetWorldPosition()) <=
-	    powf((colliderA->GetRadius() + colliderB->GetRadius()), 2)) {
+	if (Distance(posA, posB) <= powf((colliderA->GetRadius() + colliderB->GetRadius()), 2)) {
 		// 衝突時コールバックを呼び出す
 		colliderA->OnCollision();
 		colliderB->OnCollision();
@@ -165,29 +160,21 @@ void GameScene::CheckAllCollisions() {
 	// 弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
-
-	// コライダー
-	std::list<Collider*> colliders;
-	// コライダーをリストに登録
-	colliders.push_back(player_);
-	colliders.push_back(enemy_);
-	// 自弾の全ての当たり判定
-	for (PlayerBullet* bullet : playerBullets) {
-		colliders.push_back(bullet);
-	}
-	// 敵弾の全ての当たり判定
+	
+	// 自キャラと敵弾の全ての当たり判定
 	for (EnemyBullet* bullet : enemyBullets) {
-		colliders.push_back(bullet);
+		CheckCollisionPair(player_,bullet);
 	}
 
-	// リスト内のペアを総当たり
-	std::list<Collider*>::iterator itrA = colliders.begin();
-	for (; itrA != --colliders.end(); ++itrA) {
-		// イテレータBはイテレータAの次の要素から回す（重複判定を回避）
-		std::list<Collider*>::iterator itrB = itrA;
-		itrB++;
-		for (; itrB != colliders.end(); ++itrB) {
-			CheckCollisionPair(*itrA, *itrB);
+	// 敵キャラと自弾の全ての当たり判定
+	for (PlayerBullet* bullet : playerBullets) {
+		CheckCollisionPair(enemy_, bullet);
+	}
+
+	// 自弾と敵弾の全ての当たり判定
+	for (PlayerBullet* playerBullet : playerBullets) {
+		for (EnemyBullet* enemyBullet : enemyBullets) {
+			CheckCollisionPair(playerBullet, enemyBullet);
 		}
 	}
 }

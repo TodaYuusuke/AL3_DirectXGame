@@ -7,7 +7,7 @@
 #include "EnemyState.h"
 #include "EnemyBullet.h"
 
-#include "../Collision/Collider.h"
+#include "../Collider.h"
 #include "../MyClass/Utility/TimedCall/TimedCall.h"
 
 class BaseEnemyState;
