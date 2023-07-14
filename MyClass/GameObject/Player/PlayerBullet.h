@@ -3,8 +3,9 @@
 #include "WorldTransform.h"
 #include "ViewProjection.h"
 
-class PlayerBullet 
-{
+#include "../Collider.h"
+
+class PlayerBullet : public Collider {
 public: // メンバ関数
 
 	/// <summary>
@@ -25,12 +26,12 @@ public: // メンバ関数
 	/// <summary>
 	/// 衝突を検出したら呼び出されるコールバック関数
 	/// </summary>
-	void OnCollision();
-
+	void OnCollision() override;
 	/// <summary>
 	/// ワールド座標を取得
 	/// </summary>
-	Vector3 GetWorldPosition();	
+	Vector3 GetWorldPosition() override;
+
 	// isDeadを受け取る
 	bool isDead() const { return isDead_; }
 

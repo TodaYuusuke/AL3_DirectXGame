@@ -143,61 +143,38 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-void GameScene::CheckAllCollisions() {
-	// 判定対象のAとBの座標
-	Vector3 posA, posB;
 
+void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
+	Vector3 posA = colliderA->GetWorldPosition();
+	Vector3 posB = colliderB->GetWorldPosition();
+	
+	// 球と球の交差判定
+	if (Distance(posA, posB) <= powf((colliderA->GetRadius() + colliderB->GetRadius()), 2)) {
+		// 衝突時コールバックを呼び出す
+		colliderA->OnCollision();
+		colliderB->OnCollision();
+	}
+}
+
+void GameScene::CheckAllCollisions() {
 	// 弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
-
-#pragma region 自キャラと敵弾の当たり判定
-	posA = player_->GetWorldPosition();
-
+	
 	// 自キャラと敵弾の全ての当たり判定
 	for (EnemyBullet* bullet : enemyBullets) {
-		// 敵弾の座標
-		posB = bullet->GetWorldPosition();
-				
-		if (Distance(posA, posB) <= powf((player_->kCollisionRadius + bullet->kCollisionRadius), 2)) {
-			// 衝突時コールバックを呼び出す
-			player_->OnCollision();
-			bullet->OnCollision();
-		}
+		CheckCollisionPair(player_,bullet);
 	}
-#pragma endregion
-
-#pragma region 自弾と敵キャラの当たり判定
-	posA = enemy_->GetWorldPosition();
 
 	// 敵キャラと自弾の全ての当たり判定
 	for (PlayerBullet* bullet : playerBullets) {
-		// 敵弾の座標
-		posB = bullet->GetWorldPosition();
-
-		if (Distance(posA, posB) <= powf((enemy_->kCollisionRadius + bullet->kCollisionRadius), 2)) {
-			// 衝突時コールバックを呼び出す
-			enemy_->OnCollision();
-			bullet->OnCollision();
-		}
+		CheckCollisionPair(enemy_, bullet);
 	}
-#pragma endregion
-
-#pragma region 自弾と敵弾の当たり判定
 
 	// 自弾と敵弾の全ての当たり判定
-	for (PlayerBullet* playerbullet : playerBullets) {
-		posA = playerbullet->GetWorldPosition();
-		for (EnemyBullet* enemybullet : enemyBullets) {
-			// 敵弾の座標
-			posB = enemybullet->GetWorldPosition();
-
-			if (Distance(posA, posB) <= powf((playerbullet->kCollisionRadius + enemybullet->kCollisionRadius), 2)) {
-				// 衝突時コールバックを呼び出す
-				playerbullet->OnCollision();
-				enemybullet->OnCollision();
-			}
+	for (PlayerBullet* playerBullet : playerBullets) {
+		for (EnemyBullet* enemyBullet : enemyBullets) {
+			CheckCollisionPair(playerBullet, enemyBullet);
 		}
 	}
-#pragma endregion
 }
