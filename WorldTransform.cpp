@@ -15,6 +15,12 @@ Matrix4x4 WorldTransform::MakeAffineMatrix() {
 void WorldTransform::UpdateMatrix() {
 	// アフィン変換行列をワールド行列に代入する
 	matWorld_ = MakeAffineMatrix();
+
+	// 親があれば親のワールド行列を掛ける
+	if (parent_) {
+		matWorld_ = matWorld_ * parent_->matWorld_;
+	}
+
 	// 行列を定数バッファに転送
 	TransferMatrix();
 }

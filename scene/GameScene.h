@@ -8,12 +8,15 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+
 #include "DebugCamera.h"
+#include "MyClass/GameObject/RailCamera/RailCamera.h"
 
 #include "MyClass/GameObject/Player/Player.h"
 #include "MyClass/GameObject/Enemy/Enemy.h"
 #include "MyClass/GameObject/Skydome/Skydome.h"
 #include "MyClass/GameObject/Collision/CollisionManager.h"
+
 
 /// <summary>
 /// ゲームシーン
@@ -76,6 +79,8 @@ private: // メンバ変数
 	bool isDebugCameraActive_ = false;
 	// デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
+	// レールカメラ
+	RailCamera* railCamera_ = nullptr;
 
 	// 当たり判定マネージャー
 	CollisionManager* collisionManager_ = nullptr;

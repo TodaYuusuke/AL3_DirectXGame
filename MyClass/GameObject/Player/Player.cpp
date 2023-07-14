@@ -17,7 +17,7 @@ Player::~Player() {
 
 
 
-void Player::Initialize(Model* model, uint32_t textureHandle) {
+void Player::Initialize(Model* model, uint32_t textureHandle, Vector3 position) {
 	
 	// NULLポインタチェック
 	assert(model);
@@ -34,7 +34,8 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
-	worldTransform_.matWorld_;
+	worldTransform_.translation_ = position;
+	worldTransform_.UpdateMatrix();
 }
 
 
@@ -159,7 +160,7 @@ Vector3 Player::GetWorldPosition() {
 /// 弾発射
 /// </summary>
 void Player::Attack() {
-	
+
 	if (input_->TriggerKey(DIK_SPACE)) {
 
 		// 弾の速度
@@ -169,7 +170,7 @@ void Player::Attack() {
 
 		// 弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 
 		// 弾を登録する
 		bullets_.push_back(newBullet);

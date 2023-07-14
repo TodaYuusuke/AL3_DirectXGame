@@ -23,6 +23,8 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	worldTransform_.scale_.x = 0.5f;
 	worldTransform_.scale_.y = 0.5f;
 	worldTransform_.scale_.z = 0.5f;
+
+	worldTransform_.UpdateMatrix();
 }
 
 void PlayerBullet::Update() {

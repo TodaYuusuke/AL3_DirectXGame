@@ -11,6 +11,7 @@ GameScene::~GameScene() {
 	delete enemyModel;
 	delete skydomeModel;
 	delete debugCamera_;
+	delete railCamera_;
 	delete collisionManager_;
 	delete player_;
 	delete enemy_;
@@ -44,6 +45,11 @@ void GameScene::Initialize() {
 	// 軸方向表示が参照するビュープロジェクションを指定する（アドレス渡し）
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 
+	// レールカメラの生成
+	railCamera_ = new RailCamera();
+	// レールカメラの初期化
+	railCamera_->Initialize({0, 0, -15}, {0, 0, 0});
+
 	// 当たり判定マネージャーの生成
 	collisionManager_ = new CollisionManager();
 	// 天球の生成
@@ -53,8 +59,10 @@ void GameScene::Initialize() {
 
 	// 自キャラの生成
 	player_ = new Player();
+	Vector3 playerPosition(0, -3, 15);
 	// 自キャラの初期化
-	player_->Initialize(playerModel, playerTexture);
+	player_->Initialize(playerModel, playerTexture, playerPosition);
+	player_->SetParent(&railCamera_->GetWorldTransform());
 
 	// 敵の生成
 	enemy_ = new Enemy();
@@ -80,18 +88,22 @@ void GameScene::Update() {
 		return;
 	}
 #endif // DEBUG
+
+	ViewProjection v;
 	// デバッグカメラ更新
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();
-		ViewProjection v = debugCamera_->GetViewProjection();
-		viewProjection_.matView = v.matView;
-		viewProjection_.matProjection = v.matProjection;
-		// ビュープロジェクション行列の転送
-		viewProjection_.TransferMatrix();
+		v = debugCamera_->GetViewProjection();
+	// レールカメラ更新
 	} else {
-		// ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
+		railCamera_->Update();
+		v = railCamera_->GetViewProjection();
 	}
+	viewProjection_.matView = v.matView;
+	viewProjection_.matProjection = v.matProjection;
+	// ビュープロジェクション行列の転送
+	viewProjection_.TransferMatrix();
+
 	// 自キャラの更新
 	player_->Update();
 

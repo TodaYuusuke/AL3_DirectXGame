@@ -20,7 +20,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* model, uint32_t textureHandle);
+	void Initialize(Model* model, uint32_t textureHandle, Vector3 position);
 
 	/// <summary>
 	/// 更新
@@ -40,6 +40,11 @@ public: // メンバ関数
 	/// ワールド座標を取得
 	/// </summary>
 	Vector3 GetWorldPosition() override;
+	/// <summary>
+	/// 親となるワールドトランスフォームをセット
+	/// </summary>
+	/// <param name="parent">親となるワールドトランスフォーム</param>
+	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 
 	/// <summary>
 	/// 弾リストを取得
