@@ -25,25 +25,12 @@ public: // メンバ関数
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection);
 
-	/// <summary>
-	/// 衝突を検出したら呼び出されるコールバック関数
-	/// </summary>
-	void OnCollision() override;
-	/// <summary>
-	/// ワールド座標を取得
-	/// </summary>
-	Vector3 GetWorldPosition() override;
 
 	// isDeadを受け取る
 	bool isDead() const { return isDead_; }
 	// プレイヤーをセット
 	void SetPlayer(Player* player) { player_ = player; }
-
-	//*　公開する定数　*//
 	
-	// 当たり判定の半径
-	const float kCollisionRadius = 0.5f;
-
 private: // メンバ変数
 	//*　　定　数　　*//
 

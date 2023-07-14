@@ -35,27 +35,12 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection);
-
-	/// <summary>
-	/// 衝突を検出したら呼び出されるコールバック関数
-	/// </summary>
-	void OnCollision() override;
-	/// <summary>
-	/// ワールド座標を取得
-	/// </summary>
-	Vector3 GetWorldPosition() override;
+	
 
 	// 指定した移動量座標を変更する関数
 	void Move(Vector3 speed) { worldTransform_.translation_ += speed; }
-	/// <summary>
-	/// 座標を取得
-	/// </summary>
+	// 座標のゲッター
 	Vector3 GetTranslation() { return worldTransform_.translation_; }
-	/// <summary>
-	/// 弾リストを取得
-	/// </summary>
-	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
-
 
 	// 行動フェーズを変更する
 	void ChangePhase(BaseEnemyState* newState);
@@ -73,9 +58,6 @@ public: // パブリックなメンバ変数
 	const int kFireInterval = 30;
 	// 弾の速さ
 	const float kBulletSpeed = 1.0f;
-
-	// 当たり判定の半径
-	const float kCollisionRadius = 3.0f;
 
 	//*　　変　数　　*//
 

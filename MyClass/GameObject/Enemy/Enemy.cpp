@@ -77,16 +77,6 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
-void Enemy::OnCollision() {
-	// 何もしない
-}
-Vector3 Enemy::GetWorldPosition() {
-	Vector3 result;
-	result.x = worldTransform_.matWorld_.m[3][0];
-	result.y = worldTransform_.matWorld_.m[3][1];
-	result.z = worldTransform_.matWorld_.m[3][2];
-	return result;
-}
 
 /*ーーーーーーーーーーー*/
 /*　　　その他関数　　　*/

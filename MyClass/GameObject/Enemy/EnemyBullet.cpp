@@ -17,9 +17,10 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 	// 引数で受け取った速度を代入
 	velocity_ = velocity;
 
+
 	worldTransform_.scale_.x = 0.5f;
 	worldTransform_.scale_.y = 0.5f;
-	worldTransform_.scale_.z = 0.5f;
+	worldTransform_.scale_.z = 3.0f;
 }
 
 void EnemyBullet::Update() {
@@ -49,16 +50,4 @@ void EnemyBullet::Update() {
 
 void EnemyBullet::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
-}
-
-void EnemyBullet::OnCollision() { 
-	isDead_ = true;
-}
-
-Vector3 EnemyBullet::GetWorldPosition() { 
-	Vector3 result;
-	result.x = worldTransform_.matWorld_.m[3][0];
-	result.y = worldTransform_.matWorld_.m[3][1];
-	result.z = worldTransform_.matWorld_.m[3][2];
-	return result;
 }

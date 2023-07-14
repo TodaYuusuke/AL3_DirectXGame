@@ -1,5 +1,8 @@
 #include "PlayerBullet.h"
 
+/// <summary>
+/// 初期化
+/// </summary>
 void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) { 
 	// NULLポインタチェック
 	assert(model);
@@ -15,12 +18,11 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 
 	// 引数で受け取った速度を代入
 	velocity_ = velocity;
-
-	worldTransform_.scale_.x = 0.5f;
-	worldTransform_.scale_.y = 0.5f;
-	worldTransform_.scale_.z = 0.5f;
 }
 
+/// <summary>
+/// 更新
+/// </summary>
 void PlayerBullet::Update() {
 
 	// 座標を移動させる
@@ -35,18 +37,9 @@ void PlayerBullet::Update() {
 	}
 }
 
+/// <summary>
+/// 描画
+/// </summary>
 void PlayerBullet::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
-}
-
-void PlayerBullet::OnCollision() { 
-	isDead_ = true;
-}
-
-Vector3 PlayerBullet::GetWorldPosition() {
-	Vector3 result;
-	result.x = worldTransform_.matWorld_.m[3][0];
-	result.y = worldTransform_.matWorld_.m[3][1];
-	result.z = worldTransform_.matWorld_.m[3][2];
-	return result;
 }

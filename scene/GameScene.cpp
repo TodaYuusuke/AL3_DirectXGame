@@ -85,9 +85,6 @@ void GameScene::Update() {
 	if (enemy_ != nullptr) {
 		enemy_->Update();
 	}
-
-	// 当たり判定検証
-	CheckAllCollisions();
 }
 
 void GameScene::Draw() {
@@ -141,40 +138,4 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
-}
-
-
-void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
-	Vector3 posA = colliderA->GetWorldPosition();
-	Vector3 posB = colliderB->GetWorldPosition();
-	
-	// 球と球の交差判定
-	if (Distance(posA, posB) <= powf((colliderA->GetRadius() + colliderB->GetRadius()), 2)) {
-		// 衝突時コールバックを呼び出す
-		colliderA->OnCollision();
-		colliderB->OnCollision();
-	}
-}
-
-void GameScene::CheckAllCollisions() {
-	// 弾リストの取得
-	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
-	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
-	
-	// 自キャラと敵弾の全ての当たり判定
-	for (EnemyBullet* bullet : enemyBullets) {
-		CheckCollisionPair(player_,bullet);
-	}
-
-	// 敵キャラと自弾の全ての当たり判定
-	for (PlayerBullet* bullet : playerBullets) {
-		CheckCollisionPair(enemy_, bullet);
-	}
-
-	// 自弾と敵弾の全ての当たり判定
-	for (PlayerBullet* playerBullet : playerBullets) {
-		for (EnemyBullet* enemyBullet : enemyBullets) {
-			CheckCollisionPair(playerBullet, enemyBullet);
-		}
-	}
 }

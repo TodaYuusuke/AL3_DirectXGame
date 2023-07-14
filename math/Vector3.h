@@ -27,11 +27,9 @@ struct Vector3 final {
 #pragma endregion
 };
 
-// 3次元ベクトルの長さを求める
+/// 3次元ベクトルの長さを求める
 float Length(Vector3 vector);
-// 二つのベクトル間の距離を求める
-float Distance(Vector3 v1, Vector3 v2);
-// 3次元ベクトルの正規化
+/// 3次元ベクトルの正規化
 Vector3 Normalize(Vector3 norm);
 // 線形補完
 Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
