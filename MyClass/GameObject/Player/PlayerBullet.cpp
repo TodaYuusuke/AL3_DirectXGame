@@ -8,6 +8,10 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	// テクスチャ読み込み
 	textureHandle_ = TextureManager::Load("Bullet.png");
 
+	// 衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributePlayer);
+	SetCollisionMask(~kCollisionAttributePlayer);
+
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
 	// 引数で受け取った初期座標をセット

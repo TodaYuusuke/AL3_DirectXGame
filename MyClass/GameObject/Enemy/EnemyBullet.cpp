@@ -9,6 +9,10 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 	// テクスチャ読み込み
 	textureHandle_ = TextureManager::Load("EnemyBullet.png");
 
+	// 衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributeEnemy);
+	SetCollisionMask(~kCollisionAttributeEnemy);
+
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
 	// 引数で受け取った初期座標をセット

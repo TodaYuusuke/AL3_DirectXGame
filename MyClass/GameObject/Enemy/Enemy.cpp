@@ -24,10 +24,13 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 	// NULLポインタチェック
 	assert(model);
 
-
 	// モデル
 	model_ = model;
 	textureHandle_ = textureHandle;
+
+	// 衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributeEnemy);
+	SetCollisionMask(~kCollisionAttributeEnemy);
 
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
