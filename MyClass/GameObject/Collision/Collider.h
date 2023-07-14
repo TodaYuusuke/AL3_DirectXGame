@@ -11,7 +11,6 @@ public: // メンバ関数
 	virtual Vector3 GetWorldPosition() = 0;
 
 
-
 // *** プロパティ変数 *** //
 
 private: // 衝突半径
