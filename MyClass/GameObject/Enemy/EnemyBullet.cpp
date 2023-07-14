@@ -29,7 +29,7 @@ void EnemyBullet::Update() {
 	velocity_ = Slerp(
 	    Normalize(velocity_), 
 		Normalize(player_->GetWorldPosition() - worldTransform_.translation_),
-	    0.01f
+	    0.1f
 	);
 	// Y軸周りの角度
 	worldTransform_.rotation_.y = std::atan2f(velocity_.x, velocity_.z);
