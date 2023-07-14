@@ -40,6 +40,9 @@ void GameScene::Initialize() {
 	// 軸方向表示が参照するビュープロジェクションを指定する（アドレス渡し）
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 
+	// 当たり判定マネージャーの生成
+	collisionManager_ = new CollisionManager();
+
 	// 自キャラの生成
 	player_ = new Player();
 	// 自キャラの初期化
@@ -53,6 +56,9 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+
+	// 当たり判定マネージャーの初期化
+	collisionManager_->ClearList();
 
 	// デバッグ切り替え
 #ifdef _DEBUG
@@ -68,7 +74,7 @@ void GameScene::Update() {
 #endif // DEBUG
 	// デバッグカメラ更新
 	if (isDebugCameraActive_) {
-		debugCamera_->Update();	
+		debugCamera_->Update();
 		ViewProjection v = debugCamera_->GetViewProjection();
 		viewProjection_.matView = v.matView;
 		viewProjection_.matProjection = v.matProjection;
@@ -86,8 +92,22 @@ void GameScene::Update() {
 		enemy_->Update();
 	}
 
-	// 当たり判定検証
-	CheckAllCollisions();
+	// 当たり判定を登録
+	collisionManager_->PushCollider(player_);
+	collisionManager_->PushCollider(enemy_);
+	// 弾リストの取得
+	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
+	// 自弾の全ての当たり判定
+	for (PlayerBullet* bullet : playerBullets) {
+		collisionManager_->PushCollider(bullet);
+	}
+	// 敵弾の全ての当たり判定
+	for (EnemyBullet* bullet : enemyBullets) {
+		collisionManager_->PushCollider(bullet);
+	}
+
+	collisionManager_->CheckAllCollisions();
 }
 
 void GameScene::Draw() {
@@ -141,53 +161,4 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
-}
-
-
-void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
-	if (
-		!(colliderA->GetCollisionAttribute() & colliderB->GetCollisionMask()) ||
-	    !(colliderB->GetCollisionAttribute() & colliderA->GetCollisionMask())
-		) {
-		return;
-	}
-
-	// 球と球の交差判定
-	if (Distance(colliderA->GetWorldPosition(), colliderB->GetWorldPosition()) <=
-	    powf((colliderA->GetRadius() + colliderB->GetRadius()), 2)) {
-		// 衝突時コールバックを呼び出す
-		colliderA->OnCollision();
-		colliderB->OnCollision();
-	}
-}
-
-void GameScene::CheckAllCollisions() {
-	// 弾リストの取得
-	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
-	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
-
-	// コライダー
-	std::list<Collider*> colliders;
-	// コライダーをリストに登録
-	colliders.push_back(player_);
-	colliders.push_back(enemy_);
-	// 自弾の全ての当たり判定
-	for (PlayerBullet* bullet : playerBullets) {
-		colliders.push_back(bullet);
-	}
-	// 敵弾の全ての当たり判定
-	for (EnemyBullet* bullet : enemyBullets) {
-		colliders.push_back(bullet);
-	}
-
-	// リスト内のペアを総当たり
-	std::list<Collider*>::iterator itrA = colliders.begin();
-	for (; itrA != --colliders.end(); ++itrA) {
-		// イテレータBはイテレータAの次の要素から回す（重複判定を回避）
-		std::list<Collider*>::iterator itrB = itrA;
-		itrB++;
-		for (; itrB != colliders.end(); ++itrB) {
-			CheckCollisionPair(*itrA, *itrB);
-		}
-	}
 }

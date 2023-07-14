@@ -111,6 +111,7 @@
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\Vector3.cpp" />
+    <ClCompile Include="MyClass\GameObject\Collision\CollisionManager.cpp" />
     <ClCompile Include="MyClass\GameObject\Enemy\EnemyState.cpp" />
     <ClCompile Include="MyClass\GameObject\Enemy\Enemy.cpp" />
     <ClCompile Include="MyClass\GameObject\Enemy\EnemyBullet.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="MyClass\GameObject\Collision\Collider.h" />
     <ClInclude Include="MyClass\GameObject\Collision\CollisionConfig.h" />
+    <ClInclude Include="MyClass\GameObject\Collision\CollisionManager.h" />
     <ClInclude Include="MyClass\GameObject\Enemy\EnemyState.h" />
     <ClInclude Include="MyClass\GameObject\Enemy\Enemy.h" />
     <ClInclude Include="MyClass\GameObject\Enemy\EnemyBullet.h" />
