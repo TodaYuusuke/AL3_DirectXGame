@@ -91,6 +91,9 @@
     <Filter Include="ソース ファイル\MyClass\GameObject\Player">
       <UniqueIdentifier>{84ee8835-2328-4305-81f4-1a2067c402b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\MyClass\GameObject\Collision">
+      <UniqueIdentifier>{f9f17f69-bada-4eac-93b3-d26f8244668c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -233,8 +236,11 @@
     <ClInclude Include="MyClass\Utility\TimedCall\TimedCall.h">
       <Filter>ヘッダー ファイル\MyClass\Utility\TimedCall</Filter>
     </ClInclude>
-    <ClInclude Include="MyClass\GameObject\Collider.h">
-      <Filter>ソース ファイル\MyClass\GameObject</Filter>
+    <ClInclude Include="MyClass\GameObject\Collision\Collider.h">
+      <Filter>ヘッダー ファイル\MyClass\GameObject\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Collision\CollisionConfig.h">
+      <Filter>ヘッダー ファイル\MyClass\GameObject\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
