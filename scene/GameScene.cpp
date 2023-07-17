@@ -4,6 +4,8 @@
 #include <cassert>
 #include <ImGuiManager.h>
 
+#include "PrimitiveDrawer.h"
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
@@ -44,6 +46,9 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetVisible(true);
 	// 軸方向表示が参照するビュープロジェクションを指定する（アドレス渡し）
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+
+	// PrimitiveDrawrにビュープロジェクションをセット
+	PrimitiveDrawer::GetInstance()->SetViewProjection(&viewProjection_);
 
 	// レールカメラの生成
 	railCamera_ = new RailCamera();
@@ -167,6 +172,9 @@ void GameScene::Draw() {
 	
 	// 自キャラの描画
 	player_->Draw(viewProjection_);
+	
+	// レールカメラ描画
+	railCamera_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

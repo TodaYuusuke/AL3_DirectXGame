@@ -1,5 +1,9 @@
 #pragma once
 #include <cmath>
+#include <vector>
+
+struct ViewProjection;
+class PrimitiveDrawer;
 
 /// <summary>
 /// 3次元ベクトル
@@ -37,3 +41,8 @@ Vector3 Normalize(Vector3 norm);
 Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
 // 球面線形補間
 Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t);
+
+// Catmull-Romスプライン曲線補間
+Vector3 CatmullRom(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t);
+// 曲線描画
+void DrawCatmullRom(std::vector<Vector3> pointsDrawing, size_t segmentCount);

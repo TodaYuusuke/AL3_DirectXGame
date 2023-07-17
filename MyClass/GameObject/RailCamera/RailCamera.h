@@ -1,6 +1,9 @@
 #pragma once
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include <vector>
+
+#include "../math/Vector3.h"
 
 class RailCamera {
 public: // メンバ関数
@@ -13,6 +16,11 @@ public: // メンバ関数
 	/// 更新
 	/// </summary>
 	void Update();
+	/// <summary>
+	/// 描画
+	/// </summary>
+	void Draw();
+
 
 	/// <summary>
 	/// ワールドトランスフォームを取得
@@ -24,8 +32,12 @@ public: // メンバ関数
 	const ViewProjection& GetViewProjection() { return viewProjection_; }
 
 private: // メンバ変数
+
 	// ワールド変換データ
 	WorldTransform worldTransform_;
 	// ビュープロジェクション
 	ViewProjection viewProjection_;
+
+	// スプライン曲線制御点
+	std::vector<Vector3> controlPoints_;
 };

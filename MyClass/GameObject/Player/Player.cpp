@@ -160,7 +160,6 @@ Vector3 Player::GetWorldPosition() {
 /// 弾発射
 /// </summary>
 void Player::Attack() {
-
 	if (input_->TriggerKey(DIK_SPACE)) {
 
 		// 弾の速度

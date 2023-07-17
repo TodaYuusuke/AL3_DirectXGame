@@ -9,6 +9,15 @@ void RailCamera::Initialize(Vector3 worldPosition, Vector3 radian) {
 	worldTransform_.UpdateMatrix();
 
 	viewProjection_.Initialize();
+
+	controlPoints_ = {
+	    {0,  0,  0},
+        {10, 10, 0},
+        {10, 15, 0},
+        {20, 15, 0},
+        {20, 0,  0},
+        {30, 0,  0}
+	};
 }
 
 void RailCamera::Update() {
@@ -25,4 +34,9 @@ void RailCamera::Update() {
 
 	// カメラオブジェクトのワールド行列からビュー行列を計算する
 	viewProjection_.matView = Matrix4x4::Inverse(worldTransform_.matWorld_);
+}
+
+void RailCamera::Draw() {
+	// スプライン曲線を描画
+	DrawCatmullRom(controlPoints_, 100);
 }

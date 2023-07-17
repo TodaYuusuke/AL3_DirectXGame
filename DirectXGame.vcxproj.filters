@@ -144,9 +144,6 @@
     <ClCompile Include="MyClass\GameObject\Player\PlayerBullet.cpp">
       <Filter>ソース ファイル\MyClass\GameObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="math\Vector3.cpp">
-      <Filter>ヘッダー ファイル\math</Filter>
-    </ClCompile>
     <ClCompile Include="MyClass\GameObject\Collision\CollisionManager.cpp">
       <Filter>ソース ファイル\MyClass\GameObject\Collision</Filter>
     </ClCompile>
@@ -155,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="MyClass\GameObject\RailCamera\RailCamera.cpp">
       <Filter>ソース ファイル\MyClass\GameObject\RailCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Vector3.cpp">
+      <Filter>ソース ファイル\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
