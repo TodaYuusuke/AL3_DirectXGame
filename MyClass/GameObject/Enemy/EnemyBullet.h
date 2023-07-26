@@ -34,8 +34,8 @@ public: // メンバ関数
 	/// </summary>
 	Vector3 GetWorldPosition() override;
 
-	// isDeadを受け取る
-	bool isDead() const { return isDead_; }
+	// isAliveを受け取る
+	bool isAlive() const { return isAlive_; }
 	// プレイヤーをセット
 	void SetPlayer(Player* player) { player_ = player; }
 
@@ -66,5 +66,5 @@ private: // メンバ変数
 	// デスタイマー
 	int32_t deathTimer_ = kLifeTime;
 	// デスフラグ
-	bool isDead_ = false;
+	bool isAlive_ = true;
 };

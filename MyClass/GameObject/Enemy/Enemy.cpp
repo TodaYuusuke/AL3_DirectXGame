@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include <cassert>
 #include "../Player/Player.h"
+#include "../scene/GameScene.h"
 
 // コンストラクタ
 Enemy::Enemy() {
@@ -9,17 +10,13 @@ Enemy::Enemy() {
 // デストラクタ
 Enemy::~Enemy() {
 	delete phase_;
-	// 弾をDELETE
-	for (EnemyBullet* bullet : bullets_) {
-		delete bullet;
-	}
 	delete timedCall_;
 }
 
 /// <summary>
 /// 初期化
 /// </summary>
-void Enemy::Initialize(Model* model, uint32_t textureHandle) {
+void Enemy::Initialize(Model* model, uint32_t textureHandle, Vector3 position) {
 
 	// NULLポインタチェック
 	assert(model);
@@ -34,7 +31,7 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
-	worldTransform_.translation_ = {20, 3, 50};
+	worldTransform_.translation_ = position;
 
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();
@@ -47,22 +44,12 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 /// 更新
 /// </summary>
 void Enemy::Update() {
-	// 行動フェーズごとの更新処理
-	phase_->Update(this);
-
-	// 弾更新
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Update();
+	if (!isAlive_) {
+		return;
 	}
 
-	// デスフラグの立った弾を削除
-	bullets_.remove_if([](EnemyBullet* bullet) {
-		if (bullet->isDead()) {
-			delete bullet;
-			return true;
-		}
-		return false;
-	});
+	// 行動フェーズごとの更新処理
+	phase_->Update(this);
 
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();
@@ -72,9 +59,8 @@ void Enemy::Update() {
 /// 描画
 /// </summary>
 void Enemy::Draw(const ViewProjection& viewProjection) {
-	// 弾描画
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Draw(viewProjection);
+	if (!isAlive_) {
+		return;
 	}
 
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
@@ -82,6 +68,7 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 
 void Enemy::OnCollision() {
 	// 何もしない
+	isAlive_ = false;
 }
 Vector3 Enemy::GetWorldPosition() {
 	Vector3 result;
@@ -118,7 +105,7 @@ void Enemy::Fire() {
 	newBullet->SetPlayer(player_);
 
 	// 弾を登録する
-	bullets_.push_back(newBullet);
+	gameScene_->AddEnemyBullet(newBullet);
 
 	std::function<void()> f = std::bind(&Enemy::Fire, this);
 	timedCall_ = new TimedCall<void()>(f, 30);

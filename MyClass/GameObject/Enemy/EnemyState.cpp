@@ -2,8 +2,6 @@
 
 // 初期化（EnemyApproach）
 void EnemyApproach::Initialize(Enemy* enemy) {
-	// 弾初期化
-	enemy->bullets_.clear();
 
 	enemy->Fire();
 	//enemy->fireTimer_ = enemy->kFireInterval;

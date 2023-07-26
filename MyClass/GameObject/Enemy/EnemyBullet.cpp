@@ -47,7 +47,7 @@ void EnemyBullet::Update() {
 
 	// 時間経過でデス
 	if (--deathTimer_ <= 0) {
-		isDead_ = true;
+		isAlive_ = true;
 	}
 }
 
@@ -56,7 +56,7 @@ void EnemyBullet::Draw(const ViewProjection& viewProjection) {
 }
 
 void EnemyBullet::OnCollision() { 
-	isDead_ = true;
+	isAlive_ = false;
 }
 
 Vector3 EnemyBullet::GetWorldPosition() { 

@@ -11,20 +11,22 @@
 #include "../MyClass/Utility/TimedCall/TimedCall.h"
 
 class BaseEnemyState;
+class GameScene;
 class Player;
 
 class Enemy : public Collider {
 
 public: // メンバ関数
-	    // コンストラクタ
+	// コンストラクタ
 	Enemy();
+	Enemy(Vector3 position);
 	// デストラクタ
 	~Enemy();
 
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* model, uint32_t textureHandle);
+	void Initialize(Model* model, uint32_t textureHandle, Vector3 position);
 
 	/// <summary>
 	/// 更新
@@ -51,17 +53,16 @@ public: // メンバ関数
 	/// 座標を取得
 	/// </summary>
 	Vector3 GetTranslation() { return worldTransform_.translation_; }
-	/// <summary>
-	/// 弾リストを取得
-	/// </summary>
-	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
-
+	// isAliveを受け取る
+	bool isAlive() const { return isAlive_; }
 
 	// 行動フェーズを変更する
 	void ChangePhase(BaseEnemyState* newState);
 	// 弾を発射してタイマーをリセットする関数
 	void Fire();
 
+	// ゲームシーンをセット
+	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 	// プレイヤーをセット
 	void SetPlayer(Player* player) { player_ = player; }
 
@@ -79,17 +80,20 @@ public: // パブリックなメンバ変数
 
 	//*　　変　数　　*//
 
-	// 弾
-	std::list<EnemyBullet*> bullets_;
 	// 発射処理を呼び出すコールバック
 	TimedCall<void()>* timedCall_ = nullptr;
 
 private: // メンバ変数
 
+	// ゲームシーン
+	GameScene* gameScene_ = nullptr;
 	// 現在の行動フェーズ
 	BaseEnemyState* phase_ = nullptr;
 	// 自キャラ
 	Player* player_ = nullptr;
+
+	// デスフラグ
+	bool isAlive_ = true;
 
 	// ワールド変換データ
 	WorldTransform worldTransform_;
