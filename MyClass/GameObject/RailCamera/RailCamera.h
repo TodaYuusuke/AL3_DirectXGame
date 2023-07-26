@@ -37,7 +37,10 @@ private: // メンバ変数
 	WorldTransform worldTransform_;
 	// ビュープロジェクション
 	ViewProjection viewProjection_;
-
+	
 	// スプライン曲線制御点
 	std::vector<Vector3> controlPoints_;
+
+	// 補間
+	float t;
 };

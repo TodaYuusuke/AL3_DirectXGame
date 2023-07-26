@@ -1,5 +1,6 @@
 #include "RailCamera.h"
 #include <ImGuiManager.h>
+#include "PrimitiveDrawer.h"
 
 void RailCamera::Initialize(Vector3 worldPosition, Vector3 radian) {
 	// ワールドトランスフォームの初期化
@@ -18,6 +19,7 @@ void RailCamera::Initialize(Vector3 worldPosition, Vector3 radian) {
         {20, 0,  0},
         {30, 0,  0}
 	};
+	t = 1.0f;
 }
 
 void RailCamera::Update() {
@@ -25,10 +27,10 @@ void RailCamera::Update() {
 	ImGui::Begin("Camera");
 	ImGui::DragFloat3("translation", &worldTransform_.translation_.x, 0.1f);
 	ImGui::DragFloat3("rotation", &worldTransform_.rotation_.x, 0.01f);
+	ImGui::DragFloat("t", &t, 0.01f, 0.0f, 1.0f);
 	ImGui::End();
-
-	// 徐々に前に進む
-	worldTransform_.translation_.z += 0.02f;
+	// レールに沿って進む
+	worldTransform_.translation_ = GetCatmullRomPosition(controlPoints_, t);
 
 	worldTransform_.UpdateMatrix();
 
