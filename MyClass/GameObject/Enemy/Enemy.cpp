@@ -70,13 +70,7 @@ void Enemy::OnCollision() {
 	// 何もしない
 	isAlive_ = false;
 }
-Vector3 Enemy::GetWorldPosition() {
-	Vector3 result;
-	result.x = worldTransform_.matWorld_.m[3][0];
-	result.y = worldTransform_.matWorld_.m[3][1];
-	result.z = worldTransform_.matWorld_.m[3][2];
-	return result;
-}
+Vector3 Enemy::GetWorldPosition() { return worldTransform_.GetWorldPosition(); }
 
 /*ーーーーーーーーーーー*/
 /*　　　その他関数　　　*/

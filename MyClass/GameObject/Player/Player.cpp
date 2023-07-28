@@ -12,13 +12,14 @@ Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
 		delete bullet;
 	}
+	delete sprite2DReticle_;
 }
 
 
 
 
 void Player::Initialize(Model* model, uint32_t textureHandle, Vector3 position) {
-	
+
 	// NULLポインタチェック
 	assert(model);
 
@@ -36,11 +37,22 @@ void Player::Initialize(Model* model, uint32_t textureHandle, Vector3 position) 
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 	worldTransform_.UpdateMatrix();
+
+	// 3Dレティクルのワールドトランスフォーム初期化
+	worldTransform3DReticle_.Initialize();
+	worldTransform3DReticle_.translation_.z += 50.0f;
+	worldTransform3DReticle_.parent_ = &worldTransform_;
+	worldTransform3DReticle_.UpdateMatrix();
+
+	// 2Dレティクル用テクスチャ取得
+	uint32_t textureReticle = TextureManager::Load("Reticle.png");
+	// スプライト生成
+	sprite2DReticle_ = Sprite::Create(textureReticle, {0,0}, {1,1,1,1}, {0.5f, 0.5f});
 }
 
 
 
-void Player::Update() {
+void Player::Update(const ViewProjection& viewProjection) {
 
 	// 弾の発射判定
 	Attack();
@@ -112,19 +124,19 @@ void Player::Update() {
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();
 
-/*
-#pragma region ImGUI
-	ImGui::Begin("Player");
-	// 座標の入力ボックス
-	float* t[3] = {
-	    &worldTransform_.translation_.x,
-	    &worldTransform_.translation_.y,
-	    &worldTransform_.translation_.z,
-	};
-	ImGui::InputFloat3("translation", *t);
-	ImGui::End();
-#pragma endregion
-*/
+	// 3Dレティクルのワールド座標から2Dレティクルのスクリーン座標を計算
+	worldTransform3DReticle_.UpdateMatrix();
+
+	Vector3 positionReticle = worldTransform3DReticle_.GetWorldPosition();
+
+	// ビューポート行列
+	Matrix4x4 matViewport = Matrix4x4::CreateViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1);
+	// ビュー行列とプロジェクション行列、ビューポート行列を合成する
+	Matrix4x4 matViewProjectionViewport = viewProjection.matView * viewProjection.matProjection * matViewport;
+	// ワールド→スクリーン座標変換（ここで3Dから2Dになる）
+	positionReticle = Matrix4x4::TransformCoord(positionReticle, matViewProjectionViewport);
+	// スプライトのレティクルに座標を設定
+	sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
 }
 
 
@@ -137,18 +149,16 @@ void Player::Draw(const ViewProjection& viewProjection) {
 		bullet->Draw(viewProjection);
 	}
 }
+void Player::DrawUI() {
+	sprite2DReticle_->Draw();
+}
+
 
 void Player::OnCollision() {
 	// 何もしない
 }
 
-Vector3 Player::GetWorldPosition() { 
-	Vector3 result;
-	result.x = worldTransform_.matWorld_.m[3][0];
-	result.y = worldTransform_.matWorld_.m[3][1];
-	result.z = worldTransform_.matWorld_.m[3][2];
-	return result;
-}
+Vector3 Player::GetWorldPosition() { return worldTransform_.GetWorldPosition(); }
 
 
 /*ーーーーーーーーーーーーーー*/
@@ -164,9 +174,11 @@ void Player::Attack() {
 	if (input_->TriggerKey(DIK_SPACE)) {
 
 		// 弾の速度
-		Vector3 velocity(0, 0, kBulletSpeed);
+		Vector3 velocity{};
 
-		velocity = Matrix4x4::TransformNormal(velocity, Matrix4x4::MakeRotateMatrix(worldTransform_.rotation_));
+		velocity = worldTransform3DReticle_.GetWorldPosition() - worldTransform_.GetWorldPosition();
+		velocity = Normalize(velocity) * kBulletSpeed;
+		//velocity = Matrix4x4::TransformNormal(velocity, Matrix4x4::MakeRotateMatrix(worldTransform_.rotation_));
 
 		// 弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();

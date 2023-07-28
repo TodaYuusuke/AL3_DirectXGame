@@ -343,6 +343,56 @@ struct Matrix4x4 final {
 
 #pragma endregion
 
+#pragma region レンダリングパイプライン
+
+	// 透視射影行列
+	inline static Matrix4x4 CreatePerspectiveFovMatrix(const float& fovY, const float& aspectRatio, const float& nearClip, const float& farClip) {
+		Matrix4x4 result{};
+
+		result.m[0][0] = (1.0f / aspectRatio) * (1.0f / std::tan(fovY / 2.0f));
+
+		result.m[1][1] = (1.0f / std::tan(fovY / 2.0f));
+
+		result.m[2][2] = farClip / (farClip - nearClip);
+		result.m[2][3] = 1;
+
+		result.m[3][2] = (-nearClip * farClip) / (farClip - nearClip);
+
+		return result;
+	}
+	// 正射影行列
+	inline static Matrix4x4 CreateOrthographicMatrix(const float& left, const float& top, const float& right, const float& bottom, const float& nearClip, const float& farClip) {
+		Matrix4x4 result{};
+
+		result.m[0][0] = 2.0f / (right - left);
+		result.m[1][1] = 2.0f / (top - bottom);
+		result.m[2][2] = 2.0f / (farClip - nearClip);
+
+		result.m[3][0] = (left + right) / (left - right);
+		result.m[3][1] = (top + bottom) / (bottom - top);
+		result.m[3][2] = nearClip / (nearClip - farClip);
+		result.m[3][3] = 1;
+
+		return result;
+	}
+	// ビューポート変換行列
+	inline static Matrix4x4 CreateViewportMatrix(const float& left, const float& top, const float& width, const float& height, const float& minDepth, const float& maxDepth) {
+		Matrix4x4 result{};
+
+		result.m[0][0] = width / 2.0f;
+		result.m[1][1] = -(height / 2.0f);
+		result.m[2][2] = maxDepth - minDepth;
+
+		result.m[3][0] = left + (width / 2.0f);
+		result.m[3][1] = top + (height / 2.0f);
+		result.m[3][2] = minDepth;
+		result.m[3][3] = 1;
+
+		return result;
+	}
+
+#pragma endregion
+
 	// 描画用定数
 	//const int kPrintMatrix4x4RowHeight = 20;
 	//const int kPrintMatrix4x4ColumnWidth = 60;

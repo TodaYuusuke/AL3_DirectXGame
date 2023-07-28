@@ -9,6 +9,15 @@ Matrix4x4 WorldTransform::MakeAffineMatrix() {
 }
 
 
+Vector3 WorldTransform::GetWorldPosition() {
+	Vector3 result;
+	result.x = matWorld_.m[3][0];
+	result.y = matWorld_.m[3][1];
+	result.z = matWorld_.m[3][2];
+	return result;
+}
+
+
 /// <summary>
 /// 行列を計算、転送する
 /// </summary>

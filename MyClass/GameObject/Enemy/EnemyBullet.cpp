@@ -59,10 +59,4 @@ void EnemyBullet::OnCollision() {
 	isAlive_ = false;
 }
 
-Vector3 EnemyBullet::GetWorldPosition() { 
-	Vector3 result;
-	result.x = worldTransform_.matWorld_.m[3][0];
-	result.y = worldTransform_.matWorld_.m[3][1];
-	result.z = worldTransform_.matWorld_.m[3][2];
-	return result;
-}
+Vector3 EnemyBullet::GetWorldPosition() { return worldTransform_.GetWorldPosition(); }

@@ -7,6 +7,7 @@
 
 #include "../Collision/Collider.h"
 #include "PlayerBullet.h"
+#include <Sprite.h>
 
 class Player : public Collider {
 public: // メンバ関数
@@ -25,12 +26,16 @@ public: // メンバ関数
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	void Update(const ViewProjection& viewProjection);
 
 	/// <summary>
 	/// 描画
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection);
+	/// <summary>
+	/// UI描画
+	/// </summary>
+	void DrawUI();
 
 	/// <summary>
 	/// 衝突を検出したら呼び出されるコールバック関数
@@ -75,12 +80,13 @@ private: // メンバ変数
 	//*　　定　数　　*//
 	
 	// キャラクターの移動速さ
-	const float kCharacterSpeed = 0.2f;
+	const float kCharacterSpeed = 0.4f;
 	// キャラクターの回転の速さ
 	const float kRotSpeed = 0.02f;
 
 	// 弾の速さ
-	const float kBulletSpeed = 1.0f;
+	const float kBulletSpeed = 5.0f;
+
 
 	//*　　変　数　　*//
 
@@ -91,6 +97,10 @@ private: // メンバ変数
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
 
+	// 3Dレティクル用ワールドトランスフォーム
+	WorldTransform worldTransform3DReticle_;
+	// 2Dレティクル用スプライト
+	Sprite* sprite2DReticle_ = nullptr;
 
 	// 弾
 	std::list<PlayerBullet*> bullets_;

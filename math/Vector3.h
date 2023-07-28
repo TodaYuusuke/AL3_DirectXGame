@@ -1,6 +1,8 @@
 #pragma once
 #include <cmath>
 
+struct Matrix4x4;
+
 /// <summary>
 /// 3次元ベクトル
 /// </summary>
@@ -22,7 +24,10 @@ struct Vector3 final {
 	inline Vector3 operator*(const float& other) const {
 		return {x * other, y * other, z * other};
 	}
-	inline Vector3& operator*=(const float& other) { return *this = *this * other; }	
+	inline Vector3& operator*=(const float& other) { return *this = *this * other; }
+	// Vector3 Multiply(*) Matrix4x4
+	Vector3 operator*(const Matrix4x4& other) const;
+	// friend Vector3 operator*(Matrix4x4 scalar, const Vector3& vec) { return vec * scalar; }
 
 #pragma endregion
 };

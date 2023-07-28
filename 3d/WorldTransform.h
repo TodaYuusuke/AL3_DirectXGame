@@ -52,6 +52,12 @@ struct WorldTransform {
 	/// </summary>
 	/// <returns></returns>
 	Matrix4x4 MakeAffineMatrix();
+	
+	/// <summary>
+	/// ワールド座標を受け取る関数
+	/// </summary>
+	/// <returns></returns>
+	Vector3 GetWorldPosition();
 
 	/// <summary>
 	/// 行列を計算、転送する

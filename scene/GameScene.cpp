@@ -33,6 +33,8 @@ void GameScene::Initialize() {
 	// プレイヤー
 	playerTexture = TextureManager::Load("sample.png");
 	playerModel = Model::Create();
+	// レティクル
+	TextureManager::Load("Reticle.png");
 
 	// エネミー
 	enemyTexture = TextureManager::Load("enemy.png");
@@ -65,7 +67,7 @@ void GameScene::Initialize() {
 
 	// 自キャラの生成
 	player_ = new Player();
-	Vector3 playerPosition(0, -3, 15);
+	Vector3 playerPosition(0, -3, 30);
 	// 自キャラの初期化
 	player_->Initialize(playerModel, playerTexture, playerPosition);
 	player_->SetParent(&railCamera_->GetWorldTransform());
@@ -119,7 +121,7 @@ void GameScene::Update() {
 	viewProjection_.TransferMatrix();
 
 	// 自キャラの更新
-	player_->Update();
+	player_->Update(viewProjection_);
 
 	// 敵の更新
 	for (Enemy* enemy : enemys_) {
@@ -221,6 +223,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	player_->DrawUI();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
