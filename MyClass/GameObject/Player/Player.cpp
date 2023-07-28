@@ -48,6 +48,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle, Vector3 position) 
 	uint32_t textureReticle = TextureManager::Load("Reticle.png");
 	// スプライト生成
 	sprite2DReticle_ = Sprite::Create(textureReticle, {0,0}, {1,1,1,1}, {0.5f, 0.5f});
+	sprite2DReticle_->SetSize({64, 64});
 }
 
 
