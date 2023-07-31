@@ -65,7 +65,6 @@ void ImGuiManager::End() {
 }
 
 void ImGuiManager::Draw() {
-
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
 	// デスクリプタヒープの配列をセットするコマンド

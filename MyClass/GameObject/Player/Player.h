@@ -64,6 +64,26 @@ public: // メンバ関数
 private: // 関数
 
 	/// <summary>
+	/// マウス座標を受け取る関数
+	/// </summary>
+	Vector2 GetMousePosition();
+
+	/// <summary>
+	/// 移動処理（キーボード）
+	/// </summary>
+	void MoveKeyboard();
+
+	/// <summary>
+	/// 移動処理（コントローラー）
+	/// </summary>
+	void MoveJoyStick();
+
+	/// <summary>
+	/// レティクル移動処理
+	/// </summary>
+	void ReticleUpdate(const ViewProjection& viewProjection);
+
+	/// <summary>
 	/// 弾発射
 	/// </summary>
 	void Attack();
