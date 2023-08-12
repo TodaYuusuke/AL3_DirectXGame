@@ -13,11 +13,11 @@ void RailCamera::Initialize(Vector3 worldPosition, Vector3 radian) {
 
 	controlPoints_ = {
 	    {0,  0,  0},
-        {10, 10, 0},
-        {10, 15, 0},
-        {20, 15, 0},
-        {20, 0,  0},
-        {30, 0,  0}
+        {10, 10, 3},
+        {10, 15, 6},
+        {20, 15, 9},
+        {20, 0,  6},
+        {30, 0,  3}
 	};
 	t = 0.0f;
 }
