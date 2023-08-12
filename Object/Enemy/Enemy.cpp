@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "./State/Approach.h"
 #include <cassert>
 #include <ImGuiManager.h>
 
@@ -20,7 +21,7 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 	assert(model);
 
 	// 最初の行動フェーズ
-	phase_ = new EnemyApproach();
+	phase_ = new Approach();
 
 	// モデル
 	model_ = model;
@@ -59,7 +60,7 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 
 
 // 行動フェーズを変更する
-void Enemy::ChangePhase(BaseEnemyState* newState) {
+void Enemy::ChangePhase(IState* newState) {
 	delete phase_;
 	phase_ = newState;
 }

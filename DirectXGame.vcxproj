@@ -110,8 +110,9 @@
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Object\Enemy\BaseEnemyState.cpp" />
     <ClCompile Include="Object\Enemy\Enemy.cpp" />
+    <ClCompile Include="Object\Enemy\State\Approach.cpp" />
+    <ClCompile Include="Object\Enemy\State\Leave.cpp" />
     <ClCompile Include="Object\Player\Player.cpp" />
     <ClCompile Include="Object\Player\PlayerBullet.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
@@ -145,8 +146,10 @@
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
-    <ClInclude Include="Object\Enemy\BaseEnemyState.h" />
     <ClInclude Include="Object\Enemy\Enemy.h" />
+    <ClInclude Include="Object\Enemy\State\Approach.h" />
+    <ClInclude Include="Object\Enemy\State\IState.h" />
+    <ClInclude Include="Object\Enemy\State\Leave.h" />
     <ClInclude Include="Object\Player\Player.h" />
     <ClInclude Include="Object\Player\PlayerBullet.h" />
     <ClInclude Include="scene\GameScene.h" />

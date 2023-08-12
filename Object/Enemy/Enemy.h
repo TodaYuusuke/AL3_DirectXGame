@@ -4,9 +4,9 @@
 #include "WorldTransform.h"
 #include <Input.h>
 
-#include "BaseEnemyState.h"
+#include "./State/IState.h"
 
-class BaseEnemyState;
+class IState;
 
 class Enemy {
 
@@ -38,7 +38,7 @@ public: // メンバ関数
 	// 座標のゲッター
 	Vector3 GetTranslation() { return worldTransform_.translation_; }
 	// 行動フェーズを変更する
-	void ChangePhase(BaseEnemyState* newState);
+	void ChangePhase(IState* newState);
 
 
 private: // メンバ変数
@@ -48,7 +48,7 @@ private: // メンバ変数
 	//*　　変　数　　*//
 
 	// 現在の行動フェーズ
-	BaseEnemyState* phase_ = nullptr;
+	IState* phase_ = nullptr;
 
 
 	// ワールド変換データ
