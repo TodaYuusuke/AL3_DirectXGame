@@ -112,26 +112,21 @@ void Player::Update() {
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();
 
-/*
+
 #pragma region ImGUI
 	ImGui::Begin("Player");
-	// 座標の入力ボックス
-	float* t[3] = {
-	    &worldTransform_.translation_.x,
-	    &worldTransform_.translation_.y,
-	    &worldTransform_.translation_.z,
-	};
-	ImGui::InputFloat3("translation", *t);
+	ImGui::DragFloat3("translation", &worldTransform_.translation_.x, 0.1f);
+	ImGui::DragFloat3("rotation", &worldTransform_.rotation_.x, 0.01f);
 	ImGui::End();
 #pragma endregion
-*/
+
 }
 
 
 
 void Player::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
-
+	
 	// 弾描画
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Draw(viewProjection);
@@ -165,7 +160,7 @@ void Player::Attack() {
 		// 弾の速度
 		Vector3 velocity(0, 0, kBulletSpeed);
 
-		velocity = Matrix4x4::TransformNormal(velocity, Matrix4x4::MakeRotateMatrix(worldTransform_.rotation_));
+		velocity = Matrix4x4::TransformNormal(velocity, worldTransform_.matWorld_);
 
 		// 弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();

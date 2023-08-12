@@ -64,7 +64,7 @@ void GameScene::Initialize() {
 
 	// 自キャラの生成
 	player_ = new Player();
-	Vector3 playerPosition(0, -3, 15);
+	Vector3 playerPosition(0, 0, 15);
 	// 自キャラの初期化
 	player_->Initialize(playerModel, playerTexture, playerPosition);
 	player_->SetParent(&railCamera_->GetWorldTransform());
@@ -95,13 +95,13 @@ void GameScene::Update() {
 #endif // DEBUG
 
 	ViewProjection v;
+	railCamera_->Update();
 	// デバッグカメラ更新
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();
 		v = debugCamera_->GetViewProjection();
 	// レールカメラ更新
 	} else {
-		railCamera_->Update();
 		v = railCamera_->GetViewProjection();
 	}
 	viewProjection_.matView = v.matView;

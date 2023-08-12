@@ -47,8 +47,15 @@ Vector3 GetCatmullRomPosition(std::vector<Vector3> controlPoints, float t) {
 	float calcT = t * (controlPoints.size() - 1);
 	// 整数部を取得
 	int roop = static_cast<int>(calcT);
+	if (t == 1.0f) {
+		roop -= 1;
+	}
 	// 小数部を取得
-	calcT -= static_cast<float>(roop);
+	if (t == 1.0f) {
+		calcT = 1.0f;
+	} else {
+		calcT -= static_cast<float>(roop);
+	}
 
 	roop = std::clamp(roop, 0, static_cast<int>(controlPoints.size() - 1));
 	calcT = std::clamp(calcT, 0.0f, 1.0f);
