@@ -8,6 +8,10 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+
+#include "DebugCamera.h"
+#include "MyClass/GameObject/RailCamera/RailCamera.h"
+
 #include "../MyClass/GameObject/Player/Player.h"
 #include "../MyClass/GameObject/Skydome/Skydome.h"
 #include <memory>
@@ -51,18 +55,27 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	
+
+	// ビュープロジェクション
+	ViewProjection viewProjection_;
+
+
 	// テクスチャハンドル
 	uint32_t playerTexture = 0;
 	// 3Dモデルデータ
-	std::unique_ptr<Model> playerModel = nullptr;
-	
-	// ビュープロジェクション
-	ViewProjection viewProjection_;
+	std::unique_ptr<Model> playerModel_ = nullptr;
+	std::unique_ptr<Model> skydomeModel_ = nullptr;
 
 
 	// 自キャラ
 	std::unique_ptr<Player> player_ = nullptr;
 	// スカイドーム
 	std::unique_ptr<Skydome> skydome_ = nullptr;
+
+	// デバッグカメラ有効
+	bool isDebugCameraActive_ = false;
+	// デバッグカメラ
+	std::unique_ptr<DebugCamera> debugCamera_ = nullptr;
+	// レールカメラ
+	std::unique_ptr<RailCamera> railCamera_ = nullptr;
 };

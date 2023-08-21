@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <cassert>
 
-void Player::Initialize(Model* model, uint32_t textureHandle) {
+void Player::Initialize(Model* model, uint32_t textureHandle, Vector3 position) {
 	
 	// NULLポインタチェック
 	assert(model);
@@ -12,6 +12,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
+	worldTransform_.translation_ = position;
 }
 
 
