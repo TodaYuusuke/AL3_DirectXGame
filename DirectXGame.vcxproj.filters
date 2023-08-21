@@ -55,6 +55,12 @@
     <Filter Include="MyClass">
       <UniqueIdentifier>{6486d7ec-ad25-43c6-9657-7c127e433afc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyClass\GameObject">
+      <UniqueIdentifier>{5e013582-d933-4c6b-bb54-f70471da61bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GameObject\Player">
+      <UniqueIdentifier>{7200cd67-d376-4115-af4a-1674e2f81d7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -73,7 +79,7 @@
       <Filter>ソース ファイル\2d</Filter>
     </ClCompile>
     <ClCompile Include="MyClass\GameObject\Player\Player.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>MyClass\GameObject\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +168,7 @@
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
     <ClInclude Include="MyClass\GameObject\Player\Player.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>MyClass\GameObject\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
