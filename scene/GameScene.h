@@ -9,7 +9,6 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "../MyClass/GameObject/Player/Player.h"
-#include "../MyClass/GameObject/Skydome/Skydome.h"
 #include <memory>
 
 /// <summary>
@@ -63,6 +62,4 @@ private: // メンバ変数
 
 	// 自キャラ
 	std::unique_ptr<Player> player_ = nullptr;
-	// スカイドーム
-	std::unique_ptr<Skydome> skydome_ = nullptr;
 };
