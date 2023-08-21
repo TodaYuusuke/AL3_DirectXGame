@@ -110,6 +110,7 @@
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math\Vector3.cpp" />
     <ClCompile Include="MyClass\GameObject\Player\Player.cpp" />
     <ClCompile Include="MyClass\GameObject\Skydome\Skydome.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
