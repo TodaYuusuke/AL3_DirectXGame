@@ -12,13 +12,14 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
-
 	
-	// テクスチャハンドル
-	playerTexture = TextureManager::Load("sample.png");
 	// 3Dモデルデータ
-	playerModel_.reset(Model::Create());
+	playerHeadModel_.reset(Model::CreateFromOBJ("float_Head", true));
+	playerBodyModel_.reset(Model::CreateFromOBJ("float_Body", true));
+	playerLeftArmModel_.reset(Model::CreateFromOBJ("float_L_arm", true));
+	playerRightArmModel_.reset(Model::CreateFromOBJ("float_R_arm", true));
 	skydomeModel_.reset(Model::CreateFromOBJ("skydome", true));
+	groundModel_.reset(Model::CreateFromOBJ("ground", true));
 
 	// ビュープロジェクション
 	viewProjection_.Initialize();
@@ -33,11 +34,13 @@ void GameScene::Initialize() {
 	// スカイドームの生成
 	skydome_ = std::make_unique<Skydome>();
 	skydome_->Initialize(skydomeModel_.get());
-
+	// グラウンドの生成
+	ground_ = std::make_unique<Ground>();
+	ground_->Initialize(groundModel_.get());
+	
 	// 自キャラの生成
 	player_ = std::make_unique<Player>();
-	player_->Initialize(playerModel_.get(), playerTexture, {0.0f, 0.0f, 0.0f});
-	
+	player_->Initialize(playerHeadModel_.get(), playerBodyModel_.get(), playerLeftArmModel_.get(), playerRightArmModel_.get(), {0.0f, 0.0f, 0.0f});
 	// 三人称カメラ
 	thirdPersonCamera_ = std::make_unique<ThirdPersonCamera>();
 	thirdPersonCamera_->Initialize({0.0f, 7.5f, -20.0f}, {0.25f, 0.0f, 0.0f});
@@ -106,9 +109,11 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	
-	// 天球の描画
+	// スカイドームの描画
 	skydome_->Draw(viewProjection_);
-	
+	// グラウンドの描画
+	ground_->Draw(viewProjection_);
+
 	// 自キャラの描画
 	player_->Draw(viewProjection_);
 

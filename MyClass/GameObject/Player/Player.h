@@ -10,7 +10,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* model, uint32_t textureHandle, Vector3 position);
+	void Initialize(Model* head, Model* body, Model* Larm, Model* Rarm, Vector3 position);
 
 	/// <summary>
 	/// 更新
@@ -32,9 +32,13 @@ private: // メンバ変数
 	
 	// ワールド変換データ
 	WorldTransform worldTransform_;
+
+	// 各モデル用のワールド変換データ
+	WorldTransform modelTransform_[4];
 	// モデル
-	Model* model_ = nullptr;
-	// テクスチャハンドル
-	uint32_t textureHandle_ = 0u;
+	Model* headModel_ = nullptr;
+	Model* bodyModel_ = nullptr;
+	Model* leftArmModel_ = nullptr;
+	Model* rightArmModel_ = nullptr;
 
 };

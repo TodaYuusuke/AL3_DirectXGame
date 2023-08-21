@@ -61,7 +61,16 @@
     <Filter Include="MyClass\GameObject\Player">
       <UniqueIdentifier>{7200cd67-d376-4115-af4a-1674e2f81d7d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MyClass\GameObject\Skydome">
+    <Filter Include="MyClass\GameObject\ThirdPersonCamera">
+      <UniqueIdentifier>{fe5451d2-b7a6-4822-a91b-4e28d22292b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GameObject\Field">
+      <UniqueIdentifier>{f3eddf7e-1f7d-4719-9145-bde3f4d32a87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GameObject\Field\Ground">
+      <UniqueIdentifier>{f7344c83-ed8d-43eb-9404-0ed58f618d3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GameObject\Field\Skydome">
       <UniqueIdentifier>{7b540e89-4b18-4a01-a2e0-83fbab591a17}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -84,11 +93,20 @@
     <ClCompile Include="MyClass\GameObject\Player\Player.cpp">
       <Filter>MyClass\GameObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="MyClass\GameObject\Skydome\Skydome.cpp">
-      <Filter>MyClass\GameObject\Skydome</Filter>
-    </ClCompile>
     <ClCompile Include="WorldTransform.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\ThirdPersonCamera\ThirdPersonCamera.cpp">
+      <Filter>MyClass\GameObject\ThirdPersonCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Vector3.cpp">
+      <Filter>ソース ファイル\math</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\Field\Ground\Ground.cpp">
+      <Filter>MyClass\GameObject\Field\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\Field\Skydome\Skydome.cpp">
+      <Filter>MyClass\GameObject\Field\Skydome</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,8 +197,14 @@
     <ClInclude Include="MyClass\GameObject\Player\Player.h">
       <Filter>MyClass\GameObject\Player</Filter>
     </ClInclude>
-    <ClInclude Include="MyClass\GameObject\Skydome\Skydome.h">
-      <Filter>MyClass\GameObject\Skydome</Filter>
+    <ClInclude Include="MyClass\GameObject\ThirdPersonCamera\ThirdPersonCamera.h">
+      <Filter>MyClass\GameObject\ThirdPersonCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Field\Ground\Ground.h">
+      <Filter>MyClass\GameObject\Field\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Field\Skydome\Skydome.h">
+      <Filter>MyClass\GameObject\Field\Skydome</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
