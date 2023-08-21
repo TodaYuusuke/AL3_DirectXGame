@@ -113,6 +113,7 @@
     <ClCompile Include="MyClass\GameObject\Player\Player.cpp" />
     <ClCompile Include="MyClass\GameObject\Skydome\Skydome.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
+    <ClCompile Include="WorldTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\ImGuiManager.h" />
