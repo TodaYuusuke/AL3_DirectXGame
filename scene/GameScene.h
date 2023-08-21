@@ -8,7 +8,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include "Player.h"
+#include "../MyClass/GameObject/Player/Player.h"
 #include <memory>
 
 /// <summary>
