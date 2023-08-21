@@ -1,7 +1,7 @@
-#include "RailCamera.h"
+#include "ThirdPersonCamera.h"
 #include <ImGuiManager.h>
 
-void RailCamera::Initialize(Vector3 worldPosition, Vector3 radian) {
+void ThirdPersonCamera::Initialize(Vector3 worldPosition, Vector3 radian) {
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = worldPosition;
@@ -11,7 +11,7 @@ void RailCamera::Initialize(Vector3 worldPosition, Vector3 radian) {
 	viewProjection_.Initialize();
 }
 
-void RailCamera::Update() {
+void ThirdPersonCamera::Update() {
 	// カメラの座標を画面表示する処理
 	ImGui::Begin("Camera");
 	ImGui::DragFloat3("translation", &worldTransform_.translation_.x, 0.1f);

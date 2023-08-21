@@ -10,7 +10,7 @@
 #include "WorldTransform.h"
 
 #include "DebugCamera.h"
-#include "MyClass/GameObject/RailCamera/RailCamera.h"
+#include "MyClass/GameObject/ThirdPersonCamera/ThirdPersonCamera.h"
 
 #include "../MyClass/GameObject/Player/Player.h"
 #include "../MyClass/GameObject/Skydome/Skydome.h"
@@ -77,5 +77,5 @@ private: // メンバ変数
 	// デバッグカメラ
 	std::unique_ptr<DebugCamera> debugCamera_ = nullptr;
 	// レールカメラ
-	std::unique_ptr<RailCamera> railCamera_ = nullptr;
+	std::unique_ptr<ThirdPersonCamera> thirdPersonCamera_ = nullptr;
 };

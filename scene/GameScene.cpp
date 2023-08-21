@@ -32,21 +32,17 @@ void GameScene::Initialize() {
 
 	// スカイドームの生成
 	skydome_ = std::make_unique<Skydome>();
-	// スカイドームの初期化
 	skydome_->Initialize(skydomeModel_.get());
-
-	// レールカメラ
-	railCamera_ = std::make_unique<RailCamera>();
-	// レールカメラの初期化
-	railCamera_->Initialize({0.0f, 0.0f, -30.0f}, {0.0f, 0.0f, 0.0f});
 
 	// 自キャラの生成
 	player_ = std::make_unique<Player>();
 	Vector3 playerPosition(0, -3, 30);
-	// 自キャラの初期化
 	player_->Initialize(playerModel_.get(), playerTexture, playerPosition);
-	player_->SetParent(&railCamera_->GetWorldTransform());
-
+	
+	// レールカメラ
+	thirdPersonCamera_ = std::make_unique<ThirdPersonCamera>();
+	thirdPersonCamera_->Initialize({0.0f, 0.0f, -30.0f}, {0.0f, 0.0f, 0.0f});
+	thirdPersonCamera_->worldTransform_.parent_ = player_->GetWorldTransform();
 }
 
 void GameScene::Update() {
@@ -70,8 +66,8 @@ void GameScene::Update() {
 		v = debugCamera_->GetViewProjection();
 		// レールカメラ更新
 	} else {
-		railCamera_->Update();
-		v = railCamera_->GetViewProjection();
+		thirdPersonCamera_->Update();
+		v = thirdPersonCamera_->GetViewProjection();
 	}
 	viewProjection_.matView = v.matView;
 	viewProjection_.matProjection = v.matProjection;

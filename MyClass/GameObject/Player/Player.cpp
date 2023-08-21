@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <ImGuiManager.h>
 #include <cassert>
 
 void Player::Initialize(Model* model, uint32_t textureHandle, Vector3 position) {
@@ -18,6 +19,11 @@ void Player::Initialize(Model* model, uint32_t textureHandle, Vector3 position) 
 
 
 void Player::Update() {
+	ImGui::Begin("Player");
+	ImGui::DragFloat3("translation", &worldTransform_.translation_.x, 0.1f);
+	ImGui::DragFloat3("rotation", &worldTransform_.rotation_.x, 0.01f);
+	ImGui::End();
+
 	worldTransform_.TransferMatrix();
 }
 

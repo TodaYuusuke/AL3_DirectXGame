@@ -2,7 +2,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
-class RailCamera {
+class ThirdPersonCamera {
 public: // メンバ関数
 	
 	/// <summary>
@@ -15,17 +15,18 @@ public: // メンバ関数
 	void Update();
 
 	/// <summary>
-	/// ワールドトランスフォームを取得
+	/// 追従対象をセット
 	/// </summary>
-	const WorldTransform& GetWorldTransform() { return worldTransform_; }
+	void SetParent();
 	/// <summary>
 	/// ビュープロジェクションを取得
 	/// </summary>
 	const ViewProjection& GetViewProjection() { return viewProjection_; }
 
+	WorldTransform worldTransform_;
+
 private: // メンバ変数
 	// ワールド変換データ
-	WorldTransform worldTransform_;
 	// ビュープロジェクション
 	ViewProjection viewProjection_;
 };

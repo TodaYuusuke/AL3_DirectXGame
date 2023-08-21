@@ -21,13 +21,12 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw(ViewProjection viewProjection);
-
 	
 	/// <summary>
-	/// 親となるワールドトランスフォームをセット
+	/// ワールドトランスフォームのポインタを受け取る
 	/// </summary>
-	/// <param name="parent">親となるワールドトランスフォーム</param>
-	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
+	/// <returns></returns>
+	WorldTransform* GetWorldTransform() { return &worldTransform_; }
 
 private: // メンバ変数
 	
