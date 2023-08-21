@@ -18,7 +18,7 @@ void GameScene::Initialize() {
 	playerTexture = TextureManager::Load("sample.png");
 	// 3Dモデルデータ
 	playerModel_.reset(Model::Create());
-	skydomeModel_.reset(Model::Create());
+	skydomeModel_.reset(Model::CreateFromOBJ("skydome", true));
 
 	// ビュープロジェクション
 	viewProjection_.Initialize();
@@ -36,12 +36,11 @@ void GameScene::Initialize() {
 
 	// 自キャラの生成
 	player_ = std::make_unique<Player>();
-	Vector3 playerPosition(0, -3, 30);
-	player_->Initialize(playerModel_.get(), playerTexture, playerPosition);
+	player_->Initialize(playerModel_.get(), playerTexture, {0.0f, 0.0f, 0.0f});
 	
-	// レールカメラ
+	// 三人称カメラ
 	thirdPersonCamera_ = std::make_unique<ThirdPersonCamera>();
-	thirdPersonCamera_->Initialize({0.0f, 0.0f, -30.0f}, {0.0f, 0.0f, 0.0f});
+	thirdPersonCamera_->Initialize({0.0f, 7.5f, -20.0f}, {0.25f, 0.0f, 0.0f});
 	thirdPersonCamera_->worldTransform_.parent_ = player_->GetWorldTransform();
 }
 
@@ -64,7 +63,7 @@ void GameScene::Update() {
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();
 		v = debugCamera_->GetViewProjection();
-		// レールカメラ更新
+	// カメラ更新
 	} else {
 		thirdPersonCamera_->Update();
 		v = thirdPersonCamera_->GetViewProjection();
