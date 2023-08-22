@@ -38,13 +38,13 @@ void GameScene::Initialize() {
 	ground_ = std::make_unique<Ground>();
 	ground_->Initialize(groundModel_.get());
 	
-	// 自キャラの生成
+	// 自キャラと三人称カメラの生成
 	player_ = std::make_unique<Player>();
+	followCamera_ = std::make_unique<FollowCamera>();
 	player_->Initialize(playerHeadModel_.get(), playerBodyModel_.get(), playerLeftArmModel_.get(), playerRightArmModel_.get(), {0.0f, 0.0f, 0.0f});
-	// 三人称カメラ
-	thirdPersonCamera_ = std::make_unique<ThirdPersonCamera>();
-	thirdPersonCamera_->Initialize({0.0f, 7.5f, -20.0f}, {0.25f, 0.0f, 0.0f});
-	thirdPersonCamera_->worldTransform_.parent_ = player_->GetWorldTransform();
+	followCamera_->Initialize();
+	player_->SetViewProjection(&followCamera_->GetViewProjection());
+	followCamera_->SetTarget(&player_->GetWorldTransform());
 }
 
 void GameScene::Update() {
@@ -68,14 +68,13 @@ void GameScene::Update() {
 		v = debugCamera_->GetViewProjection();
 	// カメラ更新
 	} else {
-		thirdPersonCamera_->Update();
-		v = thirdPersonCamera_->GetViewProjection();
+		followCamera_->Update();
+		v = followCamera_->GetViewProjection();
 	}
 	viewProjection_.matView = v.matView;
 	viewProjection_.matProjection = v.matProjection;
 	// ビュープロジェクション行列の転送
 	viewProjection_.TransferMatrix();
-
 
 
 	// 自キャラの更新

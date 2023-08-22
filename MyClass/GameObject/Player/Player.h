@@ -26,10 +26,15 @@ public: // メンバ関数
 	/// ワールドトランスフォームのポインタを受け取る
 	/// </summary>
 	/// <returns></returns>
-	WorldTransform* GetWorldTransform() { return &worldTransform_; }
+	const WorldTransform& GetWorldTransform() { return worldTransform_; }
+
+	void SetViewProjection(const ViewProjection* viewProjection) { viewProjection_ = viewProjection; }
+
+private: // メンバ定数
+	float kCharacterSpeed = 0.3f;
 
 private: // メンバ変数
-	
+
 	// ワールド変換データ
 	WorldTransform worldTransform_;
 
@@ -40,5 +45,13 @@ private: // メンバ変数
 	Model* bodyModel_ = nullptr;
 	Model* leftArmModel_ = nullptr;
 	Model* rightArmModel_ = nullptr;
+
+	// カメラのビュープロジェクション
+	const ViewProjection* viewProjection_ = nullptr;
+
+private: // プライベートな関数
+	
+	// コントローラーでの操作
+	void MoveJoyStick();
 
 };
