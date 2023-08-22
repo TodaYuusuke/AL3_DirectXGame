@@ -11,8 +11,8 @@ void Player::Initialize(Model* head, Model* body, Model* Larm, Model* Rarm, Vect
 	assert(Rarm);
 
 	// モデル
-	headModel_ = head;
 	bodyModel_ = body;
+	headModel_ = head;
 	leftArmModel_ = Larm;
 	rightArmModel_ = Rarm;
 
@@ -33,10 +33,10 @@ void Player::Update() {
 	ImGui::Begin("Player");
 	ImGui::DragFloat3("translation", &worldTransform_.translation_.x, 0.1f);
 	ImGui::DragFloat3("rotation", &worldTransform_.rotation_.x, 0.01f);
-	//ImGui::DragFloat3("head", &modelTransform_[0].translation_.x, 0.01f);
-	//ImGui::DragFloat3("body", &modelTransform_[1].translation_.x, 0.01f);
-	//ImGui::DragFloat3("Larm", &modelTransform_[2].translation_.x, 0.01f);
-	//ImGui::DragFloat3("Rarm", &modelTransform_[3].translation_.x, 0.01f);
+	ImGui::DragFloat3("body", &modelTransform_[0].rotation_.x, 0.01f);
+	ImGui::DragFloat3("head", &modelTransform_[1].rotation_.x, 0.01f);
+	ImGui::DragFloat3("Larm", &modelTransform_[2].rotation_.x, 0.01f);
+	ImGui::DragFloat3("Rarm", &modelTransform_[3].rotation_.x, 0.01f);
 	ImGui::End();
 
 	// 移動処理
@@ -45,6 +45,7 @@ void Player::Update() {
 	Animation();
 
 	worldTransform_.UpdateMatrix();
+	// モデル別の行列の更新
 	for (int i = 0; i < 4; i++) {
 		modelTransform_[i].UpdateMatrix();
 	}
@@ -114,10 +115,16 @@ void Player::InitializeAnimation() {
 	modelTransform_[Body].translation_ = {0.0f, 0.0f, 0.0f};
 	modelTransform_[LeftArm].translation_ = {-0.44f, 1.34f, 0.0f};
 	modelTransform_[RightArm].translation_ = {0.44f, 1.34f, 0.0f};
+	modelTransform_[LeftArm].rotation_ = {0.0f, 0.0f, 0.25f};
+	modelTransform_[RightArm].rotation_ = {0.0f, 0.0f, -0.25f};
+
+	floatingParameter_ = 0.0f;
+	armSwingParameter_ = 0.0f;
 }
 
 void Player::Animation() {
 	FloatingUpdate();
+	ArmSwingUpdate();
 }
 
 void Player::FloatingUpdate() {
@@ -128,4 +135,15 @@ void Player::FloatingUpdate() {
 	
 	// 浮遊を座標に反映
 	modelTransform_[Body].translation_.y = std::sin(floatingParameter_) * kFloatingHeight;
+}
+
+void Player::ArmSwingUpdate() {
+	// パラメータを1ステップ分加算
+	armSwingParameter_ += (float)kArmSwingStep_;
+	// 2πを超えたら0に戻す
+	armSwingParameter_ = (float)std::fmod(armSwingParameter_, 2.0f * M_PI);
+
+	// 浮遊を座標に反映
+	modelTransform_[LeftArm].rotation_.x = std::sin(armSwingParameter_) * kArmSwingHeight;
+	modelTransform_[RightArm].rotation_.x = std::sin(armSwingParameter_) * kArmSwingHeight;
 }

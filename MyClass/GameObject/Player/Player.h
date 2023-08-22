@@ -42,8 +42,8 @@ private: // メンバ変数
 	WorldTransform worldTransform_;
 
 	enum Parts {
-		Head,
 		Body,
+		Head,
 		LeftArm,
 		RightArm,
 	};
@@ -51,8 +51,8 @@ private: // メンバ変数
 	// 各モデル用のワールド変換データ
 	WorldTransform modelTransform_[4];
 	// モデル
-	Model* headModel_ = nullptr;
 	Model* bodyModel_ = nullptr;
+	Model* headModel_ = nullptr;
 	Model* leftArmModel_ = nullptr;
 	Model* rightArmModel_ = nullptr;
 
@@ -70,9 +70,16 @@ private: // アニメーション関連
 	void Animation();
 
 	// 浮遊ギミック
-	const uint16_t kFloatingCycle_ = 120;
+	const uint16_t kFloatingCycle_ = 60;
 	const double kFloatingStep_ = 2.0f * M_PI / kFloatingCycle_;	
 	const float kFloatingHeight = 0.2f;
 	float floatingParameter_ = 0.0f;
 	void FloatingUpdate();
+
+	// 腕を振るアニメーション
+	const uint16_t kArmSwingCycle_ = 60;
+	const double kArmSwingStep_ = 2.0f * M_PI / kFloatingCycle_;
+	const float kArmSwingHeight = 0.2f;
+	float armSwingParameter_ = 0.0f;
+	void ArmSwingUpdate();
 };
