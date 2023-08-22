@@ -64,15 +64,4 @@ private: // プライベートな関数
 	// コントローラーでの操作
 	void MoveJoyStick();
 
-private: // アニメーション関連
-	// 関数
-	void InitializeAnimation();
-	void Animation();
-
-	// 浮遊ギミック
-	const uint16_t kFloatingCycle_ = 120;
-	const double kFloatingStep_ = 2.0f * M_PI / kFloatingCycle_;	
-	const float kFloatingHeight = 0.2f;
-	float floatingParameter_ = 0.0f;
-	void FloatingUpdate();
 };

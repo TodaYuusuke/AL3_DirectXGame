@@ -20,13 +20,20 @@ void Player::Initialize(Model* head, Model* body, Model* Larm, Model* Rarm, Vect
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 
+	for (int i = 0; i < 4; i++) {
+		modelTransform_[i].Initialize();
+	}
+
 	// 親子関連付け
-	modelTransform_[1].parent_ = &worldTransform_;
-	modelTransform_[0].parent_ = &modelTransform_[1];
-	modelTransform_[2].parent_ = &modelTransform_[1];
-	modelTransform_[3].parent_ = &modelTransform_[1];
-	// アニメーション初期化
-	InitializeAnimation();
+	for (int i = 0; i < 4; i++) {
+		modelTransform_[i].parent_ = &worldTransform_;
+		modelTransform_[i].scale_ = {1.5f, 1.5f, 1.5f};
+	}
+
+	modelTransform_[Head].translation_ = {0.0f, 2.3f, 0.0f};
+	modelTransform_[Body].translation_ = {0.0f, 0.0f, 0.0f};
+	modelTransform_[LeftArm].translation_ = {-0.7f, 2.2f, 0.0f};
+	modelTransform_[RightArm].translation_ = {0.7f, 2.2f, 0.0f};
 }
 
 void Player::Update() {
@@ -41,8 +48,6 @@ void Player::Update() {
 
 	// 移動処理
 	MoveJoyStick();
-	// アニメーション
-	Animation();
 
 	worldTransform_.UpdateMatrix();
 	for (int i = 0; i < 4; i++) {
@@ -102,31 +107,4 @@ void Player::MoveJoyStick() {
 
 	// 移動
 	worldTransform_.translation_ += move;
-}
-
-void Player::InitializeAnimation() {
-	modelTransform_[Body].scale_ = {1.5f, 1.5f, 1.5f};
-	
-	for (int i = 0; i < 4; i++) {
-		modelTransform_[i].Initialize();
-		//modelTransform_[i].scale_ = {1.5f, 1.5f, 1.5f};
-	}
-	modelTransform_[Head].translation_ = {0.0f, 1.5f, 0.0f};
-	modelTransform_[Body].translation_ = {0.0f, 0.0f, 0.0f};
-	modelTransform_[LeftArm].translation_ = {-0.44f, 1.34f, 0.0f};
-	modelTransform_[RightArm].translation_ = {0.44f, 1.34f, 0.0f};
-}
-
-void Player::Animation() {
-	FloatingUpdate();
-}
-
-void Player::FloatingUpdate() {
-	// パラメータを1ステップ分加算
-	floatingParameter_ += (float)kFloatingStep_;
-	// 2πを超えたら0に戻す
-	floatingParameter_ = (float)std::fmod(floatingParameter_, 2.0f * M_PI);
-	
-	// 浮遊を座標に反映
-	modelTransform_[Body].translation_.y = std::sin(floatingParameter_) * kFloatingHeight;
 }
