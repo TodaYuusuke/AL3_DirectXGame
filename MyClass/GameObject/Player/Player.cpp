@@ -21,10 +21,10 @@ void Player::Initialize(Model* head, Model* body, Model* Larm, Model* Rarm, Vect
 	worldTransform_.translation_ = position;
 
 	// 親子関連付け
-	modelTransform_[1].parent_ = &worldTransform_;
-	modelTransform_[0].parent_ = &modelTransform_[1];
-	modelTransform_[2].parent_ = &modelTransform_[1];
-	modelTransform_[3].parent_ = &modelTransform_[1];
+	modelTransform_[Body].parent_ = &worldTransform_;
+	modelTransform_[Head].parent_ = &modelTransform_[Body];
+	modelTransform_[LeftArm].parent_ = &modelTransform_[Body];
+	modelTransform_[RightArm].parent_ = &modelTransform_[Body];
 	// アニメーション初期化
 	InitializeAnimation();
 }
@@ -109,7 +109,6 @@ void Player::InitializeAnimation() {
 	
 	for (int i = 0; i < 4; i++) {
 		modelTransform_[i].Initialize();
-		//modelTransform_[i].scale_ = {1.5f, 1.5f, 1.5f};
 	}
 	modelTransform_[Head].translation_ = {0.0f, 1.5f, 0.0f};
 	modelTransform_[Body].translation_ = {0.0f, 0.0f, 0.0f};
