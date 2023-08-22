@@ -40,3 +40,17 @@ Vector3 Normalize(Vector3 norm);
 Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
 // 球面線形補間
 Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t);
+
+// radianからdegreeに変換する関数
+// 返り値：degree
+// 引数：
+// radian ... radianの角度
+// radianの角度をdegreeの角度に変換する関数。引数で要求されるのは基本Degreeなのであまり使わない。
+float RadiantoDegree(float radian);
+
+// degreeからradianに変換する関数
+// 返り値：radian
+// 引数：
+// degree ... degreeの角度
+// degreeの角度をradianの角度に変換する関数。引数で要求されるのは基本Degreeなので関数内では使われる。
+float DegreetoRadian(float degree);

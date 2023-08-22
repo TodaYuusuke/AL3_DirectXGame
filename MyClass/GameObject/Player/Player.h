@@ -3,6 +3,9 @@
 #include "WorldTransform.h"
 #include "ViewProjection.h"
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 class Player {
 
 public: // メンバ関数
@@ -38,6 +41,13 @@ private: // メンバ変数
 	// ワールド変換データ
 	WorldTransform worldTransform_;
 
+	enum Parts {
+		Head,
+		Body,
+		LeftArm,
+		RightArm,
+	};
+
 	// 各モデル用のワールド変換データ
 	WorldTransform modelTransform_[4];
 	// モデル
@@ -54,4 +64,15 @@ private: // プライベートな関数
 	// コントローラーでの操作
 	void MoveJoyStick();
 
+private: // アニメーション関連
+	// 関数
+	void InitializeAnimation();
+	void Animation();
+
+	// 浮遊ギミック
+	const uint16_t kFloatingCycle_ = 120;
+	const double kFloatingStep_ = 2.0f * M_PI / kFloatingCycle_;	
+	const float kFloatingHeight = 0.2f;
+	float floatingParameter_ = 0.0f;
+	void FloatingUpdate();
 };

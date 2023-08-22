@@ -1,6 +1,8 @@
 #include "Vector3.h"
 #include "Matrix4x4.h"
 
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 Vector3 Vector3::operator*(const Matrix4x4& other) const {
 	Vector3 result{};
@@ -36,3 +38,7 @@ Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t) {
 Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t) {
 	return v1 * (1 - t) + v2 * t;
 }
+
+float RadiantoDegree(float radian) { return static_cast<float>(radian * (180.0f / M_PI)); }
+
+float DegreetoRadian(float degree) { return static_cast<float>(degree * (M_PI / 180.0f)); }
