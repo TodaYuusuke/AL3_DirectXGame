@@ -3,28 +3,14 @@
 #include <cassert>
 #include <Input.h>
 
-void Player::Initialize(Model* head, Model* body, Model* Larm, Model* Rarm, Vector3 position) {
-	// NULLポインタチェック
-	assert(head);
-	assert(body);
-	assert(Larm);
-	assert(Rarm);
-
-	// モデル
-	bodyModel_ = body;
-	headModel_ = head;
-	leftArmModel_ = Larm;
-	rightArmModel_ = Rarm;
-
-	// ワールドトランスフォ－ムの初期化
-	worldTransform_.Initialize();
-	worldTransform_.translation_ = position;
+void Player::Initialize(const std::vector<Model*>& models, Vector3 position) {
+	BaseCharacter::Initialize(models, position);
 
 	// 親子関連付け
-	modelTransform_[Body].parent_ = &worldTransform_;
-	modelTransform_[Head].parent_ = &modelTransform_[Body];
-	modelTransform_[LeftArm].parent_ = &modelTransform_[Body];
-	modelTransform_[RightArm].parent_ = &modelTransform_[Body];
+	models_[Body].worldTransform_.parent_ = &worldTransform_;
+	models_[Head].worldTransform_.parent_ = &models_[Body].worldTransform_;
+	models_[LeftArm].worldTransform_.parent_ = &models_[Body].worldTransform_;
+	models_[RightArm].worldTransform_.parent_ = &models_[Body].worldTransform_;
 	// アニメーション初期化
 	InitializeAnimation();
 }
@@ -33,10 +19,6 @@ void Player::Update() {
 	ImGui::Begin("Player");
 	ImGui::DragFloat3("translation", &worldTransform_.translation_.x, 0.1f);
 	ImGui::DragFloat3("rotation", &worldTransform_.rotation_.x, 0.01f);
-	ImGui::DragFloat3("body", &modelTransform_[0].rotation_.x, 0.01f);
-	ImGui::DragFloat3("head", &modelTransform_[1].rotation_.x, 0.01f);
-	ImGui::DragFloat3("Larm", &modelTransform_[2].rotation_.x, 0.01f);
-	ImGui::DragFloat3("Rarm", &modelTransform_[3].rotation_.x, 0.01f);
 	ImGui::End();
 
 	// 移動処理
@@ -44,18 +26,7 @@ void Player::Update() {
 	// アニメーション
 	Animation();
 
-	worldTransform_.UpdateMatrix();
-	// モデル別の行列の更新
-	for (int i = 0; i < 4; i++) {
-		modelTransform_[i].UpdateMatrix();
-	}
-}
-
-void Player::Draw(ViewProjection viewProjection) {
-	headModel_->Draw(modelTransform_[Head], viewProjection);
-	bodyModel_->Draw(modelTransform_[Body], viewProjection);
-	leftArmModel_->Draw(modelTransform_[LeftArm], viewProjection);
-	rightArmModel_->Draw(modelTransform_[RightArm], viewProjection);
+	BaseCharacter::Update();
 }
 
 
@@ -106,17 +77,14 @@ void Player::MoveJoyStick() {
 }
 
 void Player::InitializeAnimation() {
-	modelTransform_[Body].scale_ = {1.5f, 1.5f, 1.5f};
+	models_[Body].worldTransform_.scale_ = {1.5f, 1.5f, 1.5f};
 	
-	for (int i = 0; i < 4; i++) {
-		modelTransform_[i].Initialize();
-	}
-	modelTransform_[Head].translation_ = {0.0f, 1.5f, 0.0f};
-	modelTransform_[Body].translation_ = {0.0f, 0.0f, 0.0f};
-	modelTransform_[LeftArm].translation_ = {-0.44f, 1.34f, 0.0f};
-	modelTransform_[RightArm].translation_ = {0.44f, 1.34f, 0.0f};
-	modelTransform_[LeftArm].rotation_ = {0.0f, 0.0f, 0.25f};
-	modelTransform_[RightArm].rotation_ = {0.0f, 0.0f, -0.25f};
+	models_[Head].worldTransform_.translation_ = {0.0f, 1.5f, 0.0f};
+	models_[Body].worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
+	models_[LeftArm].worldTransform_.translation_ = {-0.44f, 1.34f, 0.0f};
+	models_[RightArm].worldTransform_.translation_ = {0.44f, 1.34f, 0.0f};
+	models_[LeftArm].worldTransform_.rotation_ = {0.0f, 0.0f, 0.25f};
+	models_[RightArm].worldTransform_.rotation_ = {0.0f, 0.0f, -0.25f};
 
 	floatingParameter_ = 0.0f;
 	armSwingParameter_ = 0.0f;
@@ -134,7 +102,7 @@ void Player::FloatingUpdate() {
 	floatingParameter_ = (float)std::fmod(floatingParameter_, 2.0f * M_PI);
 	
 	// 浮遊を座標に反映
-	modelTransform_[Body].translation_.y = std::sin(floatingParameter_) * kFloatingHeight;
+	models_[Body].worldTransform_.translation_.y = std::sin(floatingParameter_) * kFloatingHeight;
 }
 
 void Player::ArmSwingUpdate() {
@@ -144,6 +112,6 @@ void Player::ArmSwingUpdate() {
 	armSwingParameter_ = (float)std::fmod(armSwingParameter_, 2.0f * M_PI);
 
 	// 浮遊を座標に反映
-	modelTransform_[LeftArm].rotation_.x = std::sin(armSwingParameter_) * kArmSwingHeight;
-	modelTransform_[RightArm].rotation_.x = std::sin(armSwingParameter_) * kArmSwingHeight;
+	models_[LeftArm].worldTransform_.rotation_.x = std::sin(armSwingParameter_) * kArmSwingHeight;
+	models_[RightArm].worldTransform_.rotation_.x = std::sin(armSwingParameter_) * kArmSwingHeight;
 }

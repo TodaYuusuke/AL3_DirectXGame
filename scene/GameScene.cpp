@@ -14,10 +14,17 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	
 	// 3Dモデルデータ
-	playerHeadModel_.reset(Model::CreateFromOBJ("float_Head", true));
 	playerBodyModel_.reset(Model::CreateFromOBJ("float_Body", true));
+	playerHeadModel_.reset(Model::CreateFromOBJ("float_Head", true));
 	playerLeftArmModel_.reset(Model::CreateFromOBJ("float_L_arm", true));
 	playerRightArmModel_.reset(Model::CreateFromOBJ("float_R_arm", true));
+	std::vector<Model*> playerModels = { playerBodyModel_.get(), playerHeadModel_.get(), playerLeftArmModel_.get(), playerRightArmModel_.get() };
+	
+	enemyBodyModel_.reset(Model::CreateFromOBJ("enemy_Body", true));
+	enemyLeftWheelModel_.reset(Model::CreateFromOBJ("enemy_L_wheel", true));
+	enemyRightWheelModel_.reset(Model::CreateFromOBJ("enemy_R_wheel", true));
+	std::vector<Model*> enemyModels = { enemyBodyModel_.get(), enemyLeftWheelModel_.get(), enemyRightWheelModel_.get() };
+
 	skydomeModel_.reset(Model::CreateFromOBJ("skydome", true));
 	groundModel_.reset(Model::CreateFromOBJ("ground", true));
 
@@ -41,10 +48,14 @@ void GameScene::Initialize() {
 	// 自キャラと三人称カメラの生成
 	player_ = std::make_unique<Player>();
 	followCamera_ = std::make_unique<FollowCamera>();
-	player_->Initialize(playerHeadModel_.get(), playerBodyModel_.get(), playerLeftArmModel_.get(), playerRightArmModel_.get(), {0.0f, 0.0f, 0.0f});
+	player_->Initialize(playerModels, {0.0f, 0.0f, 0.0f});
 	followCamera_->Initialize();
 	player_->SetViewProjection(&followCamera_->GetViewProjection());
 	followCamera_->SetTarget(&player_->GetWorldTransform());
+
+	// 敵
+	enemy_ = std::make_unique<Enemy>();
+	enemy_->Initialize(enemyModels, {0.0f, 1.6f, 30.0f});
 }
 
 void GameScene::Update() {
@@ -79,6 +90,8 @@ void GameScene::Update() {
 
 	// 自キャラの更新
 	player_->Update();
+	// 敵の更新
+	enemy_->Update();
 }
 
 void GameScene::Draw() {
@@ -115,6 +128,8 @@ void GameScene::Draw() {
 
 	// 自キャラの描画
 	player_->Draw(viewProjection_);
+	// 敵の描画
+	enemy_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

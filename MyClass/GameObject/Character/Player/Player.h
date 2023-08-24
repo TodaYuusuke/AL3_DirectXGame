@@ -1,60 +1,39 @@
 #pragma once
-#include "Model.h"
-#include "WorldTransform.h"
-#include "ViewProjection.h"
+#include "../BaseCharacter.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-class Player {
+class Player : public BaseCharacter {
 
 public: // メンバ関数
 
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* head, Model* body, Model* Larm, Model* Rarm, Vector3 position);
+	void Initialize(const std::vector<Model*>& models, Vector3 position) override;
 
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	void Update() override;
 
 	/// <summary>
-	/// 描画
+	/// ビュープロジェクションをセット
 	/// </summary>
-	void Draw(ViewProjection viewProjection);
-	
-	/// <summary>
-	/// ワールドトランスフォームのポインタを受け取る
-	/// </summary>
-	/// <returns></returns>
-	const WorldTransform& GetWorldTransform() { return worldTransform_; }
-
+	/// <param name="viewProjection"></param>
 	void SetViewProjection(const ViewProjection* viewProjection) { viewProjection_ = viewProjection; }
 
 private: // メンバ定数
 	float kCharacterSpeed = 0.3f;
 
 private: // メンバ変数
-
-	// ワールド変換データ
-	WorldTransform worldTransform_;
-
 	enum Parts {
 		Body,
 		Head,
 		LeftArm,
 		RightArm,
 	};
-
-	// 各モデル用のワールド変換データ
-	WorldTransform modelTransform_[4];
-	// モデル
-	Model* bodyModel_ = nullptr;
-	Model* headModel_ = nullptr;
-	Model* leftArmModel_ = nullptr;
-	Model* rightArmModel_ = nullptr;
 
 	// カメラのビュープロジェクション
 	const ViewProjection* viewProjection_ = nullptr;

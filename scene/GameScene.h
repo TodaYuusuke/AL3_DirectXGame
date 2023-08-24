@@ -14,7 +14,8 @@
 #include "../MyClass/GameObject/Field/Skydome/Skydome.h"
 #include "../MyClass/GameObject/Field/Ground/Ground.h"
 
-#include "../MyClass/GameObject/Player/Player.h"
+#include "../MyClass/GameObject/Character/Player/Player.h"
+#include "../MyClass/GameObject/Character/Enemy/Enemy.h"
 #include <memory>
 
 /// <summary>
@@ -62,10 +63,15 @@ private: // メンバ変数
 
 
 	// 3Dモデルデータ
-	std::unique_ptr<Model> playerHeadModel_ = nullptr;
 	std::unique_ptr<Model> playerBodyModel_ = nullptr;
+	std::unique_ptr<Model> playerHeadModel_ = nullptr;
 	std::unique_ptr<Model> playerLeftArmModel_ = nullptr;
 	std::unique_ptr<Model> playerRightArmModel_ = nullptr;
+
+	std::unique_ptr<Model> enemyBodyModel_ = nullptr;
+	std::unique_ptr<Model> enemyLeftWheelModel_ = nullptr;
+	std::unique_ptr<Model> enemyRightWheelModel_ = nullptr;
+
 	std::unique_ptr<Model> skydomeModel_ = nullptr;
 	std::unique_ptr<Model> groundModel_ = nullptr;
 
@@ -84,5 +90,6 @@ private: // メンバ変数
 
 	// 自キャラ
 	std::unique_ptr<Player> player_ = nullptr;
-
+	// 敵
+	std::unique_ptr<Enemy> enemy_ = nullptr;
 };

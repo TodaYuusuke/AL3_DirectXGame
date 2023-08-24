@@ -58,9 +58,6 @@
     <Filter Include="MyClass\GameObject">
       <UniqueIdentifier>{5e013582-d933-4c6b-bb54-f70471da61bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MyClass\GameObject\Player">
-      <UniqueIdentifier>{7200cd67-d376-4115-af4a-1674e2f81d7d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MyClass\GameObject\Field">
       <UniqueIdentifier>{f3eddf7e-1f7d-4719-9145-bde3f4d32a87}</UniqueIdentifier>
     </Filter>
@@ -72,6 +69,15 @@
     </Filter>
     <Filter Include="MyClass\GameObject\FollowCamera">
       <UniqueIdentifier>{fe5451d2-b7a6-4822-a91b-4e28d22292b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GameObject\Character">
+      <UniqueIdentifier>{5977ac59-ac88-4aea-8d0b-1cc12f697915}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GameObject\Character\Player">
+      <UniqueIdentifier>{7200cd67-d376-4115-af4a-1674e2f81d7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GameObject\Character\Enemy">
+      <UniqueIdentifier>{b7e3fcb8-4386-41e7-93d9-f9f6accc5a59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,9 +96,6 @@
     <ClCompile Include="2d\ImGuiManager.cpp">
       <Filter>ソース ファイル\2d</Filter>
     </ClCompile>
-    <ClCompile Include="MyClass\GameObject\Player\Player.cpp">
-      <Filter>MyClass\GameObject\Player</Filter>
-    </ClCompile>
     <ClCompile Include="WorldTransform.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -107,6 +110,15 @@
     </ClCompile>
     <ClCompile Include="MyClass\GameObject\FollowCamera\FollowCamera.cpp">
       <Filter>MyClass\GameObject\FollowCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\Character\Player\Player.cpp">
+      <Filter>MyClass\GameObject\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\Character\BaseCharacter.cpp">
+      <Filter>MyClass\GameObject\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\Character\Enemy\Enemy.cpp">
+      <Filter>MyClass\GameObject\Character\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,9 +206,6 @@
     <ClInclude Include="2d\ImGuiManager.h">
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
-    <ClInclude Include="MyClass\GameObject\Player\Player.h">
-      <Filter>MyClass\GameObject\Player</Filter>
-    </ClInclude>
     <ClInclude Include="MyClass\GameObject\Field\Ground\Ground.h">
       <Filter>MyClass\GameObject\Field\Ground</Filter>
     </ClInclude>
@@ -205,6 +214,15 @@
     </ClInclude>
     <ClInclude Include="MyClass\GameObject\FollowCamera\FollowCamera.h">
       <Filter>MyClass\GameObject\FollowCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Character\Player\Player.h">
+      <Filter>MyClass\GameObject\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Character\BaseCharacter.h">
+      <Filter>MyClass\GameObject\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Character\Enemy\Enemy.h">
+      <Filter>MyClass\GameObject\Character\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
