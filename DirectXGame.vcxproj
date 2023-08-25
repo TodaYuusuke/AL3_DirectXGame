@@ -117,6 +117,7 @@
     <ClCompile Include="MyClass\GameObject\Field\Ground\Ground.cpp" />
     <ClCompile Include="MyClass\GameObject\Field\Skydome\Skydome.cpp" />
     <ClCompile Include="MyClass\GameObject\FollowCamera\FollowCamera.cpp" />
+    <ClCompile Include="MyClass\GlobalVariables\GlobalVariables.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="WorldTransform.cpp" />
   </ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="MyClass\GameObject\Field\Ground\Ground.h" />
     <ClInclude Include="MyClass\GameObject\Field\Skydome\Skydome.h" />
     <ClInclude Include="MyClass\GameObject\FollowCamera\FollowCamera.h" />
+    <ClInclude Include="MyClass\GlobalVariables\GlobalVariables.h" />
     <ClInclude Include="scene\GameScene.h" />
   </ItemGroup>
   <ItemGroup>

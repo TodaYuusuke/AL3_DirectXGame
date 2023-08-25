@@ -2,6 +2,7 @@
 #include <ImGuiManager.h>
 #include <cassert>
 #include <Input.h>
+#include "../../../GlobalVariables/GlobalVariables.h"
 
 void Player::Initialize(const std::vector<Model*>& models, Vector3 position) {
 	BaseCharacter::Initialize(models, position);
@@ -15,10 +16,19 @@ void Player::Initialize(const std::vector<Model*>& models, Vector3 position) {
 	SetModelNeutral();
 
 	behaviorRequest_ = Behavior::kRoot;
+
+	GlobalVariables* g = GlobalVariables::GetInstance();
+	g->CreateGroup("Player");
+	g->SetValue("Player", "Attack_Preliminary_Cycle", kPreliminaryCycle_);
+	g->SetValue("Player", "Attack_Preliminary_ArmRotationX", kPreliminary_ArmRotationX);
+	g->SetValue("Player", "Attack_Preliminary_WeaponRotationX", kPreliminary_WeaponRotationX);
+	g->SetValue("Player", "Attack_PreliminaryWait_Cycle", kPreliminaryWaitCycle_);
+	g->SetValue("Player", "Attack_Attack_Cycle", kAttackCycle_);
+	g->SetValue("Player", "Attack_AttackWait_Cycle", kAttackWaitCycle_);
 }
 
 void Player::Update() {
-	ImGui::Begin("Player");
+	ImGui::Begin("Player Controller");
 	ImGui::Text("L Stick ... Move");
 	ImGui::Text("R Stick ... Camera Move");
 	ImGui::Text("R Button ... Attack");
