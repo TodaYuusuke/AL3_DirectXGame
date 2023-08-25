@@ -5,28 +5,105 @@
 
 void Player::Initialize(const std::vector<Model*>& models, Vector3 position) {
 	BaseCharacter::Initialize(models, position);
-
 	// 親子関連付け
 	models_[Body].worldTransform_.parent_ = &worldTransform_;
 	models_[Head].worldTransform_.parent_ = &models_[Body].worldTransform_;
 	models_[LeftArm].worldTransform_.parent_ = &models_[Body].worldTransform_;
 	models_[RightArm].worldTransform_.parent_ = &models_[Body].worldTransform_;
+	models_[Weapon].worldTransform_.parent_ = &models_[Body].worldTransform_;
 	// アニメーション初期化
-	InitializeAnimation();
+	SetModelNeutral();
+
+	behaviorRequest_ = Behavior::kRoot;
 }
 
 void Player::Update() {
 	ImGui::Begin("Player");
-	ImGui::DragFloat3("translation", &worldTransform_.translation_.x, 0.1f);
-	ImGui::DragFloat3("rotation", &worldTransform_.rotation_.x, 0.01f);
+	ImGui::Text("L Stick ... Move");
+	ImGui::Text("R Stick ... Camera Move");
+	ImGui::Text("R Button ... Attack");
 	ImGui::End();
 
+	if (behaviorRequest_) {
+		// 振る舞いを変更する
+		behavior_ = behaviorRequest_.value();
+		// 各振る舞いごとの初期化を実行
+		switch (behavior_) {
+		case Behavior::kRoot:
+		default:
+			BehaviorRootReset();
+			break;
+		case Behavior::kAttack:
+			BehaviorAttackReset();
+			break;
+		}
+		// 振る舞いリクエストをリセット
+		behaviorRequest_ = std::nullopt;
+	}
+
+	
+	switch (behavior_) {
+	case Behavior::kRoot:
+	default:
+		BehaviorRootUpdate();
+		break;
+	case Behavior::kAttack:
+		BehaviorAttackUpdate();
+		break;
+	}
+
+
+	BaseCharacter::Update();
+}
+
+void Player::Draw(const ViewProjection& viewProjection) {
+	for (int i = 0; i < Weapon; i++) {
+		models_[i].model_->Draw(models_[i].worldTransform_, viewProjection);
+	}
+
+	if (behavior_ == Behavior::kAttack) {
+		models_[Weapon].model_->Draw(models_[Weapon].worldTransform_, viewProjection);
+	}
+}
+
+
+void Player::BehaviorRootReset() {
+	SetModelNeutral();
+
+	floatingParameter_ = 0.0f;
+	armSwingParameter_ = 0.0f;
+}
+void Player::BehaviorRootUpdate() {
 	// 移動処理
 	MoveJoyStick();
 	// アニメーション
-	Animation();
+	FloatingUpdate();
+	ArmSwingUpdate();
+}
 
-	BaseCharacter::Update();
+void Player::BehaviorAttackReset() {
+	SetModelNeutral();
+
+	attackAnimationFrame = 0;
+}
+void Player::BehaviorAttackUpdate() {
+	if (attackAnimationFrame < kPreliminaryCycle_) {
+		models_[LeftArm].worldTransform_.rotation_.x -= kPreliminary_ArmRotationX / kPreliminaryCycle_;
+		models_[RightArm].worldTransform_.rotation_.x -= kPreliminary_ArmRotationX / kPreliminaryCycle_;
+		models_[Weapon].worldTransform_.rotation_.x -= kPreliminary_WeaponRotationX / kPreliminaryCycle_;
+	} else if (attackAnimationFrame < kPreliminaryCycle_ + kPreliminaryWaitCycle_) {
+
+	} else if (attackAnimationFrame < kPreliminaryCycle_ + kPreliminaryWaitCycle_ + kAttackCycle_) {
+		models_[LeftArm].worldTransform_.rotation_.x += kPreliminary_ArmRotationX / kAttackCycle_;
+		models_[RightArm].worldTransform_.rotation_.x += kPreliminary_ArmRotationX / kAttackCycle_;
+		models_[Weapon].worldTransform_.rotation_.x += kPreliminary_WeaponRotationX / kAttackCycle_;
+	} else if (attackAnimationFrame < kPreliminaryCycle_ + kPreliminaryWaitCycle_ + kAttackCycle_ + kAttackWaitCycle_) {
+		
+	} else {
+		behaviorRequest_ = Behavior::kRoot;
+	}
+
+	attackAnimationFrame++;
 }
 
 
@@ -71,12 +148,18 @@ void Player::MoveJoyStick() {
 			worldTransform_.rotation_ = Slerp(worldTransform_.rotation_, goalRotation, 0.2f);
 		}
 	}
-
 	// 移動
 	worldTransform_.translation_ += move;
+
+	
+	// Rトリガーを押していたら
+	if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+		// 攻撃
+		behaviorRequest_ = Behavior::kAttack;
+	}
 }
 
-void Player::InitializeAnimation() {
+void Player::SetModelNeutral() {
 	models_[Body].worldTransform_.scale_ = {1.5f, 1.5f, 1.5f};
 	
 	models_[Head].worldTransform_.translation_ = {0.0f, 1.5f, 0.0f};
@@ -85,15 +168,10 @@ void Player::InitializeAnimation() {
 	models_[RightArm].worldTransform_.translation_ = {0.44f, 1.34f, 0.0f};
 	models_[LeftArm].worldTransform_.rotation_ = {0.0f, 0.0f, 0.25f};
 	models_[RightArm].worldTransform_.rotation_ = {0.0f, 0.0f, -0.25f};
-
-	floatingParameter_ = 0.0f;
-	armSwingParameter_ = 0.0f;
+	models_[Weapon].worldTransform_.translation_ = {0.0f, 1.0f, 0.0f};
+	models_[Weapon].worldTransform_.rotation_ = {1.6f, 0.0f, 0.0f};
 }
 
-void Player::Animation() {
-	FloatingUpdate();
-	ArmSwingUpdate();
-}
 
 void Player::FloatingUpdate() {
 	// パラメータを1ステップ分加算

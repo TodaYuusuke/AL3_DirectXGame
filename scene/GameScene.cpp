@@ -18,7 +18,8 @@ void GameScene::Initialize() {
 	playerHeadModel_.reset(Model::CreateFromOBJ("float_Head", true));
 	playerLeftArmModel_.reset(Model::CreateFromOBJ("float_L_arm", true));
 	playerRightArmModel_.reset(Model::CreateFromOBJ("float_R_arm", true));
-	std::vector<Model*> playerModels = { playerBodyModel_.get(), playerHeadModel_.get(), playerLeftArmModel_.get(), playerRightArmModel_.get() };
+	playerWeaponModel_.reset(Model::CreateFromOBJ("weapon", true));
+	std::vector<Model*> playerModels = { playerBodyModel_.get(), playerHeadModel_.get(), playerLeftArmModel_.get(), playerRightArmModel_.get(), playerWeaponModel_.get() };
 	
 	enemyBodyModel_.reset(Model::CreateFromOBJ("enemy_Body", true));
 	enemyLeftWheelModel_.reset(Model::CreateFromOBJ("enemy_L_wheel", true));
