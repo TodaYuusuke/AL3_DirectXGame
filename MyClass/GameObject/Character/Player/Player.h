@@ -69,13 +69,13 @@ private: // プライベートな関数
 	void BehaviorAttackUpdate();
 
 	// 攻撃行動各種値
-	uint16_t attackAnimationFrame = 0;	// 全体のアニメーションフレーム
-	uint16_t kPreliminaryCycle_ = 15;          // 予備動作
+	int32_t attackAnimationFrame = 0;	// 全体のアニメーションフレーム
+	int32_t kPreliminaryCycle_ = 15;            // 予備動作
 	float kPreliminary_ArmRotationX = 2.5f; // 腕のX回転量
 	float kPreliminary_WeaponRotationX = 1.2f; // 武器のX回転量
-	uint16_t kPreliminaryWaitCycle_ = 10;      // 予備動作の硬直
-	uint16_t kAttackCycle_ = 10;               // 攻撃
-	uint16_t kAttackWaitCycle_ = 10;           // 攻撃後硬直
+	int32_t kPreliminaryWaitCycle_ = 10;       // 予備動作の硬直
+	int32_t kAttackCycle_ = 10;                // 攻撃
+	int32_t kAttackWaitCycle_ = 10;            // 攻撃後硬直
 
 	// コントローラーでの操作
 	void MoveJoyStick();
@@ -83,6 +83,8 @@ private: // プライベートな関数
 private: // アニメーション関連
 	// モデルを初期値に戻す
 	void SetModelNeutral();
+	// 調整項目の適応
+	void ApplyGlobalVariables();
 
 	// 浮遊ギミック
 	const uint16_t kFloatingCycle_ = 60;

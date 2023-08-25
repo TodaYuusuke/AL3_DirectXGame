@@ -19,12 +19,12 @@ void Player::Initialize(const std::vector<Model*>& models, Vector3 position) {
 
 	GlobalVariables* g = GlobalVariables::GetInstance();
 	g->CreateGroup("Player");
-	g->SetValue("Player", "Attack_Preliminary_Cycle", kPreliminaryCycle_);
-	g->SetValue("Player", "Attack_Preliminary_ArmRotationX", kPreliminary_ArmRotationX);
-	g->SetValue("Player", "Attack_Preliminary_WeaponRotationX", kPreliminary_WeaponRotationX);
-	g->SetValue("Player", "Attack_PreliminaryWait_Cycle", kPreliminaryWaitCycle_);
-	g->SetValue("Player", "Attack_Attack_Cycle", kAttackCycle_);
-	g->SetValue("Player", "Attack_AttackWait_Cycle", kAttackWaitCycle_);
+	g->AddItem("Player", "Attack_Preliminary_Cycle", kPreliminaryCycle_);
+	g->AddItem("Player", "Attack_Preliminary_ArmRotationX", kPreliminary_ArmRotationX);
+	g->AddItem("Player", "Attack_Preliminary_WeaponRotationX", kPreliminary_WeaponRotationX);
+	g->AddItem("Player", "Attack_PreliminaryWait_Cycle", kPreliminaryWaitCycle_);
+	g->AddItem("Player", "Attack_Attack_Cycle", kAttackCycle_);
+	g->AddItem("Player", "Attack_AttackWait_Cycle", kAttackWaitCycle_);
 }
 
 void Player::Update() {
@@ -33,6 +33,8 @@ void Player::Update() {
 	ImGui::Text("R Stick ... Camera Move");
 	ImGui::Text("R Button ... Attack");
 	ImGui::End();
+	// 調整項目適応
+	ApplyGlobalVariables();
 
 	if (behaviorRequest_) {
 		// 振る舞いを変更する
@@ -181,6 +183,17 @@ void Player::SetModelNeutral() {
 	models_[Weapon].worldTransform_.translation_ = {0.0f, 1.0f, 0.0f};
 	models_[Weapon].worldTransform_.rotation_ = {1.6f, 0.0f, 0.0f};
 }
+void Player::ApplyGlobalVariables() {
+	GlobalVariables* g = GlobalVariables::GetInstance();
+	const char* groupName = "Player";
+	kPreliminaryCycle_ = g->GetIntValue("Player", "Attack_Preliminary_Cycle");
+	kPreliminary_ArmRotationX = g->GetFloatValue(groupName, "Attack_Preliminary_ArmRotationX");
+	kPreliminary_WeaponRotationX = g->GetFloatValue(groupName, "Attack_Preliminary_WeaponRotationX");
+	kPreliminaryWaitCycle_ = g->GetIntValue(groupName, "Attack_PreliminaryWait_Cycle");
+	kAttackCycle_ = g->GetIntValue(groupName, "Attack_Attack_Cycle");
+	kAttackWaitCycle_ = g->GetIntValue(groupName, "Attack_AttackWait_Cycle");
+}
+
 
 
 void Player::FloatingUpdate() {
