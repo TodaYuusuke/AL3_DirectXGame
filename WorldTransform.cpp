@@ -9,7 +9,7 @@ Matrix4x4 WorldTransform::MakeAffineMatrix() {
 }
 
 
-Vector3 WorldTransform::GetWorldPosition() {
+Vector3 WorldTransform::GetWorldPosition() const {
 	Vector3 result;
 	result.x = matWorld_.m[3][0];
 	result.y = matWorld_.m[3][1];

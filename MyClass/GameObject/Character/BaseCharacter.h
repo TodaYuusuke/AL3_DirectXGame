@@ -1,8 +1,9 @@
 #pragma once
 #include <map>
 #include "Model.h"
+#include "../Collision/Collider.h"
 
-class BaseCharacter {
+class BaseCharacter : public Collider {
 public: // メンバ関数
 
 	// 初期化
@@ -11,12 +12,6 @@ public: // メンバ関数
 	virtual void Update();
 	// 描画
 	virtual void Draw(const ViewProjection& viewProjection);
-
-	/// <summary>
-	/// ワールド変換データを取得
-	/// </summary>
-	/// <returns>ワールド変換データ</returns>
-	const WorldTransform& GetWorldTransform() { return worldTransform_; }
 
 protected: // メンバ変数
 	// モデルデータとモデル別のワールド変換データ
@@ -27,6 +22,4 @@ protected: // メンバ変数
 
 	// モデルデータ配列
 	std::map<int, ModelData> models_;
-	// ワールド変換データ
-	WorldTransform worldTransform_;
 };

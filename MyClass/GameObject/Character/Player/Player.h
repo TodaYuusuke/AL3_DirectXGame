@@ -1,12 +1,22 @@
 #pragma once
 #include "../BaseCharacter.h"
+#include "../../Bullet/Bullet.h"
+#include "../../Gun/HandGun.h"
 #include <optional>
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 class Player : public BaseCharacter {
-
 public: // メンバ関数
+
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	Player() = default;
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~Player();
 
 	/// <summary>
 	/// 初期化
@@ -22,81 +32,50 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection) override;
+	void DrawUI();
 
-	/// <summary>
-	/// ビュープロジェクションをセット
-	/// </summary>
-	/// <param name="viewProjection"></param>
-	void SetViewProjection(const ViewProjection* viewProjection) { viewProjection_ = viewProjection; }
+	// 弾リストを返す関数
+	const std::list<Bullet*>& GetBullets() const { return bullets_; }
+
+	// 衝突時に呼ばれる関数
+	void OnCollision() override {};
 
 private: // メンバ定数
 	// 移動速度
-	float kCharacterSpeed = 0.3f;
+	const float kCharacterSpeed = 0.3f;
+	// カメラ速度
+	const float kCameraTurnSpeed = 0.02f;
+	// 弾の速さ
+	const float kBulletSpeed = 5.0f;
 
 private: // メンバ変数
-	enum Parts {
-		Body,
-		Head,
-		LeftArm,
-		RightArm,
-		Weapon,
-	};
 
-	// 振る舞い
-	enum class Behavior {
-		kRoot,		// 通常状態
-		kAttack,	// 攻撃中
-	};
-	Behavior behavior_ = Behavior::kRoot;
-	// 次の振る舞いをリクエスト
-	std::optional<Behavior> behaviorRequest_ = std::nullopt;
+	bool preRS = false;	// RSTrigger検知用
+	bool preLS = false; // LSTrigger検知用
+	bool preX = true; // XTrigger検知用
 
-	// カメラのビュープロジェクション
-	const ViewProjection* viewProjection_ = nullptr;
+	// 弾丸のモデル
+	std::unique_ptr<Model> bulletModel_;
+	// 弾丸
+	std::list<Bullet*> bullets_;
+
+	// 受け取ったリコイル
+	Vector3 recoil_ = {0.0f, 0.0f, 0.0f};
+	// 本来の向き
+	Vector3 rotation_ = {0.0f, 0.0f, 0.0f};
+
+	// ハンドガン
+	std::unique_ptr<HandGun> handgun_;
 
 private: // プライベートな関数
-	
-	/// <summary>
-	/// 通常行動
-	/// </summary>
-	void BehaviorRootReset();
-	void BehaviorRootUpdate();
-	
-	/// <summary>
-	/// 攻撃行動
-	/// </summary>
-	void BehaviorAttackReset();
-	void BehaviorAttackUpdate();
-
-	// 攻撃行動各種値
-	int32_t attackAnimationFrame = 0;	// 全体のアニメーションフレーム
-	int32_t kPreliminaryCycle_ = 15;            // 予備動作
-	float kPreliminary_ArmRotationX = 2.5f; // 腕のX回転量
-	float kPreliminary_WeaponRotationX = 1.2f; // 武器のX回転量
-	int32_t kPreliminaryWaitCycle_ = 10;       // 予備動作の硬直
-	int32_t kAttackCycle_ = 10;                // 攻撃
-	int32_t kAttackWaitCycle_ = 10;            // 攻撃後硬直
 
 	// コントローラーでの操作
 	void MoveJoyStick();
+	// 弾丸の更新
+	void UpdateBullets();
 
-private: // アニメーション関連
 	// モデルを初期値に戻す
 	void SetModelNeutral();
-	// 調整項目の適応
+	// 調整項目適応
 	void ApplyGlobalVariables();
-
-	// 浮遊ギミック
-	const uint16_t kFloatingCycle_ = 60;
-	const double kFloatingStep_ = 2.0f * M_PI / kFloatingCycle_;	
-	const float kFloatingHeight = 0.2f;
-	float floatingParameter_ = 0.0f;
-	void FloatingUpdate();
-
-	// 腕を振るアニメーション
-	const uint16_t kArmSwingCycle_ = 60;
-	const double kArmSwingStep_ = 2.0f * M_PI / kFloatingCycle_;
-	const float kArmSwingHeight = 0.2f;
-	float armSwingParameter_ = 0.0f;
-	void ArmSwingUpdate();
 };

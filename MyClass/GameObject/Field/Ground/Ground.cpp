@@ -9,7 +9,7 @@ void Ground::Initialize(Model* model) {
 
 	// ワールドトランスフォ－ムの初期化
 	worldTransform_.Initialize();
-	worldTransform_.scale_ = {500, 500, 500};
+	worldTransform_.scale_ = {50, 50, 50};
 
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();

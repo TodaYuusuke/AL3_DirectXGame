@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <vector>
 
 struct Matrix4x4;
 
@@ -42,6 +43,17 @@ Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
 float LeapShortAngle(float a, float b, float t);
 // 球面線形補間
 Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t);
+
+// Catmull-Romスプライン曲線補間
+Vector3 CatmullRom(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t);
+/// <summary>
+/// Catmull-Romスプライン曲線補間の座標を求める
+/// </summary>
+/// <param name="controlPoints">頂点の可変長配列</param>
+/// <param name="t">全体の0.0～1.0</param>
+Vector3 GetCatmullRomPosition(std::vector<Vector3> controlPoints, float t);
+// 曲線描画
+void DrawCatmullRom(std::vector<Vector3> pointsDrawing, size_t segmentCount);
 
 // radianからdegreeに変換する関数
 // 返り値：degree

@@ -6,67 +6,116 @@
 void Enemy::Initialize(const std::vector<Model*>& models, Vector3 position) {
 	BaseCharacter::Initialize(models, position);
 
+	// 衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributeEnemy);
+	SetCollisionMask(~kCollisionAttributeEnemy);
+	// 衝突半径を設定
+	SetRadius(5.0f);
+
 	// 親子関連付け
-	models_[Body].worldTransform_.parent_ = &worldTransform_;
-	models_[LeftWheel].worldTransform_.parent_ = &models_[Body].worldTransform_;
-	models_[RightWheel].worldTransform_.parent_ = &models_[Body].worldTransform_;
-	// アニメーション初期化
-	InitializeAnimation();
+	models_[Core].worldTransform_.parent_ = &worldTransform_;
+	models_[Block1].worldTransform_.parent_ = &worldTransform_;
+	models_[Block2].worldTransform_.parent_ = &worldTransform_;
 }
 
 void Enemy::Update() {
-	ImGui::Begin("Enemy");
-	ImGui::DragFloat3("translation", &worldTransform_.translation_.x, 0.1f);
-	ImGui::DragFloat3("rotation", &worldTransform_.rotation_.x, 0.01f);
-	ImGui::DragFloat3("body - rotation", &models_[Body].worldTransform_.rotation_.x, 0.01f);
-	ImGui::End();
+	if (isDead_) { return; }
 
+	// レールに沿って進む
+	t += 0.001f;
+	if (t > 1.0f) {
+		isDead_ = true;
+		return;
+	}
+	// 座標を計算
+	worldTransform_.translation_ = GetCatmullRomPosition(controlPoints_, t);
+
+	Vector3 forword = playerWorldTransform_->GetWorldPosition() - worldTransform_.translation_;
+	// Y軸周りの角度
+	models_[Core].worldTransform_.rotation_.y = std::atan2f(forword.x, forword.z);
+	// X軸周りの角度
+	models_[Core].worldTransform_.rotation_.x = std::atan2f(-forword.y, Length({forword.x, 0, forword.z}));
+	
 	// アニメーション
-	Animation();
+	Rotation();
+	Elasticity();
+	Hit();
 
 	BaseCharacter::Update();
 }
+void Enemy::Draw(const ViewProjection& viewProjection) {
+	if (isDead_) {
+		return;
+	}
 
-
-void Enemy::InitializeAnimation() {
-
-	models_[Body].worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
-	models_[Body].worldTransform_.scale_ = {3.0f, 3.0f, 3.0f};
-	models_[LeftWheel].worldTransform_.translation_ = {0.7f, -0.1f, 0.0f};
-	models_[LeftWheel].worldTransform_.scale_ = {1.0f, 1.2f, 1.2f};
-	models_[RightWheel].worldTransform_.translation_ = {-0.7f, -0.1f, 0.0f};
-	models_[RightWheel].worldTransform_.scale_ = {1.0f, 1.2f, 1.2f};
-
-	engineParameter_ = 0.0f;
+	for (int i = 0; i < models_.size(); i++) {
+		if (kHitFrame_ > 0) {
+			models_[i].model_->Draw(models_[i].worldTransform_, viewProjection, hitTextureHandle_);
+		} else {
+			models_[i].model_->Draw(models_[i].worldTransform_, viewProjection);
+		}
+	}
 }
 
-void Enemy::Animation() {
-	EngineUpdate();
-	CircleUpdate();
+void Enemy::OnCollision() {
+	health--;
+	if (health <= 0) {
+		*killCount_ += 1;
+		isDead_ = true;
+	}
+	// 被弾リアクションを実行
+	kHitFrame_ = 5;
 }
 
-void Enemy::EngineUpdate() {
-	// パラメータを1ステップ分加算
-	engineParameter_ += (float)kEngineStep_;
-	// 2πを超えたら0に戻す
-	engineParameter_ = (float)std::fmod(engineParameter_, 2.0f * M_PI);
-	
-	// 振動を座標に反映
-	models_[Body].worldTransform_.translation_.y = std::sin(engineParameter_) * kEngineHeight;
+
+void Enemy::SetModelNeutral() {
+	worldTransform_.rotation_ = {0.0f, 0.0f, 0.0f};
+	worldTransform_.scale_ = {0.5f, 0.5f, 0.5f};
+	models_[Core].worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
+	models_[Core].worldTransform_.rotation_ = {0.0f, 0.0f, 0.0f};
+	models_[Core].worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
+	models_[Block1].worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
+	models_[Block1].worldTransform_.rotation_ = {0.0f, 0.0f, 0.0f};
+	models_[Block1].worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
+	models_[Block2].worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
+	models_[Block2].worldTransform_.rotation_ = {0.0f, 0.0f, 0.0f};
+	models_[Block2].worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
+}
+void Enemy::ApplyGlobalVariables() {
+
 }
 
-void Enemy::CircleUpdate() {
-	// パラメータを1ステップ分加算
-	circleParameter_ += (float)kCircleStep_;
-	
-	worldTransform_.rotation_.y = circleParameter_;
-	models_[LeftWheel].worldTransform_.rotation_.x -= (float)circleParameter_ * kCirclePower;
-	models_[RightWheel].worldTransform_.rotation_.x += (float)circleParameter_ * kCirclePower;
+void Enemy::Rotation() {
+	models_[Block1].worldTransform_.rotation_ += kRotationSpeed_;
+	models_[Block2].worldTransform_.rotation_ += kRotationSpeed_;
+}
+void Enemy::Elasticity() {
+	models_[Block1].worldTransform_.scale_ = Slerp(
+	    {kElasticityMINSize_, kElasticityMINSize_, kElasticityMINSize_},
+	    {kElasticityMAXSize_, kElasticityMAXSize_, kElasticityMAXSize_}, kElasticityT_);
+	models_[Block2].worldTransform_.scale_ = Slerp(
+	    {kElasticityMINSize_, kElasticityMINSize_, kElasticityMINSize_},
+	    {kElasticityMAXSize_, kElasticityMAXSize_, kElasticityMAXSize_}, 1.0f - kElasticityT_);
+	;
 
-	// 2πを超えたら0に戻す
-	circleParameter_ = (float)std::fmod(circleParameter_, 2.0f * M_PI);
+	if (kElasticityUpper) {
+		kElasticityT_ += 1.0f / (float)kElasticityCycleFrame_;
+		if (kElasticityT_ > 1.0f) {
+			kElasticityT_ = 1.0f;
+			kElasticityUpper = false;
+		}
+	}
+	else {
+		kElasticityT_ -= 1.0f / (float)kElasticityCycleFrame_;
+		if (kElasticityT_ < 0.0f) {
+			kElasticityT_ = 0.0f;
+			kElasticityUpper = true;
+		}
+	}
+}
 
-	// 視点の方向に進む
-	Vector3 move = {0.0f, 0.0f, -0.5f};
-	worldTransform_.translation_ += move * Matrix4x4::MakeRotateMatrix(worldTransform_.rotation_);
+void Enemy::Hit() {
+	if (kHitFrame_ > 0) {
+		kHitFrame_--;
+	}
 }

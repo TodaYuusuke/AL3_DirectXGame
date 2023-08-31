@@ -111,13 +111,21 @@
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\Vector3.cpp" />
+    <ClCompile Include="MyClass\GameObject\Bullet\Bullet.cpp" />
     <ClCompile Include="MyClass\GameObject\Character\BaseCharacter.cpp" />
+    <ClCompile Include="MyClass\GameObject\Character\CharacterManager.cpp" />
     <ClCompile Include="MyClass\GameObject\Character\Enemy\Enemy.cpp" />
     <ClCompile Include="MyClass\GameObject\Character\Player\Player.cpp" />
+    <ClCompile Include="MyClass\GameObject\Collision\CollisionManager.cpp" />
     <ClCompile Include="MyClass\GameObject\Field\Ground\Ground.cpp" />
     <ClCompile Include="MyClass\GameObject\Field\Skydome\Skydome.cpp" />
-    <ClCompile Include="MyClass\GameObject\FollowCamera\FollowCamera.cpp" />
+    <ClCompile Include="MyClass\GameObject\FPSCamera\FPSCamera.cpp" />
+    <ClCompile Include="MyClass\GameObject\Gun\HandGun.cpp" />
     <ClCompile Include="MyClass\GlobalVariables\GlobalVariables.cpp" />
+    <ClCompile Include="MyClass\Scene\GamePlay.cpp" />
+    <ClCompile Include="MyClass\Scene\Result.cpp" />
+    <ClCompile Include="MyClass\Scene\Title.cpp" />
+    <ClCompile Include="MyClass\Scene\Tutorial.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="WorldTransform.cpp" />
   </ItemGroup>
@@ -149,13 +157,26 @@
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
+    <ClInclude Include="MyClass\GameObject\Bullet\Bullet.h" />
     <ClInclude Include="MyClass\GameObject\Character\BaseCharacter.h" />
+    <ClInclude Include="MyClass\GameObject\Character\CharacterManager.h" />
     <ClInclude Include="MyClass\GameObject\Character\Enemy\Enemy.h" />
     <ClInclude Include="MyClass\GameObject\Character\Player\Player.h" />
+    <ClInclude Include="MyClass\GameObject\Collision\Collider.h" />
+    <ClInclude Include="MyClass\GameObject\Collision\CollisionConfig.h" />
+    <ClInclude Include="MyClass\GameObject\Collision\CollisionManager.h" />
     <ClInclude Include="MyClass\GameObject\Field\Ground\Ground.h" />
     <ClInclude Include="MyClass\GameObject\Field\Skydome\Skydome.h" />
-    <ClInclude Include="MyClass\GameObject\FollowCamera\FollowCamera.h" />
+    <ClInclude Include="MyClass\GameObject\FPSCamera\FPSCamera.h" />
+    <ClInclude Include="MyClass\GameObject\Gun\HandGun.h" />
     <ClInclude Include="MyClass\GlobalVariables\GlobalVariables.h" />
+    <ClInclude Include="MyClass\Scene\GamePlay.h" />
+    <ClInclude Include="MyClass\Scene\IScene.h" />
+    <ClInclude Include="MyClass\Scene\Result.h" />
+    <ClInclude Include="MyClass\Scene\Title.h" />
+    <ClInclude Include="MyClass\Scene\Tutorial.h" />
+    <ClInclude Include="MyClass\Utility\Math\Math.h" />
+    <ClInclude Include="MyClass\Utility\TimedCall\TimedCall.h" />
     <ClInclude Include="scene\GameScene.h" />
   </ItemGroup>
   <ItemGroup>

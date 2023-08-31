@@ -56,7 +56,7 @@ struct WorldTransform {
 	/// ワールド座標を受け取る関数
 	/// </summary>
 	/// <returns></returns>
-	Vector3 GetWorldPosition();
+	Vector3 GetWorldPosition() const;
 
 	/// <summary>
 	/// 行列を計算、転送する

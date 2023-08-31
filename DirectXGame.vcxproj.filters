@@ -67,9 +67,6 @@
     <Filter Include="MyClass\GameObject\Field\Skydome">
       <UniqueIdentifier>{7b540e89-4b18-4a01-a2e0-83fbab591a17}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MyClass\GameObject\FollowCamera">
-      <UniqueIdentifier>{fe5451d2-b7a6-4822-a91b-4e28d22292b2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MyClass\GameObject\Character">
       <UniqueIdentifier>{5977ac59-ac88-4aea-8d0b-1cc12f697915}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,33 @@
     </Filter>
     <Filter Include="MyClass\GameObject\Character\Enemy">
       <UniqueIdentifier>{b7e3fcb8-4386-41e7-93d9-f9f6accc5a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GameObject\FPSCamera">
+      <UniqueIdentifier>{fe5451d2-b7a6-4822-a91b-4e28d22292b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GameObject\Bullet">
+      <UniqueIdentifier>{734edbf3-bebf-4bf8-a914-8e060509c3a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GlobalVariables">
+      <UniqueIdentifier>{82313f43-790e-404b-bab4-c8eeb41d18c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GameObject\Gun">
+      <UniqueIdentifier>{bbeaaac8-0cd6-4a02-9b04-35b62847284c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\Utility">
+      <UniqueIdentifier>{b3f4d695-cb60-4147-89a1-a732f17e1cfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\Utility\Math">
+      <UniqueIdentifier>{d0fa3ddd-72da-4c92-bfa3-5dc81cfd6be2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\GameObject\Collision">
+      <UniqueIdentifier>{c36588f0-1be3-417e-ab43-791979c988f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\Utility\TimedCall">
+      <UniqueIdentifier>{f4b08a07-ac00-4c11-b43b-b756a99f00c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyClass\Scene">
+      <UniqueIdentifier>{2705e47a-9e60-4167-848c-bb9c8f7674f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -108,9 +132,6 @@
     <ClCompile Include="MyClass\GameObject\Field\Skydome\Skydome.cpp">
       <Filter>MyClass\GameObject\Field\Skydome</Filter>
     </ClCompile>
-    <ClCompile Include="MyClass\GameObject\FollowCamera\FollowCamera.cpp">
-      <Filter>MyClass\GameObject\FollowCamera</Filter>
-    </ClCompile>
     <ClCompile Include="MyClass\GameObject\Character\Player\Player.cpp">
       <Filter>MyClass\GameObject\Character\Player</Filter>
     </ClCompile>
@@ -119,6 +140,36 @@
     </ClCompile>
     <ClCompile Include="MyClass\GameObject\Character\Enemy\Enemy.cpp">
       <Filter>MyClass\GameObject\Character\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\FPSCamera\FPSCamera.cpp">
+      <Filter>MyClass\GameObject\FPSCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\Bullet\Bullet.cpp">
+      <Filter>MyClass\GameObject\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GlobalVariables\GlobalVariables.cpp">
+      <Filter>MyClass\GlobalVariables</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\Gun\HandGun.cpp">
+      <Filter>MyClass\GameObject\Gun</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\Character\CharacterManager.cpp">
+      <Filter>MyClass\GameObject\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\GameObject\Collision\CollisionManager.cpp">
+      <Filter>MyClass\GameObject\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\Scene\GamePlay.cpp">
+      <Filter>MyClass\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\Scene\Result.cpp">
+      <Filter>MyClass\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\Scene\Title.cpp">
+      <Filter>MyClass\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\Scene\Tutorial.cpp">
+      <Filter>MyClass\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,9 +263,6 @@
     <ClInclude Include="MyClass\GameObject\Field\Skydome\Skydome.h">
       <Filter>MyClass\GameObject\Field\Skydome</Filter>
     </ClInclude>
-    <ClInclude Include="MyClass\GameObject\FollowCamera\FollowCamera.h">
-      <Filter>MyClass\GameObject\FollowCamera</Filter>
-    </ClInclude>
     <ClInclude Include="MyClass\GameObject\Character\Player\Player.h">
       <Filter>MyClass\GameObject\Character\Player</Filter>
     </ClInclude>
@@ -223,6 +271,51 @@
     </ClInclude>
     <ClInclude Include="MyClass\GameObject\Character\Enemy\Enemy.h">
       <Filter>MyClass\GameObject\Character\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\FPSCamera\FPSCamera.h">
+      <Filter>MyClass\GameObject\FPSCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Bullet\Bullet.h">
+      <Filter>MyClass\GameObject\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GlobalVariables\GlobalVariables.h">
+      <Filter>MyClass\GlobalVariables</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Gun\HandGun.h">
+      <Filter>MyClass\GameObject\Gun</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\Utility\Math\Math.h">
+      <Filter>MyClass\Utility\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Character\CharacterManager.h">
+      <Filter>MyClass\GameObject\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Collision\Collider.h">
+      <Filter>MyClass\GameObject\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Collision\CollisionConfig.h">
+      <Filter>MyClass\GameObject\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\GameObject\Collision\CollisionManager.h">
+      <Filter>MyClass\GameObject\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\Utility\TimedCall\TimedCall.h">
+      <Filter>MyClass\Utility\TimedCall</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\Scene\GamePlay.h">
+      <Filter>MyClass\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\Scene\Result.h">
+      <Filter>MyClass\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\Scene\Title.h">
+      <Filter>MyClass\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\Scene\IScene.h">
+      <Filter>MyClass\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\Scene\Tutorial.h">
+      <Filter>MyClass\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

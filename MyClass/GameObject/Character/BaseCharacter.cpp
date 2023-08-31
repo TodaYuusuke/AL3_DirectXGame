@@ -4,11 +4,10 @@
 void BaseCharacter::Initialize(const std::vector<Model*>& models, Vector3 position) {
 	models_.clear();
 
-	int i = 0;
-	for (Model* model : models) {
-		models_.insert({i, {model, WorldTransform()}});
+	for (int i = 0; i < models.size(); i++) {
+		models_.insert(std::make_pair(i, ModelData()));
+		models_[i].model_ = models[i];
 		models_[i].worldTransform_.Initialize();
-		i++;
 	}
 
 	worldTransform_.Initialize();
